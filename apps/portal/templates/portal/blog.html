@@ -1,0 +1,235 @@
+{% extends 'portal/base.html'%}
+
+{%block content%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transparent Navbar with Hover Menu | JobHive</title>
+
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/blog.css'%}" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+
+    <!-- Custom CSS -->
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- HERO SECTION -->
+    <section
+      class="hero d-flex align-items-center justify-content-center text-center">
+      <div class="overlay"></div>
+      <div class="container position-relative text-white">
+        <h1 class="fw-bold display-4">The Blogs</h1>
+        <p class="breadcrumb-text mt-3">
+          <a href="{% url 'home'%}">Home</a> <span> > </span> <span
+            class="active">The
+            Blogs</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ________blod grid__________ -->
+    <div class="site-container">
+      <!-- Header / optional title -->
+      <div class="mb-4 text-center description">
+        <h2>Latest Articles</h2>
+        <p>Business insights, growth tips, and product updates</p>
+      </div>
+
+      <!-- Blog grid -->
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-lg-4 col-md-6">
+          <article class="blog-card">
+            <img class="card-img" src="{% static 'images/blog-img1.webp' %}"
+              alt="Business image 1">
+            <div class="card-body">
+              <div class="meta-author">By <strong>Walter
+                  Houston</strong></div>
+              <a href>
+                <h3 class="post-title">All of these amazing features come at
+                  an affordable price!</h3>
+              </a>
+              <p class="post-excerpt">Lorem ipsum is text used in the
+                industry to display copy
+                and placeholder content.</p>
+              <div class="post-meta">
+                <span>03 April, 2022</span>
+                <span>•</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-lg-4 col-md-6">
+          <article class="blog-card">
+            <img class="card-img" src="{% static 'images/blog-img2.webp' %}"
+              alt="Business image 2">
+            <div class="card-body">
+              <div class="meta-author">By <strong>Walter
+                  Houston</strong></div>
+              <a href="#">
+                <h3 class="post-title">With WooLentor’s drag-and-drop
+                  interface for creating…</h3>
+              </a>
+              <p class="post-excerpt">A short preview of the post that stays
+                concise and helps the reader
+                decide to click through.</p>
+              <div class="post-meta">
+                <span>03 April, 2022</span>
+                <span>•</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-lg-4 col-md-6">
+          <article class="blog-card">
+            <img class="card-img" src="{% static 'images/blog-img3.webp' %}"
+              alt="Business image 3">
+            <div class="card-body">
+              <div class="meta-author">By <strong>Walter
+                  Houston</strong></div>
+              <a href="#">
+                <h3 class="post-title">Make your store stand out from the
+                  others by converting</h3>
+              </a>
+              <p class="post-excerpt">Practical tips and examples that help
+                increase conversions and improve
+                UX for your store.</p>
+              <div class="post-meta">
+                <span>03 April, 2022</span>
+                <span>•</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-lg-4 col-md-6">
+          <article class="blog-card">
+            <img class="card-img" src="{% static 'images/blog-img4.webp' %}"
+              alt="Business image 4">
+            <div class="card-body">
+              <div class="meta-author">By <strong>Walter
+                  Houston</strong></div>
+              <a href="#">
+                <h3 class="post-title">All of these amazing features come at
+                  an affordable price!</h3>
+              </a>
+              <p class="post-excerpt">Short descriptive line — good for
+                skimming readers on mobile and desktop
+                alike.</p>
+              <div class="post-meta">
+                <span>03 April, 2022</span>
+                <span>•</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="col-lg-4 col-md-6">
+          <article class="blog-card">
+            <img class="card-img" src="{% static 'images/blog-img5.webp' %}"
+              alt="Business image 5">
+            <div class="card-body">
+              <div class="meta-author">By <strong>Walter
+                  Houston</strong></div>
+              <a href>
+                <h3 class="post-title">With WooLentor’s drag-and-drop
+                  interface for creating…</h3>
+              </a>
+              <p class="post-excerpt">Ideas, templates and tools to speed up
+                your content creation workflows.
+              </p>
+              <div class="post-meta">
+                <span>03 April, 2022</span>
+                <span>•</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="col-lg-4 col-md-6">
+          <article class="blog-card">
+            <img class="card-img" src="{% static 'images/blog-img6.webp' %}"
+              alt="Business image 6">
+            <div class="card-body">
+              <div class="meta-author">By <strong>Walter
+                  Houston</strong></div>
+              <a href>
+                <h3 class="post-title">How to structure your next product
+                  update for user delight</h3>
+              </a>
+              <p class="post-excerpt">A few clear steps to help you roll out
+                product updates with minimal
+                friction.</p>
+              <div class="post-meta">
+                <span>03 April, 2022</span>
+                <span>•</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <!-- <nav class="d-flex justify-content-center mt-5">
+            <ul class="pagination">
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">→</a></li>
+            </ul>
+        </nav> -->
+
+      <!-- pagination (rounded square, navy + blue active) -->
+      <!-- <div class="pagination-wrap">
+            <nav aria-label="Page navigation">
+                <ul class="pagination-custom" role="list">
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous">&larr;</a></li>
+
+                    <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next">&rarr;</a></li>
+                </ul>
+            </nav>
+        </div> -->
+
+      <!-- <div class="bottom-space"></div> -->
+    </div>
+
+    <!-- ________blod grid__________ -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% include 'portal/footer.html' %}
+
+  </body>
+</html>
+
+{%endblock%}

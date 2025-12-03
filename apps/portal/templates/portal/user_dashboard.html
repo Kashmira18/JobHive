@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>User Dashboard</title>
+    </head>
+    <body>
+        <h1>Welcome to Your user Dashboard!</h1>
+
+        <p>This is where your personalized content will appear after full
+            registration.</p>
+
+        <!-- 
+        The Logout Link:
+        The url 'logout' refers to the path defined in app_name/urls.py:
+        path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    -->
+        <p>
+            <a href="#">Click here to Log Out</a>
+        </p>
+
+        <!-- Optional: Add a link back to the home page -->
+        <p>
+            <a href="/">Go to Home Page</a>
+        </p>
+    </body>
+</html>

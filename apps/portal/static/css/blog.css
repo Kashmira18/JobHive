@@ -1,0 +1,171 @@
+.hero {
+    position: relative;
+    height: 70vh;
+    background: url('../images/blog_herobg.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(5, 10, 30, 0.8), rgba(0, 0, 51, 0.4));
+    /* background: linear-gradient(to bottom,
+            rgba(0, 0, 51, 0.4), rgba(0, 0, 0, 0.7)); */
+    z-index: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hero .breadcrumb-text {
+    font-size: 1.1rem;
+    color: #d6e4ff;
+}
+
+.hero .breadcrumb-text a {
+    color: #00b4ff;
+    text-decoration: none;
+}
+
+.hero .breadcrumb-text a:hover {
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 50vh;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
+
+/* <!-- ________blod grid__________ --> */
+:root {
+    --navy-blue: #1A2032;
+    --light-text: #14A1C5;
+    --light-blue: #23C0E9;
+    --hover-blue: #14A1C5;
+    --hover-shadow: rgba(0, 0, 0, 0.1);
+    --soft-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+}
+
+
+.site-container {
+    padding: 56px 18px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.description h2 {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.description p {
+    color: var(--navy-blue);
+    margin: 0;
+}
+
+/* ----- Card ----- */
+.blog-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform .28s cubic-bezier(.2, .9, .2, 1), box-shadow .28s;
+    border: 1px solid rgba(15, 23, 35, 0.04);
+}
+
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--soft-shadow);
+}
+
+.blog-card .card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+@media (max-width: 576px) {
+    .blog-card .card-img {
+        height: 170px;
+    }
+}
+
+.card-body {
+    padding: 18px;
+}
+
+.card-body a {
+    text-decoration: none;
+}
+
+.meta-author {
+    font-size: 13px;
+    color: var(--light-blue);
+    margin-bottom: 8px;
+}
+
+.meta-author strong {
+    color: var(--light-blue);
+    font-weight: 600;
+}
+
+.post-title {
+    font-size: 18px;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    color: var(--light-text);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.post-title:hover {
+    color: var(--navy-blue);
+    transform: translateY(-2px);
+}
+
+.post-excerpt {
+    font-size: 14px;
+    color: var(--light-text);
+    margin-bottom: 14px;
+}
+
+.post-meta {
+    font-size: 13px;
+    color: rgb(88, 88, 88);
+    border-top: 1px solid rgba(22, 29, 39, 0.144);
+    padding-top: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+
+.post-title {
+    overflow: hidden;
+    color: var(--navy-blue);
+
+}
+
+/* <!-- ________END blod grid__________ --> */
