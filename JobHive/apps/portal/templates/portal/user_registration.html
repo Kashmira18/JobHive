@@ -1,0 +1,301 @@
+
+{% extends 'portal/base.html'%}
+
+{%block content%}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact Page</title>
+        {%load static%}
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+        <!-- Bootstrap Icons -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+            rel="stylesheet">
+        <!-- Google Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/user_registration.css'%}" />
+
+    </head>
+
+    <body>
+        <div class="reg-container">
+            <div class="card-multi-step">
+                <h3 class="text-center mb-4 text-navy">Apni Profile Mukammal
+                    Karein</h3>
+                <p class="text-center text-muted mb-4">Aapki behtareen profile
+                    aapko sahi job dila sakti hai.</p>
+
+                <!-- Progress Bar -->
+                <div class="progress-container mb-5">
+                    <div class="progress" role="progressbar"
+                        aria-label="Profile Completion Progress"
+                        aria-valuenow="33"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" id="progressBar"
+                            style="width: 33%"></div>
+                    </div>
+                    <div class="progress-steps d-flex justify-content-between">
+                        <div class="step active" data-step="1">1. Personal
+                            Info</div>
+                        <div class="step" data-step="2">2. Education</div>
+                        <div class="step" data-step="3">3. Experience</div>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="candidateRegForm" method="POST">
+                    {% csrf_token %}
+
+                    <!-- Step 1: Personal Information -->
+                    <div class="step-content active" data-step="1">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="firstName">Pehla
+                                    Naam</label>
+                                <input type="text" class="form-control"
+                                    id="firstName" name="first_name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="lastName">Aakhri
+                                    Naam</label>
+                                <input type="text" class="form-control"
+                                    id="lastName" name="last_name" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="phone">Phone
+                                Number</label>
+                            <input type="tel" class="form-control" id="phone"
+                                name="phone" placeholder="+92-XXX-XXXXXXX">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"
+                                for="headline">Professional Headline</label>
+                            <input type="text" class="form-control"
+                                id="headline" name="headline"
+                                placeholder="Maslan: Experienced Frontend Developer">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label" for="location">Sheher /
+                                Jagah</label>
+                            <input type="text" class="form-control"
+                                id="location" name="location"
+                                placeholder="Maslan: Karachi, Pakistan">
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="button"
+                                class="btn btn-primary btn-next"
+                                data-next-step="2">Next: Education <i
+                                    class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Education -->
+                    <div class="step-content" data-step="2">
+                        <div class="mb-3">
+                            <label class="form-label" for="degree">Aakhri
+                                Degree</label>
+                            <input type="text" class="form-control" id="degree"
+                                name="degree"
+                                placeholder="Maslan: BS Computer Science">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"
+                                for="institution">Idara/University</label>
+                            <input type="text" class="form-control"
+                                id="institution" name="institution"
+                                placeholder="Maslan: NUST, LUMS">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="startYear">Aghaaz
+                                    Ka Saal</label>
+                                <input type="number" class="form-control"
+                                    id="startYear" name="start_year"
+                                    placeholder="2018">
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label"
+                                    for="endYear">Ikhtitaam Ka Saal</label>
+                                <input type="number" class="form-control"
+                                    id="endYear" name="end_year"
+                                    placeholder="2022">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button"
+                                class="btn btn-outline-secondary btn-prev"
+                                data-prev-step="1"><i
+                                    class="bi bi-arrow-left"></i>
+                                Previous</button>
+                            <button type="button"
+                                class="btn btn-primary btn-next"
+                                data-next-step="3">Next: Experience <i
+                                    class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Work Experience -->
+                    <div class="step-content" data-step="3">
+                        <div class="mb-3">
+                            <label class="form-label" for="jobTitle">Job
+                                Title</label>
+                            <input type="text" class="form-control"
+                                id="jobTitle" name="job_title"
+                                placeholder="Maslan: Software Engineer">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="companyName">Company
+                                Ka Naam</label>
+                            <input type="text" class="form-control"
+                                id="companyName" name="company_name"
+                                placeholder="Maslan: Tech Solutions Pvt Ltd">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"
+                                for="jobDescription">Tafseelat</label>
+                            <textarea class="form-control" id="jobDescription"
+                                name="job_description" rows="3"
+                                placeholder="Apne kaam ki tafseelat aur ehmiyat batayein."></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="skills">Key Skills
+                                (Comma Separated)</label>
+                            <input type="text" class="form-control" id="skills"
+                                name="skills"
+                                placeholder="Maslan: Python, Django, React, AWS">
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button"
+                                class="btn btn-outline-secondary btn-prev"
+                                data-prev-step="2"><i
+                                    class="bi bi-arrow-left"></i>
+                                Previous</button>
+                            <button type="submit"
+                                class="btn btn-success btn-submit">Profile Save
+                                Karein <i
+                                    class="bi bi-check-circle-fill"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- JavaScript for Multi-Step Form Logic -->
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('candidateRegForm');
+            const steps = form.querySelectorAll('.step-content');
+            const stepIndicators = document.querySelectorAll('.progress-steps .step');
+            const progressBar = document.getElementById('progressBar');
+            let currentStep = 1;
+
+            function showStep(stepNum) {
+                steps.forEach(step => {
+                    step.classList.remove('active');
+                });
+                document.querySelector(`.step-content[data-step="${stepNum}"]`).classList.add('active');
+                currentStep = stepNum;
+
+                // Update Progress Bar
+                const progress = (stepNum / 3) * 100;
+                progressBar.style.width = `${progress}%`;
+                progressBar.setAttribute('aria-valuenow', progress);
+
+                // Update Step Indicators
+                stepIndicators.forEach(indicator => {
+                    indicator.classList.remove('active');
+                    const indicatorStep = parseInt(indicator.getAttribute('data-step'));
+                    if (indicatorStep <= stepNum) {
+                        indicator.classList.add('active');
+                    }
+                });
+            }
+
+            // Function to validate current step before proceeding
+            function validateStep(stepNum) {
+                const currentStepContent = document.querySelector(`.step-content[data-step="${stepNum}"]`);
+                let isValid = true;
+                
+                // Simple check for required fields in the current step
+                currentStepContent.querySelectorAll('[required]').forEach(input => {
+                    if (!input.value.trim()) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+
+                // NOTE: For production, you would need complex Django/JS validation here
+                if (!isValid) {
+                    alert("Barah-e-Meherbani tamam zaroori fields (required fields) bharein.");
+                }
+                
+                return isValid;
+            }
+
+            // Next button handler
+            document.querySelectorAll('.btn-next').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const nextStep = parseInt(e.target.getAttribute('data-next-step'));
+                    if (validateStep(currentStep)) {
+                        showStep(nextStep);
+                    }
+                });
+            });
+
+            // Previous button handler
+            document.querySelectorAll('.btn-prev').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const prevStep = parseInt(e.target.getAttribute('data-prev-step'));
+                    showStep(prevStep);
+                });
+            });
+
+            // Initial setup
+            showStep(currentStep);
+
+            // Form submission (for debugging, replace with AJAX/Django success handling)
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Final validation (optional, as step-by-step validation is done)
+                if (validateStep(currentStep)) {
+                    // Send data to Django backend via POST
+                    const formData = new FormData(form);
+                    // Log the data for testing:
+                    console.log("Submitting form data:");
+                    for (let [key, value] of formData.entries()) {
+                        console.log(`${key}: ${value}`);
+                    }
+                    
+                    // In a real Django app, you would submit the form:
+                    // form.submit();
+                    alert("Profile Data Successfully Simulated to be Saved!");
+                }
+            });
+        });
+    </script>
+        <!-- Bootstrap JS (optional but safe) -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
+{%endblock%}
+
+<!-- <a><button>Logout</button></a> -->
