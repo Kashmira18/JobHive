@@ -1,0 +1,130 @@
+{% extends "portal/admin_layout.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h4 class="mb-4">Package Plan</h4>
+    <div class="row g-4">
+        <!-- Starting Section -->
+        <div class="col-md-6">
+            <div class="card">
+                <h5>Starting</h5>
+                <div class="mb-3">
+                    <label>Title</label>
+                    <input type="text" class="form-control" placeholder="Starting From">
+                </div>
+                <div class="mb-3">
+                    <label>Type</label>
+                    <input type="text" class="form-control" placeholder="Per Job Post">
+                </div>
+                <div class="mb-3">
+                    <label>Price</label>
+                    <input type="text" class="form-control" placeholder="1.00">
+                </div>
+                <!-- Feature List -->
+                <div id="startingFeatures">
+                    <div class="feature-item d-flex gap-2 mb-2">
+                        <input type="text" class="form-control" placeholder="Feature Name">
+                        <button class="btn btn-add"><i class="bi bi-plus"></i> Add</button>
+                        <button class="btn btn-remove btn btn-danger">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Jobs Section -->
+        <div class="col-md-6">
+            <div class="card">
+                <h5>Featured Jobs</h5>
+                <div class="mb-3">
+                    <label>Title</label>
+                    <input type="text" class="form-control" placeholder="Featured Jobs">
+                </div>
+                <div class="mb-3">
+                    <label>Price</label>
+                    <input type="text" class="form-control" placeholder="2.00">
+                </div>
+                <!-- Feature List -->
+                <div id="featuredFeatures">
+                    <div class="feature-item d-flex gap-2 mb-2">
+                        <input type="text" class="form-control" placeholder="Feature Name">
+                        <button class="btn btn-add"><i class="bi bi-plus"></i> Add</button>
+                        <button class="btn btn-remove btn btn-danger">Remove</button>
+                    </div>
+                </div>
+                <!-- Active/Inactive toggle -->
+                <div class="form-check form-switch mt-3">
+                    <input class="form-check-input" type="checkbox" id="activeSwitch" checked>
+                    <label class="form-check-label" for="activeSwitch">Active / Inactive</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-save btn btn-primary">SAVE CHANGES</button>
+    </div>
+</div>
+
+<style>
+/* Inline CSS */
+.card {
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    background: #fff;
+}
+.card h5 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.feature-item input {
+    flex: 1;
+}
+.btn-add {
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+}
+.btn-remove {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+.btn-save {
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+}
+</style>
+
+<script>
+// Toggle Add/Remove functionality (frontend only)
+document.querySelectorAll('.btn-remove').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+        e.target.closest('.feature-item').remove();
+    });
+});
+document.querySelectorAll('.btn-add').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+        const container = e.target.closest('.card').querySelector('div[id$="Features"]');
+        const newItem = e.target.closest('.feature-item').cloneNode(true);
+        newItem.querySelector('input').value = '';
+        container.appendChild(newItem);
+
+        // Re-attach event listeners
+        newItem.querySelector('.btn-remove').addEventListener('click', ev=>{
+            ev.target.closest('.feature-item').remove();
+        });
+        newItem.querySelector('.btn-add').addEventListener('click', ev=>{
+            const container2 = ev.target.closest('.card').querySelector('div[id$="Features"]');
+            const newItem2 = ev.target.closest('.feature-item').cloneNode(true);
+            newItem2.querySelector('input').value = '';
+            container2.appendChild(newItem2);
+        });
+    });
+});
+</script>
+
+{% endblock %}

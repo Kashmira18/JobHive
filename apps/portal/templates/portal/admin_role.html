@@ -1,0 +1,189 @@
+{% extends "portal/admin_layout.html" %}
+{% load static %}
+
+{% block title %}Roles List{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#f0f2f7;
+    padding:30px;
+}
+.container{max-width:1100px;margin:auto}
+.page-header{
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:15px
+}
+.btn-add{
+    background:#008d68;color:#fff;border:none;
+    padding:8px 14px;border-radius:5px;
+    display:flex;gap:6px;cursor:pointer
+}
+.table-card{
+    background:#fff;border-radius:10px;
+    border:1px solid #e0e0e0;overflow:hidden
+}
+table{width:100%;border-collapse:collapse}
+thead{background:#008d68;color:#fff}
+th,td{padding:15px 20px;font-size:14px;border-bottom:1px solid #eee}
+.action-container{display:flex;gap:6px}
+.action-btn{
+    width:28px;height:28px;border-radius:4px;
+    border:none;color:#fff
+}
+.edit{background:#008d68}
+.delete{background:#d9534f}
+
+/* ===== MODAL ===== */
+.modal-overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;justify-content:center;align-items:center;
+    z-index:999
+}
+.modal-box{
+    background:#fff;width:420px;
+    border-radius:10px;padding:20px
+}
+.modal-title{
+    font-size:18px;font-weight:600;margin-bottom:10px
+}
+.form-control{
+    width:100%;padding:8px;
+    border-radius:6px;border:1px solid #ccc;
+    margin-bottom:10px
+}
+.permissions{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:8px;margin-bottom:15px
+}
+.permissions label{
+    font-size:13px
+}
+.modal-actions{
+    display:flex;justify-content:flex-end;gap:10px
+}
+.btn-cancel{
+    background:#ccc;border:none;
+    padding:7px 14px;border-radius:6px
+}
+.btn-save{
+    background:#008d68;color:#fff;
+    border:none;padding:7px 14px;border-radius:6px
+}
+.permission-text{
+    font-size:13px;color:#555
+}
+</style>
+
+<div class="container">
+
+<div class="page-header">
+    <h2>Roles List</h2>
+    <button class="btn-add" onclick="openRoleModal()">
+        <i class="fas fa-plus-square"></i> Add Role
+    </button>
+</div>
+
+<div class="table-card">
+<table>
+<thead>
+<tr>
+    <th style="width:40%">Name</th>
+    <th style="width:40%">Permissions</th>
+    <th style="width:20%">Action</th>
+</tr>
+</thead>
+
+<tbody id="roleTable">
+<tr>
+    <td>Super Admin</td>
+    <td class="permission-text">All Permissions</td>
+    <td>—</td>
+</tr>
+
+<tr>
+    <td>Admin</td>
+    <td class="permission-text">Users, Jobs, Categories</td>
+    <td>
+        <div class="action-container">
+            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+            <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+        </div>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="roleModal">
+<div class="modal-box">
+
+<div class="modal-title">Add Role</div>
+
+<input type="text" id="roleName" class="form-control" placeholder="Role Name">
+
+<div class="permissions">
+<label><input type="checkbox" value="Users"> Users</label>
+<label><input type="checkbox" value="Jobs"> Jobs</label>
+<label><input type="checkbox" value="Categories"> Categories</label>
+<label><input type="checkbox" value="Companies"> Companies</label>
+<label><input type="checkbox" value="Candidates"> Candidates</label>
+<label><input type="checkbox" value="Settings"> Settings</label>
+</div>
+
+<div class="modal-actions">
+    <button class="btn-cancel" onclick="closeRoleModal()">Cancel</button>
+    <button class="btn-save" onclick="saveRole()">Save</button>
+</div>
+
+</div>
+</div>
+
+<script>
+function openRoleModal(){
+    document.getElementById('roleModal').style.display='flex';
+}
+function closeRoleModal(){
+    document.getElementById('roleModal').style.display='none';
+}
+function saveRole(){
+    let name=document.getElementById('roleName').value.trim();
+    let perms=[...document.querySelectorAll('.permissions input:checked')]
+                .map(p=>p.value);
+
+    if(!name){
+        alert('Role name required');
+        return;
+    }
+    if(perms.length===0){
+        alert('Select at least one permission');
+        return;
+    }
+
+    let row=`
+    <tr>
+        <td>${name}</td>
+        <td class="permission-text">${perms.join(', ')}</td>
+        <td>
+            <div class="action-container">
+                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+            </div>
+        </td>
+    </tr>`;
+
+    document.getElementById('roleTable').insertAdjacentHTML('beforeend',row);
+
+    document.getElementById('roleName').value='';
+    document.querySelectorAll('.permissions input').forEach(i=>i.checked=false);
+    closeRoleModal();
+}
+</script>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+app_name = "portal" 
 urlpatterns = [
     path("", views.home, name="home"),
     path("navbar/", views.navbar, name="navbar"),
@@ -17,6 +17,22 @@ urlpatterns = [
     path("admin_dashboard/", views.admin_dashboard, name="admin_dashboard"),
     # path("user_dashboard/", views.user_dashboard, name="user_dashboard"),
     path("company_dashboard/", views.company_dashboard, name="company_dashboard"),
+    path("admin_company-type/", views.admin_company_type, name="admin_company_type"),
+    path("admin_company/", views.admin_company, name="admin_company"),
+    path("admin_candidate/", views.admin_candidate, name="admin_candidate"),
+    path("admin_package_plan/", views.admin_package_plan, name="admin_package_plan"),
+    path("subscription_list/", views.subscription_list, name="subscription_list"),
+    path("admin_job/", views.admin_job, name="admin_job"),
+    path("admin_applicant/", views.admin_applicant, name="admin_applicant"),
+    path("admin_job_type/", views.admin_job_type, name="admin_job_type"),
+    path("admin_job_skill/", views.admin_job_skill, name="admin_job_skill"),
+    path("admin_category/", views.admin_category, name="admin_category"),
+    path("admin_experience/", views.admin_experience, name="admin_experience"),
+    path("admin_staff/", views.admin_staff, name="admin_staff"),
+    path("admin_role/", views.admin_role, name="admin_role"),
+    path("admin_email/", views.admin_email, name="admin_email"),
+    path("admin_menu/", views.admin_menu, name="admin_menu"),
+    path("admin_frontend/", views.admin_frontend, name="admin_frontend"),
     path("user_registration/", views.user_registration, name="user_registration"),
     path(
         "company_registration/", views.company_registration, name="company_registration"
@@ -26,6 +42,7 @@ urlpatterns = [
     path("candidates-detail/", views.candidatesdetail, name="candidates-detail"),
     path("candidates-list/", views.candidateslist, name="candidates-list"),
     path("Company-list/", views.Companylist, name="Company-list"),
+    
     path("company-detail/", views.companydetail, name="company-detail"),
     path("footer/", views.footer, name="footer"),
     path("error_404/", views.error_404, name="error_404"),

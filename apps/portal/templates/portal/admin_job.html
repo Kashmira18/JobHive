@@ -1,0 +1,168 @@
+{% extends "portal/admin_layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Top Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card green">
+                <div class="card-title">Active Jobs</div>
+                <div class="card-number">20</div>
+                <i class="bi bi-currency-dollar"></i>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card red">
+                <div class="card-title">Pending Jobs</div>
+                <div class="card-number">8</div>
+                <i class="bi bi-currency-dollar"></i>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card orange">
+                <div class="card-title">Featured Jobs</div>
+                <div class="card-number">9</div>
+                <i class="bi bi-currency-dollar"></i>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card green">
+                <div class="card-title">Total Jobs</div>
+                <div class="card-number">36</div>
+                <i class="bi bi-currency-dollar"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Job Button -->
+    <div class="d-flex justify-content-end mb-3">
+        <button id="btnCreate" class="btn btn-success"><i class="bi bi-plus"></i> Create Job</button>
+    </div>
+
+    <!-- Job Table -->
+    <div class="card p-3">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <label>Show 
+                    <select class="form-select d-inline-block w-auto">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select> Entries
+                </label>
+            </div>
+            <div class="col-md-6 text-end">
+                <label>Search: <input type="text" class="form-control d-inline-block w-auto"></label>
+            </div>
+        </div>
+
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Salary Range</th>
+                    <th>Vacancy</th>
+                    <th>Expire Date</th>
+                    <th>Is Featured</th>
+                    <th>Status</th>
+                    <th>Languages</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example rows -->
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>Showing 0 to 0 of 0 Entries</div>
+            <nav>
+                <ul class="pagination mb-0">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay & Create Job Popup -->
+<div class="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:1000;"></div>
+
+<div class="popup-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; width:95%; max-width:900px; border-radius:10px; z-index:1010; padding:20px; max-height:95vh; overflow-y:auto;">
+    <button class="btn-close" style="float:right; border:none; background:#dc3545; color:#fff; border-radius:5px; padding:5px 10px;">×</button>
+    <h5 class="mb-3">Create Job</h5>
+
+    <!-- Job Form -->
+    <div class="row g-3">
+        <div class="col-md-6"><input type="text" class="form-control" placeholder="Job Title *"></div>
+        <div class="col-md-6"><input type="text" class="form-control" placeholder="Salary Range *"></div>
+        <div class="col-md-6"><input type="number" class="form-control" placeholder="Vacancy *"></div>
+        <div class="col-md-6"><input type="date" class="form-control" placeholder="Expire Date *"></div>
+        <div class="col-md-6">
+            <select class="form-select">
+                <option selected disabled>Is Featured?</option>
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <select class="form-select">
+                <option selected disabled>Status</option>
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+        </div>
+        <div class="col-md-12"><input type="text" class="form-control" placeholder="Languages *"></div>
+    </div>
+
+    <div class="text-end mt-3">
+        <button class="btn btn-success">Save</button>
+    </div>
+</div>
+
+<style>
+.card { border-radius:10px; padding:20px; color:#fff; position:relative; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+.card i { position:absolute; top:10px; right:10px; font-size:2rem; opacity:0.2; }
+.card.green{background:#0d6efd;} .card.red{background:#dc3545;} .card.orange{background:#ffc107; color:#000;}
+.table thead{background:#0d6efd;color:#fff;} .table td, .table th{vertical-align:middle;}
+.switch{width:34px;height:18px;background:#dcdcdc;border-radius:20px;position:relative;cursor:pointer;}
+.switch::after{content:"";width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:0.3s;}
+.switch.active{background:#0d6efd;}
+.switch.active::after{left:18px;}
+.action-btns button{border:none;padding:4px 8px;border-radius:4px;font-size:14px;color:#fff;margin-right:3px;}
+.btn-view{background:#0d6efd;} .btn-edit{background:#198754;} .btn-del{background:#dc3545;}
+.pagination .page-item.active .page-link{background:#0d6efd;border-color:#0d6efd;}
+body.dimmed .container-fluid{filter: blur(2px) brightness(0.7); pointer-events:none;}
+</style>
+
+<script>
+document.querySelectorAll('.switch').forEach(sw=>{
+    sw.addEventListener('click',()=>sw.classList.toggle('active'));
+});
+
+// Popup open/close
+const btnCreate = document.getElementById('btnCreate');
+const popup = document.querySelector('.popup-form');
+const overlay = document.querySelector('.overlay');
+const btnClose = document.querySelector('.btn-close');
+
+btnCreate.addEventListener('click', ()=>{
+    popup.style.display = 'block';
+    overlay.style.display = 'block';
+    document.body.classList.add('dimmed');
+});
+btnClose.addEventListener('click', closePopup);
+overlay.addEventListener('click', closePopup);
+function closePopup(){
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+    document.body.classList.remove('dimmed');
+}
+</script>
+{% endblock %}

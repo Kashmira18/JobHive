@@ -1,0 +1,296 @@
+{% extends "portal/admin_layout.html" %}
+{% load static %}
+
+{% block title %}Email Template List{% endblock %}
+
+{% block content %}
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body{
+    background:#f3f5f7;
+    padding:20px;
+}
+
+h2{
+    margin-bottom:15px;
+    font-size:20px;
+    font-weight:600;
+}
+
+.card{
+    background:#fff;
+    border-radius:6px;
+    padding:15px;
+    box-shadow:0 1px 4px rgba(0,0,0,.1);
+}
+
+.table-controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.table-controls select,
+.table-controls input{
+    padding:6px 8px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    font-size:13px;
+}
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1000px;
+}
+
+thead{
+    background:#0a9a6b;
+    color:#fff;
+}
+
+th, td{
+    padding:12px 10px;
+    font-size:13px;
+    border-bottom:1px solid #ddd;
+    vertical-align:top;
+}
+
+th{
+    text-align:left;
+    font-weight:600;
+}
+
+tbody tr:hover{
+    background:#f8f9fa;
+}
+
+.switch{
+    position:relative;
+    width:38px;
+    height:18px;
+    display:inline-block;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#ccc;
+    border-radius:20px;
+    transition:.3s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:#fff;
+    border-radius:50%;
+    top:2px;
+    left:2px;
+    transition:.3s;
+}
+
+.switch input:checked + .slider{
+    background:#0a9a6b;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(20px);
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+}
+
+.action-btn{
+    width:26px;
+    height:26px;
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#0a9a6b;
+    color:#fff;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.table-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:12px;
+    font-size:13px;
+}
+
+.pagination{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.page{
+    padding:4px 10px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.page.active{
+    background:#0a9a6b;
+    color:#fff;
+}
+</style>
+
+<h2>Email Template List</h2>
+
+<div class="card">
+
+    <div class="table-controls">
+        <div>
+            Show
+            <select>
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+            </select>
+            Entries
+        </div>
+
+        <div>
+            Search:
+            <input type="text">
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Caption</th>
+                    <th>Email Subject</th>
+                    <th>Email Content</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>JOB_POST_SUCCESSFULL</td>
+                    <td>Your New Job Post has been successfully Posted</td>
+                    <td>
+                        Dear Sir Your New Job Post Has been Successfully Posted.
+                        Please Login To Visit you Job Post.
+                        Best Regards, Egens Lab.
+                        Mirpur DOHS. Phone: +8801111111111
+                        Email: help@egenslab.com
+                    </td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td class="actions">
+                        <div class="action-btn">👁</div>
+                        <div class="action-btn">✎</div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>JOB_REJECT_NOTIFY</td>
+                    <td>Sorry for not selected</td>
+                    <td>
+                        Hello {candidateName}. You are rejected for {jobTitle}
+                        but we are wishing best of luck for your better future.
+                        Best Regards {companyName} Team
+                    </td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td class="actions">
+                        <div class="action-btn">👁</div>
+                        <div class="action-btn">✎</div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>JOINING_LETTER</td>
+                    <td>Joining Letter</td>
+                    <td>
+                        Dear {candidateName}, Congratulations!! After taking all
+                        the assessments we have selected you for the post of
+                        {jobTitle} at {companyName}. Your joining date will be
+                        {date}.
+                    </td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td class="actions">
+                        <div class="action-btn">👁</div>
+                        <div class="action-btn">✎</div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>PASSWORD_RESET</td>
+                    <td>Password Reset Email</td>
+                    <td>
+                        Your password is successfully reset. Now you can login
+                        using the link by clicking here and experience exclusive
+                        jobs from {companyName}.
+                    </td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td class="actions">
+                        <div class="action-btn">👁</div>
+                        <div class="action-btn">✎</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-footer">
+        <div>Showing 11 to 14 of 14 Entries</div>
+
+        <div class="pagination">
+            <span>Previous</span>
+            <span class="page">1</span>
+            <span class="page active">2</span>
+            <span>Next</span>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

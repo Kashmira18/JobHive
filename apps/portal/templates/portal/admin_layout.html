@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    {% block extra_css %}{% endblock %}
+
+    <style>
+      /* ===== YOUR ORIGINAL CSS (UNCHANGED) ===== */
+      body {
+        margin: 0;
+        background: #f4f6f9;
+        font-family: "Segoe UI", sans-serif;
+      }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        background: #141517;
+        padding: 15px;
+        transition: 0.3s;
+        overflow-y: auto;
+      }
+      .sidebar.collapsed {
+        width: 90px;
+      }
+      .logo {
+        
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      .sidebar.collapsed .menu-item span {
+        display: none;
+      }
+      .sidebar.collapsed .menu-item {
+        padding: 16px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .sidebar.collapsed .menu-item i {
+        font-size: 22px;
+      }
+      .sidebar.collapsed .logo span {
+        display: none;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .sidebar.collapsed .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .menu-item {
+        background: #1d1f23;
+        border-radius: 8px;
+        padding: 16px 10px;
+        text-align: center;
+        cursor: pointer;
+        color: #cfd2d6;
+        transition: 0.3s;
+      }
+      .menu-item i {
+        font-size: 20px;
+        display: block;
+      }
+      .menu-item span {
+        font-size: 13px;
+      }
+      .menu-item:hover,
+      .menu-item.active {
+        background: #0d6efd;
+        color: #fff;
+      }
+      .section-title {
+        font-size: 12px;
+        color: #7b7f86;
+        margin: 18px 5px 10px;
+      }
+      .main {
+        margin-left: 300px;
+        padding: 25px;
+        transition: 0.3s;
+      }
+      .sidebar.collapsed ~ .main {
+        margin-left: 110px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 768px) {
+        .sidebar {
+          left: -280px;
+        }
+        .sidebar.show {
+          left: 0;
+        }
+        .main {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+      <img class="logo" src="{% static 'images\logo_JobHive1.png' %}"></img>
+
+      <div class="menu-grid">
+        <a href="{% url 'portal:admin_dashboard' %}" class="menu-item ">
+          <i class="bi bi-house"></i><span>Dashboard</span>
+        </a>
+
+        <a href="{% url 'portal:admin_company_type' %}" class="menu-item">
+          <i class="bi bi-building"></i><span>Company Type</span>
+        </a>
+
+        <a href="{% url 'portal:admin_company' %}" class="menu-item">
+          <i class="bi bi-building"></i><span>Company</span>
+        </a>
+
+        <a href="{% url 'portal:admin_candidate' %}" class="menu-item">
+          <i class="bi bi-people"></i><span>Candidate</span>
+        </a>
+
+        <a href="{% url 'portal:admin_package_plan' %}" class="menu-item">
+          <i class="bi bi-box"></i><span>Package Plan</span>
+        </a>
+
+        <a href="{% url 'portal:subscription_list' %}" class="menu-item">
+          <i class="bi bi-credit-card"></i><span>Subscription</span>
+        </a>
+      </div>
+
+      <p class="section-title">MANAGE JOB</p>
+      <div class="menu-grid">
+        <a href="{% url 'portal:admin_job' %}" class="menu-item"><i class="bi bi-bag"></i><span>Jobs</span></a>
+        <a href="{% url 'portal:admin_applicant' %}" class="menu-item">
+          <i class="bi bi-person"></i><span>Job Applicant</span>
+        </a>
+        <a href="{% url 'portal:admin_job_type' %}" class="menu-item">
+          <i class="bi bi-tags"></i><span>Job Type</span>
+      </a>
+        <a href="{% url 'portal:admin_category' %}" class="menu-item">
+          <i class="bi bi-diagram-3"></i><span>Job Category</span>
+    </a>
+        <a href="{% url 'portal:admin_job_skill' %}" class="menu-item">
+          <i class="bi bi-bar-chart"></i><span>Job Skill</span>
+  </a>
+        <a href="{% url 'portal:admin_experience' %}" class="menu-item">
+          <i class="bi bi-clock"></i><span>Experience</span>
+</a>
+      </div>
+
+      <p class="section-title">MANAGE Staff</p>
+      <div class="menu-grid">
+        <a href="{% url 'portal:admin_staff' %}" class="menu-item">
+          <i class="bi bi-person"></i><span>Staff List</span>
+      </a>
+        <a href="{% url 'portal:admin_role' %}" class="menu-item">
+          <i class="bi bi-shield-lock"></i><span>Role & Permission</span>
+    </a>
+      </div>
+
+      <p class="section-title">APPEARANCE</p>
+      <div class="menu-grid">
+        <a href="{% url 'portal:admin_email' %}" class="menu-item">
+          <i class="bi bi-envelope"></i><span>Email Template</span>
+      </a>
+        <a href="{% url 'portal:admin_menu' %}" class="menu-item">
+          <i class="bi bi-list"></i><span>Menu</span>
+    </a>
+    <a href="#" class="menu-item">
+          <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+    </a>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <button class="btn btn-outline-primary btn-sm" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+        <h5>{% block page_title %}Dashboard{% endblock %}</h5>
+      </div>
+
+      <!-- PAGE CONTENT -->
+      {% block content %}{% endblock %}
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      
+      document.getElementById("toggleSidebar").onclick = () => {
+        document.getElementById("sidebar").classList.toggle("collapsed");
+      };
+    </script>
+
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

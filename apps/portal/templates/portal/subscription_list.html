@@ -1,0 +1,138 @@
+{% extends "portal/admin_layout.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h4 class="mb-4">Subscription List</h4>
+
+    <div class="card">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <label>Show 
+                    <select class="form-select d-inline-block w-auto">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select> Entries
+                </label>
+            </div>
+            <div class="col-md-6 text-end">
+                <label>Search: <input type="text" class="form-control d-inline-block w-auto"></label>
+            </div>
+        </div>
+
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Subscription Id</th>
+                    <th>Date</th>
+                    <th>Company Name</th>
+                    <th>Job Qty</th>
+                    <th>Featured Job Qty</th>
+                    <th>Amount</th>
+                    <th>Payment Through</th>
+                    <th>Payment Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example row -->
+                <tr>
+                    <td>EG265392351C77E3</td>
+                    <td>25th Oct 2023</td>
+                    <td>Jooble.az</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>R$420.00</td>
+                    <td>stripe</td>
+                    <td><span class="badge-paid">Paid</span></td>
+                    <td class="action-btns">
+                        <button><i class="bi bi-eye"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>EG565360CBEB56D3</td>
+                    <td>23rd Oct 2023</td>
+                    <td>Jooble.az</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>R$40.00</td>
+                    <td>stripe</td>
+                    <td><span class="badge-paid">Paid</span></td>
+                    <td class="action-btns">
+                        <button><i class="bi bi-eye"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>EG5653544C635FE4</td>
+                    <td>22nd Oct 2023</td>
+                    <td>Egens Lab ltd</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>R$20.00</td>
+                    <td>stripe</td>
+                    <td><span class="badge-paid">Paid</span></td>
+                    <td class="action-btns">
+                        <button><i class="bi bi-eye"></i></button>
+                    </td>
+                </tr>
+                <!-- Add more rows similarly -->
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>Showing 41 to 46 of 46 Entries</div>
+            <nav>
+                <ul class="pagination mb-0">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+<style>
+/* Inline CSS for Subscription List */
+.card {
+    border-radius: 10px;
+    border: none;
+    background: #fff;
+    padding: 20px;
+}
+.table thead {
+    background-color: #0d6efd; /* Blue header */
+    color: #fff;
+}
+.table th, .table td {
+    vertical-align: middle;
+}
+.badge-paid {
+    background-color: #198754; /* Bootstrap green */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+}
+.action-btns button {
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #0d6efd;
+}
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,274 @@
+{% extends "portal/admin_layout.html" %}
+{% load static %}
+
+{% block title %}Menu Builder{% endblock %}
+
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+/* ===== PAGE SCOPE FIX (IMPORTANT) ===== */
+.menu-builder *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Body background removed – sidebar safe */
+.menu-builder{
+    background:#f4f6f9;
+    padding:20px;
+}
+
+/* Top Menu Select */
+.menu-builder .menu-select{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+    font-size:14px;
+}
+
+.menu-builder .menu-select input{
+    accent-color:#0d6efd;
+}
+
+/* Layout */
+.menu-builder .wrapper{
+    display:grid;
+    grid-template-columns: 350px 1fr;
+    gap:20px;
+}
+
+/* Card */
+.menu-builder .card{
+    background:#fff;
+    border-radius:6px;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+    padding:20px;
+}
+
+.menu-builder .card h3{
+    margin-bottom:15px;
+    font-size:16px;
+    font-weight:600;
+}
+
+/* Accordion */
+.menu-builder .accordion-item{
+    border:1px solid #ddd;
+    border-radius:4px;
+    margin-bottom:10px;
+    overflow:hidden;
+}
+
+.menu-builder .accordion-header{
+    padding:10px 12px;
+    background:#f8f9fa;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+
+.menu-builder .accordion-body{
+    padding:12px;
+    display:none;
+}
+
+.menu-builder .accordion-item.active .accordion-body{
+    display:block;
+}
+
+/* Form */
+.menu-builder .form-group{
+    margin-bottom:12px;
+}
+
+.menu-builder label{
+    font-size:13px;
+    display:block;
+    margin-bottom:5px;
+}
+
+.menu-builder input[type="text"],
+.menu-builder input[type="url"]{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+.menu-builder .checkbox{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+}
+
+.menu-builder .btn{
+    background:#0d6efd;
+    color:#fff;
+    border:none;
+    padding:8px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.menu-builder .btn:disabled{
+    background:#ccc;
+}
+
+/* Menu Structure */
+.menu-builder .menu-list{
+    margin-top:10px;
+}
+
+.menu-builder .menu-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:4px;
+    margin-bottom:8px;
+    background:#fff;
+}
+
+.menu-builder .menu-item span{
+    font-size:14px;
+}
+
+.menu-builder .delete-btn{
+    background:#dc3545;
+    border:none;
+    color:#fff;
+    padding:6px 10px;
+    border-radius:4px;
+    cursor:pointer;
+}
+</style>
+
+<!-- ===== PAGE WRAPPER ===== -->
+<div class="menu-builder">
+
+<!-- Menu Select -->
+<div class="menu-select">
+    <strong>Select a menu</strong>
+    <label><input type="checkbox" checked> Home</label>
+    <label><input type="checkbox"> Company</label>
+    <label><input type="checkbox"> Blog</label>
+    <label><input type="checkbox"> Contact</label>
+    <label><input type="checkbox"> Footer Menu</label>
+</div>
+
+<div class="wrapper">
+
+    <!-- Left: Add Menu Item -->
+    <div class="card">
+        <h3>Add Menu Item</h3>
+
+        <div class="accordion-item">
+            <div class="accordion-header">Categories <i class="bi bi-chevron-down"></i></div>
+            <div class="accordion-body">Category list here</div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">Pages <i class="bi bi-chevron-down"></i></div>
+            <div class="accordion-body">Page list here</div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">Blogs <i class="bi bi-chevron-down"></i></div>
+            <div class="accordion-body">Blog list here</div>
+        </div>
+
+        <div class="accordion-item active">
+            <div class="accordion-header">Custom Link <i class="bi bi-chevron-up"></i></div>
+            <div class="accordion-body">
+
+                <div class="form-group">
+                    <label>Menu Name *</label>
+                    <input type="text" id="menuName" placeholder="Menu Name">
+                </div>
+
+                <div class="form-group">
+                    <label>Link</label>
+                    <input type="url" id="menuLink" placeholder="https://">
+                </div>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="newWindow">
+                    <label for="newWindow">Open in New Window?</label>
+                </div>
+
+                <button class="btn" onclick="addMenu()">Add to Menu</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Menu Structure -->
+    <div class="card">
+        <h3>Menu Structure</h3>
+        <p style="font-size:13px;margin-bottom:10px;">
+            Add Categories, Pages, Blogs or Custom Link to the menu
+        </p>
+
+        <div class="menu-list" id="menuList">
+            <div class="menu-item"><span>Company List (page)</span><button class="delete-btn">🗑</button></div>
+            <div class="menu-item"><span>Find Job (page)</span><button class="delete-btn">🗑</button></div>
+            <div class="menu-item"><span>Pricing (page)</span><button class="delete-btn">🗑</button></div>
+            <div class="menu-item"><span>Blog (page)</span><button class="delete-btn">🗑</button></div>
+            <div class="menu-item"><span>Contact (page)</span><button class="delete-btn">🗑</button></div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script>
+/* Accordion */
+document.querySelectorAll('.accordion-header').forEach(header=>{
+    header.addEventListener('click', ()=>{
+        const item = header.parentElement;
+        document.querySelectorAll('.accordion-item').forEach(i=>i.classList.remove('active'));
+        item.classList.add('active');
+    });
+});
+
+/* Add Menu Item */
+function addMenu(){
+    const name = document.getElementById('menuName').value;
+    if(name === ''){
+        alert('Menu name is required');
+        return;
+    }
+
+    const list = document.getElementById('menuList');
+
+    const div = document.createElement('div');
+    div.className = 'menu-item';
+
+    div.innerHTML = `
+        <span>${name} (custom)</span>
+        <button class="delete-btn">🗑</button>
+    `;
+
+    list.appendChild(div);
+
+    div.querySelector('.delete-btn').onclick = ()=> div.remove();
+
+    document.getElementById('menuName').value='';
+    document.getElementById('menuLink').value='';
+}
+
+/* Delete Existing */
+document.querySelectorAll('.delete-btn').forEach(btn=>{
+    btn.onclick = ()=> btn.parentElement.remove();
+});
+</script>
+
+{% endblock %}

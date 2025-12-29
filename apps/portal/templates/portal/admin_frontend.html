@@ -1,0 +1,306 @@
+{% extends "portal/admin_layout.html" %}
+{% load static %}
+
+{% block title %}Theme Option Settings{% endblock %}
+
+{% block content %}
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body{
+    background:#f2f4f7;
+}
+
+/* Header */
+.header{
+    background:#0a9a6b;
+    color:#fff;
+    padding:15px 30px;
+    font-size:18px;
+    font-weight:600;
+}
+
+/* Layout */
+.container{
+    display:flex;
+    min-height:calc(100vh - 55px);
+}
+
+/* Sidebar */
+.sidebar{
+    width:240px;
+    background:#2c3338;
+    color:#fff;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar li{
+    padding:14px 20px;
+    border-bottom:1px solid #3a4146;
+    cursor:pointer;
+}
+
+.sidebar li:hover,
+.sidebar li.active{
+    background:#1f2529;
+}
+
+/* Main Content */
+.main{
+    flex:1;
+    padding:30px;
+}
+
+.card{
+    background:#fff;
+    border-radius:6px;
+    padding:25px;
+}
+
+/* Form Grid */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.form-group label{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:6px;
+    display:block;
+}
+
+.form-group input{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #ddd;
+    border-radius:4px;
+    font-size:14px;
+}
+
+/* Toggle Section */
+.toggle-row{
+    display:flex;
+    gap:40px;
+    margin:25px 0;
+    flex-wrap:wrap;
+}
+
+.toggle-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+}
+
+/* Toggle Switch */
+.switch{
+    position:relative;
+    width:44px;
+    height:22px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    cursor:pointer;
+    inset:0;
+    background:#ccc;
+    border-radius:20px;
+    transition:.3s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    background:#fff;
+    border-radius:50%;
+    top:2px;
+    left:2px;
+    transition:.3s;
+}
+
+.switch input:checked + .slider{
+    background:#0a9a6b;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(22px);
+}
+
+/* Theme Colors */
+.color-section{
+    margin-top:20px;
+}
+
+.color-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.color-preview{
+    width:32px;
+    height:32px;
+    border-radius:4px;
+}
+
+/* Save Button */
+.save-btn{
+    background:#0a9a6b;
+    color:#fff;
+    border:none;
+    padding:10px 24px;
+    border-radius:4px;
+    font-size:14px;
+    cursor:pointer;
+    float:right;
+    margin-top:25px;
+}
+
+.save-btn:hover{
+    background:#087f59;
+}
+
+/* Responsive */
+@media(max-width:900px){
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+
+<div class="header">Theme Option Settings</div>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul>
+            <li class="active">General</li>
+            <li>Logo & Favicon</li>
+            <li>Header</li>
+            <li>Footer</li>
+            <li>Breadcrumb</li>
+            <li>Page Setting</li>
+            <li>Advertisement</li>
+            <li>Google Analytics</li>
+            <li>GDPR Cookie</li>
+            <li>Tawk Chat</li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="card">
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Application Name *</label>
+                    <input type="text" value="Empziod25">
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" value="empzio@gmail.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="text" value="01829766222">
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" value="2000 Beverley Rd Brooklyn, New York 11226 United States">
+                </div>
+            </div>
+
+            <!-- Toggles -->
+            <div class="toggle-row">
+                <div class="toggle-box">
+                    Candidate Email Verification
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-box">
+                    Company Email Verification
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-box">
+                    Job Approval
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-box">
+                    Edited Job Approval
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-box">
+                    Paid Job Postings
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Colors -->
+            <div class="color-section">
+                <h4>Frontend Theme Color</h4>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Primary Color</label>
+                        <div class="color-box">
+                            <div class="color-preview" style="background:#260f40"></div>
+                            <input type="text" value="#260f40">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Secondary Color</label>
+                        <div class="color-box">
+                            <div class="color-preview" style="background:#1f1f1f"></div>
+                            <input type="text" value="#1F1F1F">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="save-btn">Save</button>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
