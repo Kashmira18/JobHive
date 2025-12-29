@@ -1,0 +1,187 @@
+{% extends "portal/admin_layout.html" %}
+
+{% block content %}
+
+<style>
+body{background:#f4f6f9;}
+.card-custom{border-top:4px solid #0a9f60;}
+
+.table thead th{
+    background:#0a9f60;
+    color:#fff;
+    font-weight:600;
+    text-align:center;
+    vertical-align:middle;
+}
+.table td{
+    text-align:center;
+    vertical-align:middle;
+}
+
+/* Toggle */
+.switch{position:relative;display:inline-block;width:36px;height:18px;}
+.switch input{opacity:0;}
+.slider{
+    position:absolute;cursor:pointer;background:#ccc;
+    border-radius:20px;top:0;left:0;right:0;bottom:0;transition:.4s;
+}
+.slider:before{
+    position:absolute;content:"";height:14px;width:14px;
+    left:2px;bottom:2px;background:#fff;border-radius:50%;transition:.4s;
+}
+input:checked + .slider{background:#0a9f60;}
+input:checked + .slider:before{transform:translateX(18px);}
+</style>
+
+<div class="container-fluid mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold">Job Skill List</h4>
+
+        <button class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#createSkillModal">
+            <i class="bi bi-plus-circle"></i> Create Job Skill
+        </button>
+    </div>
+
+    <!-- Card -->
+    <div class="card card-custom">
+        <div class="card-body">
+
+            <!-- 🔍 SHOW + SEARCH -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    Show
+                    <select class="form-select d-inline-block w-auto mx-2">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                    Entries
+                </div>
+
+                <div class="col-md-6 text-end">
+                    Search:
+                    <input type="text" id="searchInput"
+                           class="form-control d-inline-block w-auto ms-2"
+                           placeholder="Search skill">
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered" id="skillTable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>
+                                <img src="https://flagcdn.com/w20/us.png">
+                                <img src="https://flagcdn.com/w20/pk.png">
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Microsoft Word</td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td>✓ A</td>
+                            <td>
+                                <button class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>Microsoft Excel</td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td>✓ A</td>
+                            <td>
+                                <button class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer -->
+            <div class="d-flex justify-content-between mt-3">
+                <div>Showing 1 to 2 of 2 Entries</div>
+                <div class="pagination">
+                    <span class="page-link">Previous</span>
+                    <span class="page-link active">1</span>
+                    <span class="page-link">Next</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL ================= -->
+<div class="modal fade" id="createSkillModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Create Job Skill</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Skill Name</label>
+            <input type="text" class="form-control" placeholder="Enter skill name">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Status</label><br>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-success">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* 🔍 Frontend search */
+document.getElementById("searchInput").addEventListener("keyup", function(){
+    let value = this.value.toLowerCase();
+    document.querySelectorAll("#skillTable tbody tr").forEach(row=>{
+        row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+    });
+});
+</script>
+
+{% endblock %}

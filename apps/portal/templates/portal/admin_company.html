@@ -1,0 +1,298 @@
+{% extends "portal/admin_layout.html" %}
+
+{% block content %}
+<style>
+/* PAGE STYLE */
+body{
+  background:#f4f6f9;
+  font-family:Segoe UI, sans-serif;
+}
+.card{
+  border:none;
+  border-radius:10px;
+}
+.table thead{
+  background:#0aa06e;
+  color:#fff;
+}
+.company-info img{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+}
+.company-info small{
+  display:block;
+  color:#6c757d;
+}
+
+/* SWITCH */
+.switch{
+  width:34px;
+  height:18px;
+  background:#dcdcdc;
+  border-radius:20px;
+  position:relative;
+  cursor:pointer;
+}
+.switch::after{
+  content:"";
+  width:14px;
+  height:14px;
+  background:#fff;
+  border-radius:50%;
+  position:absolute;
+  top:2px;
+  left:2px;
+  transition:.3s;
+}
+.switch.active{
+  background:#0aa06e;
+}
+.switch.active::after{
+  left:18px;
+}
+
+/* ACTION BUTTONS */
+.action-btns button{
+  border:none;
+  padding:4px 6px;
+  border-radius:4px;
+  color:#fff;
+  font-size:13px;
+}
+.btn-view{background:#0aa06e;}
+.btn-edit{background:#198754;}
+.btn-del{background:#dc3545;}
+
+/* POPUP FORM */
+.overlay {
+  display: none;
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.popup-form {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 10px;
+  z-index: 1010;
+  padding: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Form sections */
+.popup-form .section {
+  margin-bottom: 20px;
+}
+
+.popup-form .section h6 {
+  font-weight: 600;
+  border-bottom: 2px solid #0aa06e;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+/* Input styling */
+.popup-form input, .popup-form select {
+  width: 100%;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+/* Image upload */
+.popup-form .image-upload {
+  border: 1px dashed #ced4da;
+  padding: 20px;
+  text-align: center;
+  color: #6c757d;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.popup-form .btn-close {
+  background: #dc3545;
+  color:#fff;
+  border:none;
+  padding: 6px 12px;
+  border-radius:5px;
+  float:right;
+}
+
+.popup-form .btn-submit {
+  background: #0aa06e;
+  color:#fff;
+  border:none;
+  padding: 8px 15px;
+  border-radius:5px;
+}
+
+/* Dim main content when form is active */
+body.dimmed .container-fluid {
+  filter: blur(2px) brightness(0.7);
+  pointer-events: none;
+}
+</style>
+
+<div class="container-fluid mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="fw-bold">Company List</h5>
+    <button id="btnCreate" class="btn btn-success btn-sm">
+      <i class="bi bi-plus"></i> Create Company
+    </button>
+  </div>
+
+  <div class="card p-3">
+    <table id="companyTable" class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Owner Name</th>
+          <th>Type / Location</th>
+          <th>Establishment Date</th>
+          <th>Verified</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="company-info d-flex gap-2">
+            <img src="https://ui-avatars.com/api/?name=Egens+Lab">
+            <div>
+              <strong>Egens Lab</strong>
+              <small>shofikulslim@gmail.com</small>
+              <small>www.egenslab.com</small>
+            </div>
+          </td>
+          <td>
+            Md Shafiqul Islam
+            <small>shofikulslim@gmail.com</small>
+          </td>
+          <td>
+            Software Agency
+            <small>DOHS, Mirpur-12, Dhaka</small>
+          </td>
+          <td>2023-Mar-24</td>
+          <td><div class="switch active"></div></td>
+          <td><div class="switch active"></div></td>
+          <td class="action-btns">
+            <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+            <button class="btn-del"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="company-info d-flex gap-2">
+            <img src="https://ui-avatars.com/api/?name=Xerone+IT">
+            <div>
+              <strong>Xerone IT</strong>
+              <small>robert@yahoo.com</small>
+              <small>www.xeroneit.com</small>
+            </div>
+          </td>
+          <td>
+            Robert James
+            <small>robert@yahoo.com</small>
+          </td>
+          <td>
+            Software Agency
+            <small>Dhaka</small>
+          </td>
+          <td>2023-Jun-19</td>
+          <td><div class="switch active"></div></td>
+          <td><div class="switch active"></div></td>
+          <td class="action-btns">
+            <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+            <button class="btn-del"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Popup Overlay -->
+<div class="overlay"></div>
+
+<!-- Popup Form -->
+<div class="popup-form">
+  <button class="btn-close">×</button>
+  <h5 class="mb-3">Create Company</h5>
+
+  <!-- Owner Information -->
+  <div class="section">
+    <h6>Owner Information</h6>
+    <div class="row g-2">
+      <div class="col-md-4"><input type="text" placeholder="First Name *"></div>
+      <div class="col-md-4"><input type="text" placeholder="Last Name *"></div>
+      <div class="col-md-4"><input type="text" placeholder="Phone"></div>
+      <div class="col-md-4"><input type="email" placeholder="Email *"></div>
+      <div class="col-md-4"><input type="password" placeholder="Password *"></div>
+      <div class="col-md-4"><input type="password" placeholder="Confirm Password *"></div>
+    </div>
+  </div>
+
+  <!-- Company Info -->
+  <div class="section">
+    <h6>Company Info</h6>
+    <div class="row g-2">
+      <div class="col-md-4"><input type="text" placeholder="Company Name *"></div>
+      <div class="col-md-4"><input type="email" placeholder="Email *"></div>
+      <div class="col-md-4"><input type="text" placeholder="Phone *"></div>
+      <div class="col-md-4"><input type="text" placeholder="Total Employees *"></div>
+      <div class="col-md-4">
+        <select>
+          <option selected disabled>Category Type *</option>
+          <option>Software Agency</option>
+          <option>IT Company</option>
+          <option>Startup</option>
+        </select>
+      </div>
+      <div class="col-md-4"><input type="text" placeholder="Website"></div>
+      <div class="col-md-6"><div class="image-upload">Logo (60x60px)<br>Choose file or drag it here</div></div>
+      <div class="col-md-6"><div class="image-upload">Image Gallery (900x600px)<br>Choose files or drag here</div></div>
+    </div>
+  </div>
+
+  <div class="text-end">
+    <button class="btn-submit">Submit</button>
+  </div>
+</div>
+
+<script>
+// Show popup
+document.getElementById('btnCreate').addEventListener('click', function() {
+  document.querySelector('.popup-form').style.display = 'block';
+  document.querySelector('.overlay').style.display = 'block';
+  document.body.classList.add('dimmed');
+});
+
+// Close popup
+document.querySelector('.btn-close').addEventListener('click', closePopup);
+document.querySelector('.overlay').addEventListener('click', closePopup);
+
+function closePopup() {
+  document.querySelector('.popup-form').style.display = 'none';
+  document.querySelector('.overlay').style.display = 'none';
+  document.body.classList.remove('dimmed');
+}
+
+// Toggle switches in table
+document.querySelectorAll('.switch').forEach(sw=>{
+  sw.addEventListener('click',()=>sw.classList.toggle('active'));
+});
+</script>
+
+{% endblock %}
