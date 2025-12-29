@@ -103,10 +103,10 @@
           <div class="social-row mb-3">
             <button type="button" class="social-fill" id="btn-google">
               <i class="bi bi-google"></i> Signin with Google
-            </button>
+            <!-- </button>
             <button type="button" class="social-fill" id="btn-linkedin">
               <i class="bi bi-linkedin"></i> Signin with linkedin
-            </button>
+            </button> -->
           </div>
 
           <div class="divider">
@@ -173,6 +173,65 @@
     </div>
 
     <!-- Bootstrap JS (optional but safe) -->
+    <!-- <script src="{% static 'js/signin.js'%}"></script> -->
+    <script> 
+      // 1. Redirection Logic after successful Login
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    // We let the form submit to Django first. 
+    // This logic usually lives in your views.py, 
+    // but if you are using AJAX, here is the JS structure:
+    
+    const userRole = "{{ request.user.user_role }}"; // Assuming you pass this from context
+    const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
+
+    if (isAuthenticated) {
+        if (userRole === 'company') {
+            window.location.href = "{% url 'company:dashboard' %}";
+        } else if (userRole === 'candidate') {
+            window.location.href = "{% url 'candidate:dashboard' %}";
+        } else if ("{{ user.is_staff }}" === "True") {
+            window.location.href = "/admin/";
+        }
+    }
+});
+
+// 2. Google Sign-In Setup
+function handleCredentialResponse(response) {
+    console.log("Encoded JWT ID token: " + response.credential);
+    // Here you would send the 'response.credential' to your Django backend 
+    // to verify the user and log them in.
+    
+    // Example: fetch('/auth/google/', { method: 'POST', body: response.credential })
+}
+
+window.onload = function () {
+    google.accounts.id.initialize({
+        client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+    });
+    
+    const googleBtn = document.getElementById('btn-google');
+    googleBtn.onclick = () => {
+        google.accounts.id.prompt(); // Displays the One Tap prompt
+    };
+};
+
+// 3. Toggle Password Visibility
+document.getElementById('togglePassword').addEventListener('click', function(e) {
+    e.preventDefault();
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.replace('bi-eye-slash', 'bi-eye');
+    } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.replace('bi-eye', 'bi-eye-slash');
+    }
+});
+    </script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>

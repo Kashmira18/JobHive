@@ -1,0 +1,98 @@
+/* --- Global Body Style & Centering --- */
+.error-page {
+    /* Sets the pink/red gradient background for the entire viewport */
+    /* background: linear-gradient(to bottom right, #047b99, #001839); */
+    background: linear-gradient(to right, #a5dce9, #94e1f4);
+
+    color: #555;
+    /* Use flexbox to center the content in the viewport */
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    /* Center text within the box/page */
+    position: relative;
+}
+
+/* --- Main Wrapper --- */
+/* Ensure the wrapper doesn't interfere with flex centering */
+.main-wrapper {
+    /* No specific styling needed as the body handles the centering */
+    width: 100%;
+    z-index: 2;
+    /* Ensure it is above the background */
+}
+
+/* --- Error Box (The Single Content Container) --- */
+.error-box {
+    /* No white background needed, as all content is displayed directly on the gradient */
+    padding: 20px;
+    max-width: 450px;
+    margin: 0 auto;
+    margin-top: -100px;
+    /* Center the box itself */
+}
+
+/* --- The '404' Heading (Large and Red) --- */
+.error-box h1 {
+    font-size: 170px;
+    color: #e53951;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+/* --- The Subheading (Oops! Page not found!) --- */
+.error-box h3 {
+    font-size: 20px;
+    color: #333;
+    /* Darker text */
+    margin-top: 0;
+    margin-bottom: 5px;
+    /* Reduced margin to match close spacing */
+    font-weight: 600;
+}
+
+/* Style for the warning icon, likely from Font Awesome */
+.error-box h3 .fa-warning {
+    margin-right: 8px;
+    color: #333;
+    /* Icon color matches text color */
+}
+
+/* --- The Paragraph Text --- */
+.error-box p {
+    font-size: 14px;
+    color: #555;
+    /* Slightly lighter than h3 */
+    margin-bottom: 25px;
+    /* Space before the button */
+}
+
+/* --- The "Back to Home" Button --- */
+.btn-custom {
+    background: linear-gradient(to right, #001839, #047b99);
+    border: none;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    /* Highly rounded corners (pill shape) */
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    /* Subtle shadow to make it pop */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom:hover {
+    /* Slightly change the shadow or opacity on hover */
+    opacity: 0.95;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}

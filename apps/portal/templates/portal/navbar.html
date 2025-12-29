@@ -59,9 +59,9 @@
                         <div class="header-align">
                             <div class="header-align-start">
                                 <div class="header-logo-area">
-                                    <a href="index.html">
+                                    <a href="{% url 'home'%}">
                                         <img class="logo-main"
-                                            src="{% static 'images\logo_JobHive1.png' %}"
+                                            src="{% static 'images\ChatGPT_Image_Dec_3__2025__11_59_32_AM-removebg-preview.png' %}"
                                             alt="Logo" />
 
                                     </a>
@@ -75,7 +75,7 @@
                                                 href="{% url 'home'%}"><span>Home</span></a></li>
                                         <!-- == Job dropdown  == -->
                                         <li class="has-submenu"><a
-                                                href="{% url 'find_jobs' %}"><span>
+                                                href="{% url 'job_list' %}"><span>
                                                     Jobs</span></a>
                                             <ul class="submenu-nav">
                                                 <li><a
@@ -85,14 +85,14 @@
                                                         href="{% url 'job_details' %}"><span>Job
                                                             Details</span></a></li>
                                                 <li><a
-                                                        href="job-details.html"><span>Post
+                                                        href="{% url 'company_registration' %}"><span>Post
                                                             a Job
                                                         </span></a></li>
                                             </ul>
                                         </li>
                                         <!-- == Candidate dropdown  == -->
                                         <li class="has-submenu"><a
-                                                href="{% url 'candidates'%}"><span>Candidates</span></a>
+                                                href="{% url 'candidates-list'%}"><span>Candidates</span></a>
                                             <ul class="submenu-nav">
                                                 <li><a
                                                         href="{% url 'candidates-list'%}"><span>Candidates
@@ -101,7 +101,7 @@
                                                         href="{% url 'candidates-detail'%}"><span>Candidate
                                                             Details</span></a></li>
                                                 <li><a
-                                                        href="{% url 'user_dashboard' %}"><span>Candidate
+                                                        href="#"><span>Candidate
                                                             Dashboard</span></a></li>
                                                 <li><a
                                                         href="{% url 'find_jobs' %}"><span>submit
@@ -110,7 +110,7 @@
                                         </li>
                                         <!-- == Employers dropdown  == -->
                                         <li class="has-submenu"><a
-                                                href="{% url 'employers'%}"><span>Employers</span></a>
+                                                href="{% url 'Company-list'%}"><span>Employers</span></a>
                                             <ul class="submenu-nav">
                                                 <li><a
                                                         href="{% url 'Company-list'%}"><span>Company
@@ -143,13 +143,14 @@
                                                         href="{% url 'about' %}"><span>About
                                                             us</span></a></li>
                                                 <li><a
-                                                        href="{% url 'signin'%}"><span>Login</span></a></li>
+                                                        href="{% url 'company_base_dashboard'%}"><span>Login</span></a></li>
                                                 <li><a
-                                                        href="{% url 'signup'%}"><span>Registration</span></a></li>
+                                                        href="{% url 'selector'%}"><span>Registration</span></a></li>
                                                 <li><a
-                                                        href="page-not-found.html"><span>Page
+                                                        href="{% url 'error_404'%}"><span>Page
                                                             Not
                                                             Found</span></a></li>
+                                                            
                                             </ul>
                                         </li>
                                         <li><a
@@ -161,12 +162,12 @@
                             <div class="header-align-end">
                                 <div class="auth-links">
                                     <a href="{% url 'signin'%}"
-                                        class="btn btn-outline-info btn-long">Login<i
-                                            class="fa-solid fa-user"></i></a>
-                                    <a href="{% url 'signup'%}"
+                                        class="btn btn-outline-info btn-long">Login<i></i></a>
+                                    <!-- class="fa-solid fa-user" -->
+                                    <a href="{% url 'selector'%}"
                                         class="btn btn-info btn-long">Sign
-                                        Up<i
-                                            class="fa-solid fa-right-to-bracket"></i></a>
+                                        Up<i></i></a>
+                                    <!-- class="fa-solid fa-right-to-bracket" -->
                                 </div>
                             </div>
                         </div>

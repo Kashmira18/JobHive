@@ -7,15 +7,15 @@ urlpatterns = [
     path("find_jobs/", views.find_jobs, name="find_jobs"),
     path("job_list/", views.job_list, name="job_list"),
     path("job_details/", views.job_details, name="job_details"),
-    path("employers/", views.employers, name="employers"),
-    path("candidates/", views.candidates, name="candidates"),
+    # path("employers/", views.employers, name="employers"),
+    # path("candidates/", views.candidates, name="candidates"),
     path("blog/", views.blog, name="blog"),
     path("blog_detail/", views.blog_detail, name="blog_detail"),
     path("about/", views.about, name="about"),
     path("signin/", views.signin, name="signin"),
     path("signup/", views.signup, name="signup"),
     path("admin_dashboard/", views.admin_dashboard, name="admin_dashboard"),
-    path("user_dashboard/", views.user_dashboard, name="user_dashboard"),
+    # path("user_dashboard/", views.user_dashboard, name="user_dashboard"),
     path("company_dashboard/", views.company_dashboard, name="company_dashboard"),
     path("user_registration/", views.user_registration, name="user_registration"),
     path(
@@ -28,4 +28,15 @@ urlpatterns = [
     path("Company-list/", views.Companylist, name="Company-list"),
     path("company-detail/", views.companydetail, name="company-detail"),
     path("footer/", views.footer, name="footer"),
+    path("error_404/", views.error_404, name="error_404"),
+    path("selector/", views.selector, name="selector"),
+    #company dashboard paths_______________________
+    path("company_base_dashboard/", views.company_base_dashboard, name="company_base_dashboard"),
+    path("company_front_dashboard/", views.company_front_dashboard, name="company_front_dashboard"),
+    #path("company_base_dashboard/", views.company_base_dashboard, name="company_base_dashboard"),
+    #path("company_base_dashboard/", views.company_base_dashboard, name="company_base_dashboard"),
+    #path("company_base_dashboard/", views.company_base_dashboard, name="company_base_dashboard"),
+    #path("company_base_dashboard/", views.company_base_dashboard, name="company_base_dashboard"),
+
+    
 ]

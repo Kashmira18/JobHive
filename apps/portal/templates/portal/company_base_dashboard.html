@@ -1,0 +1,490 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Company Dashboard{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    {% block extra_css %}{% endblock %}
+
+    <style>
+    :root {
+            --dark-navy: #1f2c3d;
+            --sidebar-active: #31C2EF;
+            --bg-light: #f4f7f6;
+            --sidebar-width: 260px;
+            --sidebar-mini-width: 70px;
+            --header-height: 60px;
+            --nav-gradient: linear-gradient(135deg, #1f2c3d 0%, #2c3e50 100%);
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+        }
+
+        #wrapper { display: flex; width: 100%; }
+
+        /* --- SIDEBAR --- */
+        #sidebar-wrapper {
+            min-height: 100vh;
+            width: var(--sidebar-width);
+            background-color: var(--dark-navy);
+            transition: all 0.3s ease;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1050;
+        }
+
+        .sidebar-heading {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 1.2rem;
+            background-color: rgba(0,0,0,0.2);
+            color: white;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .list-group-item {
+            background-color: transparent !important;
+            border: none !important;
+            color: #bbc4cc !important;
+            font-size: 15px;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .list-group-item:hover, .list-group-item.active {
+            color: var(--sidebar-active) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        /* --- NAVBAR --- */
+        #page-content-wrapper {
+            width: 100%;
+            margin-left: var(--sidebar-width);
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: var(--nav-gradient);
+            height: var(--header-height);
+            position: fixed;
+            top: 0; right: 0;
+            left: var(--sidebar-width);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        #toggle_btn { font-size: 20px; cursor: pointer; color: white; }
+
+        /* --- POST JOB BUTTON (RECTANGLE) --- */
+        .btn-post-job {
+            background-color: var(--sidebar-active); 
+            color: white;
+            border: none;
+            border-radius: 4px; /* Makes it Rectangle */
+            padding: 8px 25px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-post-job:hover {
+            background-color: #2db0d9;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-post-job.clicked {
+            background-color: #1598c4 !important; 
+            box-shadow: inset 0 3px 5px rgba(0,0,0,0.2);
+            transform: translateY(1px);
+        }
+
+        /* --- ICONS & WRAPPERS --- */
+        .icon-wrapper {
+            position: relative; /* Important for dropdown positioning */
+            margin-right: 25px;
+        }
+
+        .nav-icon-link {
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .nav-icon-link:hover {
+            color: var(--sidebar-active);
+            transform: scale(1.1);
+        }
+
+        .badge-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            height: 9px;
+            width: 9px;
+            background-color: #ff5b5b;
+            border-radius: 50%;
+            border: 1px solid white;
+        }
+
+        /* --- COMMON DROPDOWN CARD STYLE (Messages & Notifs) --- */
+        .header-dropdown-card {
+            position: absolute;
+            top: 50px; /* Adjust distance from icon */
+            right: -10px;
+            width: 320px;
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1200;
+            overflow: hidden;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .header-dropdown-card.show { display: block; }
+
+        .card-header-custom {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-body-custom {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .list-item-custom {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .list-item-custom:hover { background-color: #f4fbfd; }
+        .list-item-custom:last-child { border-bottom: none; }
+        
+        .item-avatar {
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .item-content h6 { margin: 0; font-size: 14px; font-weight: 600; }
+        .item-content p { margin: 2px 0 0; font-size: 12px; color: #666; }
+        .item-time { font-size: 11px; color: #999; margin-top: 4px; display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- PROFILE DROPDOWN --- */
+        .user-menu { position: relative; cursor: pointer; }
+        
+        /* Company Profile Image Style */
+        .user-img {
+            width: 40px; height: 40px;
+            border-radius: 6px; /* Square with slight radius for Company */
+            border: 2px solid rgba(255,255,255,0.7);
+            object-fit: contain;
+            background: white;
+            padding: 2px;
+        }
+
+        .profile-dropdown-box {
+            position: absolute;
+            top: 55px; right: 0;
+            width: 180px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1100;
+        }
+        .profile-dropdown-box.show { display: flex; }
+        .profile-dropdown-box a {
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            transition: 0.2s;
+        }
+        .profile-dropdown-box a:hover { background: #f8f9fa; color: #4facfe; }
+        .profile-dropdown-box a i { margin-right: 10px; width: 20px; text-align: center; }
+
+        .content-section { padding: 30px; margin-top: var(--header-height); }
+
+        /* --- MINI SIDEBAR --- */
+        #wrapper.toggled #sidebar-wrapper { width: var(--sidebar-mini-width); }
+        #wrapper.toggled #page-content-wrapper { margin-left: var(--sidebar-mini-width); }
+        #wrapper.toggled .header { left: var(--sidebar-mini-width); }
+        #wrapper.toggled .sidebar-heading span, 
+        #wrapper.toggled .list-group-item span, 
+        #wrapper.toggled .menu-label { display: none; }
+        #wrapper.toggled .list-group-item { justify-content: center; }
+
+        .page { display: none; }
+        .page.active-page { display: block; }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+    <div id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <i class="fa-solid fa-rocket me-2 text-warning"></i> <span>JobHive</span>
+        </div>
+        <div class="list-group list-group-flush">
+            <div class="menu-label text-secondary p-3 small fw-bold">MAIN</div>
+            <a href="{% url 'company_front_dashboard' %}" onclick="showPage('dashboard', this)" class="list-group-item active">
+                <i class="fa-solid fa-gauge"></i> <span>Dashboard</span>
+            </a>
+            <div class="menu-label text-secondary p-3 small fw-bold">EMPLOYEES</div>
+            <a href="javascript:void(0)" onclick="showPage('employees', this)" class="list-group-item">
+                <i class="fa-solid fa-user"></i> <span>Employees</span>
+            </a>
+            <a href="javascript:void(0)" onclick="showPage('holidays', this)" class="list-group-item">
+                <i class="fa-solid fa-calendar-days"></i> <span>My Profile</span>
+            </a>
+            <a href="javascript:void(0)" onclick="showPage('holidays', this)" class="list-group-item">
+                <i class="fa-solid fa-calendar-days"></i> <span>Job List</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="page-content-wrapper">
+        <div class="header">
+            <div class="d-flex align-items-center">
+                <a id="toggle_btn"><i class="fas fa-bars"></i></a>
+                <h5 class="ms-3 mb-0 fw-bold d-none d-md-block">Welcome Employee</h5>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                
+                <button class="btn btn-post-job me-4 d-none d-sm-block" id="postJobBtn" onclick="toggleJobBtn(this)">
+                    <i class="fas fa-plus me-1"></i> Post a Job
+                </button>
+
+                <div class="icon-wrapper">
+                    <a href="javascript:void(0)" class="nav-icon-link" onclick="toggleDropdown('msgDropdown', event)">
+                        <i class="fa-brands fa-facebook-messenger"></i>
+                    </a>
+                    <div id="msgDropdown" class="header-dropdown-card">
+                        <div class="card-header-custom">
+                            <span>Messages</span>
+                            <small class="text-primary cursor-pointer">Mark all read</small>
+                        </div>
+                        <div class="card-body-custom">
+                            <div class="list-item-custom">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" class="item-avatar rounded-circle" alt="">
+                                <div class="item-content">
+                                    <h6>John Doe</h6>
+                                    <p>Can we reschedule the interview?</p>
+                                    <span class="item-time">2 mins ago</span>
+                                </div>
+                            </div>
+                            <div class="list-item-custom">
+                                <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=random" class="item-avatar rounded-circle" alt="">
+                                <div class="item-content">
+                                    <h6>Sarah Smith</h6>
+                                    <p>I have attached my portfolio.</p>
+                                    <span class="item-time">1 hour ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center p-2 border-top bg-light">
+                            <a href="#" class="text-decoration-none small fw-bold">View All Messages</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="icon-wrapper">
+                    <a href="javascript:void(0)" class="nav-icon-link" onclick="toggleDropdown('notifDropdown', event)">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge-dot"></span>
+                    </a>
+                    <div id="notifDropdown" class="header-dropdown-card">
+                        <div class="card-header-custom">
+                            <span>Notifications</span>
+                            <span class="badge bg-danger rounded-pill">2 New</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <div class="list-item-custom">
+                                <div class="item-avatar text-success bg-light-success">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="item-content">
+                                    <h6>New Job Application</h6>
+                                    <p>Alice applied for Senior Dev.</p>
+                                    <span class="item-time">10 mins ago</span>
+                                </div>
+                            </div>
+                            <div class="list-item-custom">
+                                <div class="item-avatar text-warning bg-light-warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="item-content">
+                                    <h6>Server Alert</h6>
+                                    <p>High memory usage detected.</p>
+                                    <span class="item-time">30 mins ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center p-2 border-top bg-light">
+                            <a href="#" class="text-decoration-none small fw-bold">View All Notifications</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-menu d-flex align-items-center" onclick="toggleDropdown('profileDropdown', event)">
+                    <div class="text-end me-3 d-none d-sm-block">
+                        <div class="fw-bold small" id="userNameDisplay">TechSolutions Inc.</div>
+                        <small style="opacity: 0.9;">Company Profile</small>
+                    </div>
+                    <img src="https://placehold.co/100x100/31C2EF/ffffff?text=TS&font=roboto" class="user-img" id="userImgDisplay" alt="Company Logo">
+                    
+                    <div class="profile-dropdown-box" id="profileDropdown">
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                            <i class="fas fa-building"></i> Company Profile
+                        </a>
+                        <a href="javascript:void(0)" onclick="alert('Settings Clicked')">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <a href="javascript:void(0)" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="content-section">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    // 1. Sidebar Toggle
+    document.getElementById('toggle_btn').addEventListener('click', function() {
+        document.getElementById('wrapper').classList.toggle('toggled');
+    });
+
+    // 2. Universal Dropdown Toggle Function
+    // Opens the specific ID, Closes the others
+    function toggleDropdown(dropdownId, event) {
+        event.stopPropagation(); // Prevent click from bubbling to window
+
+        // IDs of all dropdowns
+        const allDropdowns = ['msgDropdown', 'notifDropdown', 'profileDropdown'];
+
+        allDropdowns.forEach(id => {
+            const el = document.getElementById(id);
+            if (id === dropdownId) {
+                // Toggle the clicked one
+                el.classList.toggle('show');
+            } else {
+                // Close others
+                el.classList.remove('show');
+            }
+        });
+    }
+
+    // Close ALL dropdowns if clicked outside
+    window.addEventListener('click', function() {
+        ['msgDropdown', 'notifDropdown', 'profileDropdown'].forEach(id => {
+            document.getElementById(id).classList.remove('show');
+        });
+    });
+
+    // Prevent dropdown closing when clicking INSIDE the card
+    document.querySelectorAll('.header-dropdown-card, .profile-dropdown-box').forEach(card => {
+        card.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+
+    // 3. Post a Job Button Logic
+    function toggleJobBtn(btn) {
+        if(btn.classList.contains('clicked')){
+            btn.classList.remove('clicked');
+            btn.innerHTML = '<i class="fas fa-plus me-1"></i> Post a Job'; 
+        } else {
+            btn.classList.add('clicked');
+            btn.innerHTML = '<i class="fas fa-check me-1"></i> Job Posted';
+        }
+    }
+
+    // 4. Logout
+    function handleLogout() {
+        if(confirm("Are you sure you want to logout?")) {
+            window.location.reload(); 
+        }
+    }
+
+    // 5. Page Switching
+    function showPage(pageId, element) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.querySelectorAll('.list-group-item').forEach(item => item.classList.remove('active'));
+        if(document.getElementById(pageId)) {
+            document.getElementById(pageId).classList.add('active-page');
+        }
+        element.classList.add('active');
+    }
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

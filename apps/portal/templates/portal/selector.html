@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>JobHive</title>
+
+        {%load static%}
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet" />
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet" />
+        <!-- Custom CSS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Yantramanav:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+
+        <!-- Icons (Bootstrap Icons) -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+            rel="stylesheet" />
+
+        <!-- Font Awesome for icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+        <!-- Google Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet" />
+        <!-- Bootstrap Icons -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/selector.css' %}">
+
+    </head>
+    <body>
+<!-- <div class="container portal-container">
+        <h1>Join our Job Portal</h1>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-5">
+                <a href="signup-hiring.html" class="job-card" id="hiringCard">
+                    <div class="icon-box">🏢</div>
+                    <h2 class="card-title">I'm Company</h2>
+                    <p class="card-text">Create a company profile and post jobs.</p>
+                </a>
+            </div>
+
+            <div class="col-md-5">
+                <a href="signup-looking.html" class="job-card" id="lookingCard">
+                    <div class="icon-box">👨‍💼</div>
+                    <h2 class="card-title">I'm Candidate</h2>
+                    <p class="card-text">Find your dream job and apply.</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="login-link">
+            Already have an account? <a href="login.html">Login</a>
+        </div>
+    </div> -->
+<div class="row g-4 justify-content-center">
+    <div class="col-md-5">
+        {% if user.is_authenticated and user.is_company %}
+            <a href="{% url 'company:dashboard' %}" class="job-card" id="hiringCard">
+        {% else %}
+            <a href="{% url 'signup' %}" class="job-card" id="hiringCard">
+        {% endif %}
+            <div class="icon-box">🏢</div>
+            <h2 class="card-title">I'm Company</h2>
+            <p class="card-text">Create a company profile and post jobs.</p>
+        </a>
+    </div>
+
+    <div class="col-md-5">
+        {% if user.is_authenticated and user.is_candidate %}
+            <a href="{% url 'candidate:dashboard' %}" class="job-card" id="lookingCard">
+        {% else %}
+            <a href="{% url 'signup' %}" class="job-card" id="lookingCard">
+        {% endif %}
+            <div class="icon-box">👨‍💼</div>
+            <h2 class="card-title">I'm Candidate</h2>
+            <p class="card-text">Find your dream job and apply.</p>
+        </a>
+    </div>
+</div>
+        {%block content%}
+
+        {%endblock%}
+        <script>
+    document.querySelectorAll('.job-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Prevent the default <a> link behavior so JS can handle the logic
+            e.preventDefault();
+
+            // 1. Get user status from Django Template variables
+            // We use strings "True"/"False" because JS doesn't read Python booleans directly
+            const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
+            
+            // Check roles (Assumes your User model has is_company / is_candidate)
+            const isCompany = "{{ user.is_company|yesno:'true,false' }}" === "true";
+            const isCandidate = "{{ user.is_candidate|yesno:'true,false' }}" === "true";
+
+            // 2. Define the Target URLs using Django's URL namespacing
+            // This ensures your "company:signup" names are resolved correctly
+            const urls = {
+                companySignup: "{% url 'signup' %}",
+                companyDash: "{% url 'company:dashboard' %}",
+                candidateSignup: "{% url 'signup' %}",
+                candidateDash: "{% url 'candidate:dashboard' %}"
+            };
+
+            const targetId = this.id;
+
+            // 3. Redirection Logic
+            if (targetId === 'hiringCard') {
+                if (isAuthenticated && isCompany) {
+                    window.location.href = urls.companyDash;
+                } else {
+                    window.location.href = urls.companySignup;
+                }
+            } 
+            else if (targetId === 'lookingCard') {
+                if (isAuthenticated && isCandidate) {
+                    window.location.href = urls.candidateDash;
+                } else {
+                    window.location.href = urls.candidateSignup;
+                }
+            }
+        });
+    });
+</script>
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+            crossorigin="anonymous" />
+        <script src="{% static 'js/base.js' %}"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -16,6 +16,8 @@ from apps.common.decorators import role_required  # create decorator of role req
 def home(request):
     return render(request, "portal/home.html")
 
+def selector(request):
+    return render(request, "portal/selector.html")
 
 def navbar(request):
     return render(request, "portal/navbar.html")
@@ -41,8 +43,8 @@ def job_details(request):
     return render(request, "portal/job_details.html")
 
 
-def employers(request):
-    return render(request, "portal/employers.html")
+# def employers(request):
+#     return render(request, "portal/employers.html")
 
 
 def blog(request):
@@ -94,13 +96,13 @@ def admin_dashboard(request):
     return render(request, "portal/admin_dashboard.html")
 
 
-def user_dashboard(request):
-    return render(request, "portal/user_dashboard.html", {})
+# def user_dashboard(request):
+#     return render(request, "portal/user_dashboard.html", {})
 
 
-def logoutUser(request):
-    logout(request)
-    return redirect("login")
+# def logoutUser(request):
+#     logout(request)
+#     return redirect("login")
 
 
 def signup(request):
@@ -139,8 +141,8 @@ def company_registration(request):
     return render(request, "portal/company_registration.html")
 
 
-def candidates(request):
-    return render(request, "portal/candidates.html")
+# def candidates(request):
+#     return render(request, "portal/candidates.html")
 
 
 def candidatesdetail(request):
@@ -157,3 +159,13 @@ def Companylist(request):
 
 def companydetail(request):
     return render(request, "portal/company-detail.html")
+
+
+def error_404(request):
+    return render(request, "portal/error_404.html")
+
+def company_base_dashboard(request):
+    return render(request, "portal/company_base_dashboard.html")
+
+def company_front_dashboard(request):
+    return render(request, "portal/company_front_dashboard.html")
