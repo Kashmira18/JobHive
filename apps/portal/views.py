@@ -89,60 +89,6 @@ def signin(request):
 
     return render(request, "portal/signin.html", {"form": form})
 
-
-# @role_required(["admin"])
-# @role_required(allowed_roles=["admin"])
-def admin_dashboard(request):
-    return render(request, "portal/admin_dashboard.html")
-
-def admin_company_type(request):
-    return render(request, "portal/admin_company_type.html")
-
-def admin_package_plan(request):
-    return render(request, "portal/admin_package_plan.html")
-
-def subscription_list(request):
-    return render(request, "portal/subscription_list.html")
-
-def admin_candidate(request):
-    return render(request, "portal/admin_candidate.html")
-
-def admin_company(request):
-    return render(request, "portal/admin_company.html")
-
-def admin_job(request):
-    return render(request, "portal/admin_job.html")
-
-def admin_applicant(request):
-    return render(request, "portal/admin_applicant.html")
-
-def admin_category(request):
-    return render(request, "portal/admin_category.html")
-
-def admin_job_type(request):
-    return render(request, "portal/admin_job_type.html")
-
-def admin_job_skill(request):
-    return render(request, "portal/admin_job_skill.html")
-
-def admin_experience(request):
-    return render(request, "portal/admin_experience.html")
-
-def admin_staff(request):
-    return render(request, "portal/admin_staff.html")
-
-def admin_role(request):
-    return render(request, "portal/admin_role.html")
-
-def admin_menu(request):
-    return render(request, "portal/admin_menu.html")
-
-def admin_frontend(request):
-    return render(request, "portal/admin_frontend.html")
-
-def admin_email(request):
-    return render(request, "portal/admin_email.html")
-
 # def user_dashboard(request):
 #     return render(request, "portal/user_dashboard.html", {})
 
@@ -211,8 +157,63 @@ def companydetail(request):
 def error_404(request):
     return render(request, "portal/error_404.html")
 
+# COMPANY DASHBOARD VIEWS_______________________
 def company_base_dashboard(request):
-    return render(request, "portal/company_base_dashboard.html")
+    return render(request, "portal/company/company_base_dashboard.html")
 
 def company_front_dashboard(request):
-    return render(request, "portal/company_front_dashboard.html")
+    return render(request, "portal/company/company_front_dashboard.html")
+
+# ADMIN DASHBOARD VIEWS_______________________
+# @role_required(["admin"])
+# @role_required(allowed_roles=["admin"])
+def admin_dashboard(request):
+    return render(request, "portal/admin/admin_dashboard.html")
+
+def admin_company_type(request):
+    return render(request, "portal/admin/admin_company_type.html")
+
+def admin_package_plan(request):
+    return render(request, "portal/admin/admin_package_plan.html")
+
+def subscription_list(request):
+    return render(request, "portal/admin/subscription_list.html")
+
+def admin_candidate(request):
+    return render(request, "portal/admin/admin_candidate.html")
+
+def admin_company(request):
+    return render(request, "portal/admin/admin_company.html")
+
+def admin_job(request):
+    return render(request, "portal/admin/admin_job.html")
+
+def admin_applicant(request):
+    return render(request, "portal/admin/admin_applicant.html")
+
+def admin_category(request):
+    return render(request, "portal/admin/admin_category.html")
+
+def admin_job_type(request):
+    return render(request, "portal/admin/admin_job_type.html")
+
+def admin_job_skill(request):
+    return render(request, "portal/admin/admin_job_skill.html")
+
+def admin_experience(request):
+    return render(request, "portal/admin/admin_experience.html")
+
+def admin_staff(request):
+    return render(request, "portal/admin/admin_staff.html")
+
+def admin_role(request):
+    return render(request, "portal/admin/admin_role.html")
+
+def admin_menu(request):
+    return render(request, "portal/admin/admin_menu.html")
+
+def admin_frontend(request):
+    return render(request, "portal/admin/admin_frontend.html")
+
+def admin_email(request):
+    return render(request, "portal/admin/admin_email.html")
