@@ -1,0 +1,289 @@
+{% extends "portal/company/company_base_dashboard.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Drafts | Company Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --primary-color: #00b894;
+            --draft-bg: #fff5e6;
+            --draft-text: #d35400;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 30px 0;
+        }
+
+        /* Header Styling */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* Search Bar */
+        .search-box {
+            max-width: 400px;
+            position: relative;
+        }
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        .search-box input {
+            padding-left: 45px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        /* Draft Card Design */
+        .draft-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #edf2f7;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .draft-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: var(--primary-color);
+        }
+
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            background: #f1f2f6;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #636e72;
+            margin-right: 20px;
+        }
+
+        .job-title {
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+
+        .draft-badge {
+            background-color: var(--draft-bg);
+            color: var(--draft-text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+
+        .meta-text {
+            font-size: 0.85rem;
+            color: #b2bec3;
+            margin-right: 15px;
+        }
+
+        .meta-text i {
+            margin-right: 5px;
+        }
+
+        /* Action Buttons */
+        .btn-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            border: 1px solid #eee;
+            background: white;
+            color: #636e72;
+            text-decoration: none;
+        }
+
+        .btn-publish {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .btn-publish:hover {
+            background-color: #00966b;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #fff5f5;
+            color: #e74c3c;
+            border-color: #ffcdd2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="section-header">
+        <div>
+            <h3 class="fw-bold mb-1">Job Drafts</h3>
+            <p class="text-muted small mb-0" id="draft-count">You have 0 saved drafts</p>
+            <p class="text-muted small mb-0" id="draft-count">Wo posts jo abhi adhuri hain aur publish nahi huin.</p>
+        </div>
+        <div class="search-box d-none d-md-block">
+            <i class="bi bi-search"></i>
+            <input type="text" id="draftSearch" class="form-control" placeholder="Search draft jobs...">
+        </div>
+    </div>
+
+    <div id="drafts-container">
+        </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // 1. Draft Jobs Data
+    let draftJobs = [
+        {
+            id: 101,
+            title: "Frontend Developer (React)",
+            category: "Technology",
+            lastSaved: "2 hours ago",
+            location: "Remote",
+            progress: "80%"
+        },
+        {
+            id: 102,
+            title: "Senior Sales Executive",
+            category: "Marketing",
+            lastSaved: "1 day ago",
+            location: "Dubai, UAE",
+            progress: "40%"
+        },
+        {
+            id: 103,
+            title: "Office Administrator",
+            category: "Admin",
+            lastSaved: "3 days ago",
+            location: "Riyadh, KSA",
+            progress: "95%"
+        }
+    ];
+
+    // 2. Function to Render Drafts
+    function renderDrafts(filter = "") {
+        const container = document.getElementById('drafts-container');
+        const countText = document.getElementById('draft-count');
+        
+        const filteredJobs = draftJobs.filter(job => 
+            job.title.toLowerCase().includes(filter.toLowerCase())
+        );
+
+        container.innerHTML = '';
+        countText.innerText = `You have ${filteredJobs.length} saved drafts`;
+
+        if (filteredJobs.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-5">
+                    <i class="bi bi-file-earmark-text display-1 text-light"></i>
+                    <p class="mt-3 text-muted">No draft jobs found.</p>
+                </div>`;
+            return;
+        }
+
+        filteredJobs.forEach(job => {
+            const draftHtml = `
+                <div class="draft-card" id="draft-${job.id}">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-box">
+                                    <i class="bi bi-pencil-square"></i>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <span class="job-title">${job.title}</span>
+                                        <span class="draft-badge">Draft</span>
+                                    </div>
+                                    <div class="d-flex flex-wrap">
+                                        <span class="meta-text"><i class="bi bi-tag"></i>${job.category}</span>
+                                        <span class="meta-text"><i class="bi bi-geo-alt"></i>${job.location}</span>
+                                        <span class="meta-text"><i class="bi bi-clock"></i>Saved ${job.lastSaved}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-3 mb-3 mb-md-0 d-none d-md-block">
+                            <div class="small text-muted mb-1">Completion: ${job.progress}</div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: ${job.progress}"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 text-md-end text-start">
+                            <button class="btn btn-publish shadow-sm" onclick="publishJob(${job.id})">
+                                Finish & Publish
+                            </button>
+                            <a href="#" class="btn-action me-1" title="Edit Draft">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <button class="btn-action btn-delete" onclick="deleteDraft(${job.id})" title="Delete Draft">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', draftHtml);
+        });
+    }
+
+    // 3. Delete Logic
+    function deleteDraft(id) {
+        if(confirm("Are you sure you want to delete this draft?")) {
+            draftJobs = draftJobs.filter(j => j.id !== id);
+            renderDrafts();
+        }
+    }
+
+    // 4. Publish Logic (Simulation)
+    function publishJob(id) {
+        alert("Job ID " + id + " is now published and moved to Active Jobs!");
+        deleteDraft(id);
+    }
+
+    // 5. Search Logic
+    document.getElementById('draftSearch').addEventListener('input', (e) => {
+        renderDrafts(e.target.value);
+    });
+
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', () => renderDrafts());
+</script>
+
+</body>
+</html>
+
+{% endblock %}

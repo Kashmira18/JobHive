@@ -285,20 +285,36 @@
         </div>
         <div class="list-group list-group-flush">
             <div class="menu-label text-secondary p-3 small fw-bold">MAIN</div>
-            <a href="{% url 'company_front_dashboard' %}" onclick="showPage('dashboard', this)" class="list-group-item active">
+            <a href="{% url 'company_front_dashboard' %}" class="list-group-item active">
                 <i class="fa-solid fa-gauge"></i> <span>Dashboard</span>
             </a>
-            <div class="menu-label text-secondary p-3 small fw-bold">EMPLOYEES</div>
-            <a href="javascript:void(0)" onclick="showPage('employees', this)" class="list-group-item">
-                <i class="fa-solid fa-user"></i> <span>Employees</span>
+            <div class="menu-label text-secondary p-3 small fw-bold">Jobs</div>
+            <a href="{% url 'company_job_list' %}"  class="list-group-item">
+                <i class="fa-solid fa-user"></i> <span>Jobs List</span>
             </a>
-            <a href="javascript:void(0)" onclick="showPage('holidays', this)" class="list-group-item">
+            <a href="{% url 'company_active_jobs' %}"  class="list-group-item">
+                <i class="fa-solid fa-user"></i> <span>Active Jobs</span>
+            </a>
+            <a href="{% url 'company_pending_approval' %}" class="list-group-item">
+                <i class="fa-solid fa-calendar-days"></i> <span>Pending Approval</span>
+            </a>
+            <a href="{% url 'company_drafts_jobs' %}"  class="list-group-item">
+                <i class="fa-solid fa-calendar-days"></i> <span>Drafts</span>
+            </a>
+            <a href="{% url 'company_archived_jobs' %}" class="list-group-item">
+                <i class="fa-solid fa-calendar-days"></i> <span>Archived/Closed</span>
+            </a>
+            <!-- <div class="menu-label text-secondary p-3 small fw-bold">Candidates</div>
+            <a href="{% url 'company_archived_jobs' %}"  class="list-group-item">
+                <i class="fa-solid fa-user"></i> <span>Active Jobs</span>
+            </a> -->
+            <div class="menu-label text-secondary p-3 small fw-bold">Profile</div>
+            <a href="{% url 'company_my_profile' %}" class="list-group-item">
                 <i class="fa-solid fa-calendar-days"></i> <span>My Profile</span>
             </a>
-            <a href="javascript:void(0)" onclick="showPage('holidays', this)" class="list-group-item">
-                <i class="fa-solid fa-calendar-days"></i> <span>Job List</span>
-            </a>
+
         </div>
+        
     </div>
 
     <div id="page-content-wrapper">

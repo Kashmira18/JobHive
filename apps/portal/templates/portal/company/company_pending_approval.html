@@ -1,0 +1,276 @@
+{% extends "portal/company/company_base_dashboard.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Approvals | Company Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --pending-orange: #fd9644;
+            --pending-bg: #fff5e6;
+            --primary-blue: #0984e3;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 30px 0;
+        }
+
+        /* Section Header */
+        .section-header {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid var(--pending-orange);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+
+        /* Pending Job Card */
+        .pending-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        .pending-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            background: var(--pending-bg);
+            color: var(--pending-orange);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-right: 20px;
+        }
+
+        .job-title {
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1.15rem;
+            margin-bottom: 3px;
+        }
+
+        /* Glowing Dot Animation */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--pending-bg);
+            color: var(--pending-orange);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+
+        .dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--pending-orange);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .meta-text {
+            font-size: 0.85rem;
+            color: #b2bec3;
+            margin-right: 20px;
+        }
+
+        /* Timeline/Manager Info */
+        .manager-info {
+            font-size: 0.85rem;
+            background: #f1f2f6;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #636e72;
+        }
+
+        /* Action Buttons */
+        .btn-withdraw {
+            border: 1px solid #ff7675;
+            color: #ff7675;
+            background: transparent;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-withdraw:hover {
+            background: #ff7675;
+            color: white;
+        }
+
+        .btn-view {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="section-header d-flex flex-wrap justify-content-between align-items-center">
+        <div>
+            <h3 class="fw-bold mb-1">Pending Approvals</h3>
+            <p class="text-muted mb-0">Jobs waiting for Senior Manager's review.</p>
+            <p class="text-muted mb-0">Wo jobs jo likhi ja chuki hain lekin senior manager ki ijazat ka intezar hai</p>
+
+        </div>
+        <div class="mt-3 mt-md-0">
+            <span class="badge bg-dark p-2" id="pending-count">0 Jobs Pending</span>
+        </div>
+    </div>
+
+    <div id="pending-list">
+        </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // 1. Data Object
+    let pendingJobs = [
+        {
+            id: 201,
+            title: "Project Manager",
+            submittedDate: "29 Dec 2025",
+            manager: "Sarah Khan (Senior HR)",
+            department: "Operations",
+            priority: "High"
+        },
+        {
+            id: 202,
+            title: "Senior DevOps Engineer",
+            submittedDate: "28 Dec 2025",
+            manager: "Ahmed Raza (CTO)",
+            department: "IT Dept",
+            priority: "Normal"
+        },
+        {
+            id: 203,
+            title: "Content Strategist",
+            submittedDate: "27 Dec 2025",
+            manager: "Zeeshan Ali (Marketing Head)",
+            department: "Marketing",
+            priority: "Normal"
+        }
+    ];
+
+    // 2. Render Function
+    function renderPending() {
+        const container = document.getElementById('pending-list');
+        const countText = document.getElementById('pending-count');
+        
+        countText.innerText = `${pendingJobs.length} Jobs Pending`;
+        container.innerHTML = '';
+
+        if (pendingJobs.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-5 bg-white rounded shadow-sm">
+                    <i class="bi bi-clock-history display-1 text-light"></i>
+                    <p class="mt-3 text-muted">No jobs are currently waiting for approval.</p>
+                </div>`;
+            return;
+        }
+
+        pendingJobs.forEach(job => {
+            const html = `
+                <div class="pending-card" id="job-${job.id}">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-12 mb-3 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-box">
+                                    <i class="bi bi-hourglass-split"></i>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <span class="job-title">${job.title}</span>
+                                        <span class="status-badge">
+                                            <span class="dot"></span>Waiting Approval
+                                        </span>
+                                    </div>
+                                    <div class="d-flex flex-wrap align-items-center">
+                                        <span class="meta-text"><i class="bi bi-building me-1"></i>${job.department}</span>
+                                        <span class="meta-text"><i class="bi bi-calendar-event me-1"></i>Submitted: ${job.submittedDate}</span>
+                                        <span class="badge ${job.priority === 'High' ? 'bg-danger-subtle text-danger' : 'bg-secondary-subtle text-secondary'}">
+                                            ${job.priority} Priority
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
+                            <div class="manager-info">
+                                <div class="small fw-bold text-dark">Reviewing By:</div>
+                                <i class="bi bi-person-check me-1"></i>${job.manager}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 text-md-end">
+                            <button class="btn btn-view btn-sm" onclick="viewDetails(${job.id})">
+                                <i class="bi bi-eye me-1"></i> Preview
+                            </button>
+                            <button class="btn btn-withdraw btn-sm" onclick="withdrawJob(${job.id})">
+                                <i class="bi bi-x-circle me-1"></i> Withdraw
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        });
+    }
+
+    // 3. Actions
+    function withdrawJob(id) {
+        if(confirm("Are you sure you want to withdraw this submission and move it back to Drafts?")) {
+            pendingJobs = pendingJobs.filter(j => j.id !== id);
+            renderPending();
+        }
+    }
+
+    function viewDetails(id) {
+        alert("Opening full preview for Job ID: " + id);
+    }
+
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', renderPending);
+</script>
+
+</body>
+</html>
+{% endblock %}

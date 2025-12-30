@@ -164,13 +164,31 @@ def company_base_dashboard(request):
 def company_front_dashboard(request):
     return render(request, "portal/company/company_front_dashboard.html")
 
+def company_pending_approval(request):
+    return render(request, "portal/company/company_pending_approval.html")
+
+def company_active_jobs(request):
+    return render(request, "portal/company/company_active_jobs.html")
+
+def company_drafts_jobs(request):
+    return render(request, "portal/company/company_drafts_jobs.html")
+
+def company_archived_jobs(request):
+    return render(request, "portal/company/company_archived_jobs.html")
+
+def company_job_list(request):
+    return render(request, "portal/company/company_job_list.html")
+
+def company_my_profile(request):
+    return render(request, "portal/company/company_my_profile.html")
+
 # ADMIN DASHBOARD VIEWS_______________________
 # @role_required(["admin"])
 # @role_required(allowed_roles=["admin"])
 def admin_dashboard(request):
     return render(request, "portal/admin/admin_dashboard.html")
 
-def admin_company_type(request):
+def company_category(request):
     return render(request, "portal/admin/admin_company_type.html")
 
 def admin_package_plan(request):
@@ -182,7 +200,7 @@ def subscription_list(request):
 def admin_candidate(request):
     return render(request, "portal/admin/admin_candidate.html")
 
-def admin_company(request):
+def companies(request):
     return render(request, "portal/admin/admin_company.html")
 
 def admin_job(request):
