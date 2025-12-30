@@ -220,6 +220,11 @@
       document.getElementById("toggleSidebar").onclick = () => {
         document.getElementById("sidebar").classList.toggle("collapsed");
       };
+      document.querySelectorAll('.sidebar a[href="#"]').forEach(link => {
+      link.addEventListener('click', function(e){
+        e.preventDefault();   // reload stop
+      });
+      });
     </script>
 
     {% block extra_js %}{% endblock %}
