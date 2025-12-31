@@ -366,34 +366,50 @@
                 <i class="fa-solid fa-rocket me-2 text-warning"></i> <span>JobHive</span>
             </div>
             <div class="list-group list-group-flush">
-                <div class="menu-label text-secondary p-3 small fw-bold">MAIN</div>
-                <a href="{% url 'company_front_dashboard' %}" class="list-group-item active">
-                    <i class="fa-solid fa-gauge"></i> <span>Dashboard</span>
+                <!-- <div class="menu-label text-secondary p-3 small fw-bold">MAIN</div> -->
+                <a href="{% url 'candidate_front_dashboard' %}" class="list-group-item active">
+                    <i class="fas fa-th-large"></i> <span> Dashboard</span>
                 </a>
-                <div class="menu-label text-secondary p-3 small fw-bold">Jobs</div>
-                <a href="{% url 'company_job_list' %}" class="list-group-item">
-                    <i class="fa-solid fa-user"></i> <span>Jobs List</span>
+                <!-- <div class="menu-label text-secondary p-3 small fw-bold">Jobs</div> -->
+                <a href="{% url 'candidate_edit_profile' %}" class="list-group-item">
+                    <i class="far fa-user-circle"></i> <span> Edit Profile </span>
                 </a>
-                <a href="{% url 'company_active_jobs' %}" class="list-group-item">
-                    <i class="fa-solid fa-user"></i> <span>Active Jobs</span>
+                <a href="{% url 'applied_jobs' %}" class="list-group-item">
+                    <i class="fas fa-briefcase"></i> <span> Applied Jobs</span>
                 </a>
-                <a href="{% url 'company_pending_approval' %}" class="list-group-item">
-                    <i class="fa-solid fa-calendar-days"></i> <span>Pending Approval</span>
+                <a href="{% url 'bookmark_jobs' %}" class="list-group-item">
+                    <i class="far fa-bookmark"></i> <span> Bookmark Jobs</span>
                 </a>
-                <a href="{% url 'company_drafts_jobs' %}" class="list-group-item">
-                    <i class="fa-solid fa-calendar-days"></i> <span>Drafts</span>
+                <a href="{% url 'candidate_edit_resume' %}" class="list-group-item">
+                    <i class="far fa-file-alt"></i> <span> Edit Resume</span>
                 </a>
-                <a href="{% url 'company_archived_jobs' %}" class="list-group-item">
-                    <i class="fa-solid fa-calendar-days"></i> <span>Archived/Closed</span>
+                <a href="{% url 'candidate_view_resume' %}" class="list-group-item">
+                    <i class="far fa-eye"></i> <span> View Resume</span>
                 </a>
+
+                <a href="{% url 'job_alert' %}" class="list-group-item">
+                    <i class="far fa-bell"></i> <span> Job Alert</span>
+                </a>
+
+                <a href="{% url 'candidate_notifications' %}" class="list-group-item">
+                    <i class="far fa-bell"></i> <span> Notification</span>
+                </a>
+                <!-- <a href="{% url 'company_archived_jobs' %}" class="list-group-item">
+                    <i class="fas fa-cog"></i> <span> Settings</span>
+                </a> -->
+
+                <a href="#" class="list-group-item">
+                    <i class="fas fa-sign-out-alt"></i> <span> Logout</span>
+                </a>
+
                 <!-- <div class="menu-label text-secondary p-3 small fw-bold">Candidates</div>
             <a href="{% url 'company_archived_jobs' %}"  class="list-group-item">
                 <i class="fa-solid fa-user"></i> <span>Active Jobs</span>
             </a> -->
-                <div class="menu-label text-secondary p-3 small fw-bold">Profile</div>
+                <!-- <div class="menu-label text-secondary p-3 small fw-bold">Profile</div>
                 <a href="{% url 'company_my_profile' %}" class="list-group-item">
                     <i class="fa-solid fa-calendar-days"></i> <span>My Profile</span>
-                </a>
+                </a> -->
 
             </div>
 
@@ -403,17 +419,17 @@
             <div class="header">
                 <div class="d-flex align-items-center">
                     <a id="toggle_btn"><i class="fas fa-bars"></i></a>
-                    <h5 class="ms-3 mb-0 fw-bold d-none d-md-block">Welcome Employee</h5>
+                    <h5 class="ms-3 mb-0 fw-bold d-none d-md-block">Welcome</h5>
                 </div>
 
                 <div class="d-flex align-items-center">
 
-                    <button class="btn btn-post-job me-4 d-none d-sm-block" id="postJobBtn"
+                    <!-- <button class="btn btn-post-job me-4 d-none d-sm-block" id="postJobBtn"
                         onclick="toggleJobBtn(this)">
                         <i class="fas fa-plus me-1"></i> Post a Job
-                    </button>
+                    </button> -->
 
-                    <div class="icon-wrapper">
+                    <!-- <div class="icon-wrapper">
                         <a href="javascript:void(0)" class="nav-icon-link"
                             onclick="toggleDropdown('msgDropdown', event)">
                             <i class="fa-brands fa-facebook-messenger"></i>
@@ -486,15 +502,16 @@
                                 <a href="#" class="text-decoration-none small fw-bold">View All Notifications</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
 
                     <div class="user-menu d-flex align-items-center" onclick="toggleDropdown('profileDropdown', event)">
                         <div class="text-end me-3 d-none d-sm-block">
-                            <div class="fw-bold small" id="userNameDisplay">TechSolutions Inc.</div>
-                            <small style="opacity: 0.9;">Company Profile</small>
+                            <div class="fw-bold small" id="userNameDisplay">Khandaker Raufur Rahman</div>
+                            <!-- <small style="opacity: 0.9;">Profile</small> -->
                         </div>
-                        <img src="https://placehold.co/100x100/31C2EF/ffffff?text=TS&font=roboto" class="user-img"
-                            id="userImgDisplay" alt="Company Logo">
+                        <img src="{% static 'images/blog-detal5.jpeg'%}" class="user-img me-3" id="userImgDisplay"
+                            alt="user pic">
 
                         <div class="profile-dropdown-box" id="profileDropdown">
                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#editProfileModal">
@@ -561,15 +578,15 @@
         });
 
         // 3. Post a Job Button Logic
-        function toggleJobBtn(btn) {
-            if (btn.classList.contains('clicked')) {
-                btn.classList.remove('clicked');
-                btn.innerHTML = '<i class="fas fa-plus me-1"></i> Post a Job';
-            } else {
-                btn.classList.add('clicked');
-                btn.innerHTML = '<i class="fas fa-check me-1"></i> Job Posted';
-            }
-        }
+        // function toggleJobBtn(btn) {
+        //     if (btn.classList.contains('clicked')) {
+        //         btn.classList.remove('clicked');
+        //         btn.innerHTML = '<i class="fas fa-plus me-1"></i> Post a Job';
+        //     } else {
+        //         btn.classList.add('clicked');
+        //         btn.innerHTML = '<i class="fas fa-check me-1"></i> Job Posted';
+        //     }
+        // }
 
         // 4. Logout
         function handleLogout() {
@@ -588,6 +605,7 @@
             element.classList.add('active');
         }
     </script>
+    <script src="{%static 'js/candidate/index.js'%}"></script>
 
     {% block extra_js %}{% endblock %}
 </body>
