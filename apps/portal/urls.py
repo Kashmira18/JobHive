@@ -60,4 +60,18 @@ urlpatterns = [
     # path("admin/admin_menu/", views.admin_menu, name="admin_menu"),
     # path("admin/admin_frontend/", views.admin_frontend, name="admin_frontend"),
     
+
+
+
+    path("candidate/candidate_base/", views.candidate_base, name="candidate_base"),
+    path("candidate/candidate_front_dashboard/", views.candidate_front_dashboard, name="candidate_front_dashboard"),
+    path("candidate/candidate_edit_profile/", views.candidate_edit_profile, name="candidate_edit_profile"),
+    path("candidate/bookmark_jobs/", views.bookmark_jobs, name="bookmark_jobs"),
+    path("candidate/applied_jobs/", views.applied_jobs, name="applied_jobs"),
+    path("candidate/candidate_edit_resume/", views.candidate_edit_resume, name="candidate_edit_resume"),
+    path("candidate/job_alert/", views.job_alert, name="job_alert"),
+    path("candidate/candidate_notifications/", views.candidate_notifications, name="candidate_notifications"),
+    path("candidate/candidate_view_resume/", views.candidate_view_resume, name="candidate_view_resume"),
+    
 ]
+

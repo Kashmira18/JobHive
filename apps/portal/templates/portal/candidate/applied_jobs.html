@@ -1,0 +1,245 @@
+{% extends "portal/candidate/candidate_base.html" %}
+
+{% block content %}
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Applied Jobs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* ====== Base ====== */
+        body {
+            background: #f4f6f9;
+            /* font-family: "Inter", system-ui, sans-serif; */
+            color: #2b2f33;
+        }
+
+        .container {
+            max-width: 1100px;
+        }
+
+        /* ====== Card ====== */
+        .jobs-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .06);
+            overflow: hidden;
+        }
+
+        /* ====== Header ====== */
+        .jobs-header {
+            background: #0023c0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* ====== Row ====== */
+        .job-row {
+            border-bottom: 1px solid #edf0f2;
+            transition: background .2s ease;
+        }
+
+        .job-row:hover {
+            background: #fafafa;
+        }
+
+        /* ====== Job Info ====== */
+        .job-info {
+            display: flex;
+            gap: 12px;
+        }
+
+        .job-logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #e9eef3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .job-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .job-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* ====== Summary ====== */
+        .summary {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* ====== Status ====== */
+        .status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .status.applied {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .status.hired {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ====== Footer ====== */
+        .jobs-footer {
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pagination .page-link {
+            color: #004ca3;
+        }
+
+        .pagination .active .page-link {
+            background: #0d4c9f;
+            border-color: #0d3b9f;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container my-5">
+        <h5 class="mb-3">Applied Jobs</h5>
+
+        <div class="jobs-card">
+            <div class="row jobs-header px-3 py-2">
+                <div class="col-md-4">Job Title</div>
+                <div class="col-md-2">Apply Date</div>
+                <div class="col-md-4">Summary</div>
+                <div class="col-md-2">Status</div>
+            </div>
+
+            <div id="jobsContainer"></div>
+
+            <div class="jobs-footer">
+                <small id="jobInfo"></small>
+                <ul class="pagination mb-0" id="pagination"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ====== DATA (later comes from Django/API) ====== */
+        const jobs = [
+            {
+                title: "Looking for Delivery Driver",
+                company: "jobee.io · Bangladesh",
+                salary: "Rs60000–Rs70000 / Month",
+                date: "28 Nov, 2025",
+                summary: "Experience: 3 Years<br>Expected Salary: 0",
+                status: "hired",
+                logo: "JD"
+            },
+            {
+                title: "Creative UI/UX Designer",
+                company: "New Desire Solution · Mirpur",
+                salary: "Negotiable",
+                date: "16 Nov, 2025",
+                summary: "Experience: 3 Years<br>Expected Salary: 50000",
+                status: "applied",
+                logo: "UX"
+            },
+            {
+                title: "Hiring Laravel Developer",
+                company: "New Desire Solution · Mirpur",
+                salary: "Rs30000–Rs35000 / Project",
+                date: "16 Nov, 2025",
+                summary: "Experience: 3 Years<br>Current Salary: 0",
+                status: "applied",
+                logo: "NL"
+            }
+        ];
+
+        const perPage = 2;
+        let currentPage = 1;
+
+        /* ====== RENDER ====== */
+        function renderJobs() {
+            const container = document.getElementById("jobsContainer");
+            container.innerHTML = "";
+
+            const start = (currentPage - 1) * perPage;
+            const end = start + perPage;
+            const pageJobs = jobs.slice(start, end);
+
+            pageJobs.forEach(job => {
+                container.innerHTML += `
+        <div class="row job-row px-3 py-3 align-items-center">
+            <div class="col-md-4">
+                <div class="job-info">
+                    <div class="job-logo">${job.logo}</div>
+                    <div>
+                        <div class="job-title">${job.title}</div>
+                        <div class="job-meta">${job.company}</div>
+                        <div class="job-meta">${job.salary}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">${job.date}</div>
+            <div class="col-md-4 summary">${job.summary}</div>
+            <div class="col-md-2">
+                <span class="status ${job.status}">${job.status.toUpperCase()}</span>
+            </div>
+        </div>`;
+            });
+
+            document.getElementById("jobInfo").textContent =
+                `Showing ${start + 1}-${Math.min(end, jobs.length)} of ${jobs.length} jobs`;
+
+            renderPagination();
+        }
+
+        /* ====== PAGINATION ====== */
+        function renderPagination() {
+            const totalPages = Math.ceil(jobs.length / perPage);
+            const pag = document.getElementById("pagination");
+            pag.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                pag.innerHTML += `
+        <li class="page-item ${i === currentPage ? "active" : ""}">
+            <a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>
+        </li>`;
+            }
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderJobs();
+        }
+
+        renderJobs();
+    </script>
+
+</body>
+
+</html>
+{%endblock%}

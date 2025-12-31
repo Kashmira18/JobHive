@@ -235,3 +235,28 @@ def admin_frontend(request):
 
 def admin_email(request):
     return render(request, "portal/admin/admin_email.html")
+
+
+
+
+
+
+
+def candidate_base(request):
+    return render(request, "portal/candidate/candidate_base.html")
+def candidate_front_dashboard(request):
+    return render(request,"portal/candidate/candidate_front_dashboard.html")
+def candidate_edit_profile(request):
+    return render(request,"portal/candidate/candidate_edit_profile.html")
+def bookmark_jobs(request):
+    return render(request,"portal/candidate/Bookmark_Jobs.html")
+def applied_jobs(request):
+    return render(request,"portal/candidate/applied_jobs.html")
+def candidate_edit_resume(request):
+    return render(request,"portal/candidate/edit_resume.html")
+def job_alert(request):
+    return render(request,"portal/candidate/job_alert.html")
+def candidate_notifications(request):
+    return render(request,"portal/candidate/notifications.html")
+def candidate_view_resume(request):
+    return render(request,"portal/candidate/viewresume.html")
