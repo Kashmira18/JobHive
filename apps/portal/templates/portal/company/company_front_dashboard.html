@@ -2,521 +2,211 @@
 
 {% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Portal | Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<style>
+    /* ... (Aapka baki purana CSS wahi rahega) ... */
+    .profile-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px 40px; border-radius: 8px; margin-bottom: 20px; }
+    .header-left { display: flex; align-items: center; gap: 20px; }
+    .logo-box { background: black; color: white; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; border-radius: 8px; }
+    .line { display: inline-block; width: 40px; height: 1px; background-color: #2fb383; vertical-align: middle; margin-left: 5px; }
+    .username { margin: 5px 0 0 0; color: #2fb383; font-size: 1.8rem; font-weight: bold; }
+    .edit-btn { background: white; border: 1px solid #e0e0e0; padding: 10px 20px; border-radius: 6px; color: #555; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
     
-    <style>
-        /* General Reset */
-body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #f8f9fa;
-}
+    .stat-card { background: #ffffff; padding: 20px; border-radius: 8px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-bottom: 3px solid transparent; height: 100%; }
+    .icon-box { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-right: 15px; flex-shrink: 0; }
+    
+    .border-success-bottom { border-bottom-color: #198754; }
+    .border-primary-bottom { border-bottom-color: #0d6efd; }
+    .border-warning-bottom { border-bottom-color: #ffc107; }
+    .border-purple-bottom { border-bottom-color: #d63384; }
+    .bg-success-light { background-color: #e9f7ef; color: #198754; }
+    .bg-primary-light { background-color: #e7f1ff; color: #0d6efd; }
+    .bg-warning-light { background-color: #fff9e6; color: #ffc107; }
+    .bg-purple-light { background-color: #fceef5; color: #d63384; }
 
-.profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 20px 40px;
-  border-radius: 8px;
-}
+    .main-card { background: white; border-radius: 15px; overflow: visible; margin-top: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .custom-table-header { background-color: #fcfcfc; border-bottom: 2px solid #f1f1f1; padding: 12px 20px; color: #888; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .applicant-row { padding: 12px 20px; border-bottom: 1px solid #f1f1f1; transition: 0.3s; }
+    .profile-img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+    
+    .dropdown-menu { border: none !important; box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important; z-index: 1050 !important; }
+    .btn-dots { border: none; background: transparent; color: #ccc; font-size: 18px; padding: 2px 8px; cursor: pointer; }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+    /* New Pagination Styles */
+    .pagination-container { padding: 20px; border-top: 1px solid #f1f1f1; }
+    .pagination .page-link { color: #2fb383; border: none; margin: 0 3px; border-radius: 5px; font-weight: 500; }
+    .pagination .page-item.active .page-link { background-color: #2fb383; color: white; }
+    .pagination .page-link:hover { background-color: #e9f7ef; color: #2fb383; }
 
-/* Logo Styling */
-.logo-box {
-  background: black;
-  color: white;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
+    #view-profile-section { display: none; animation: fadeIn 0.4s ease; }
+    .back-btn { background: #2fb383; color: white; border: none; padding: 8px 20px; border-radius: 6px; margin-bottom: 20px; }
+</style>
 
-/* Greeting Text */
-.hello-text {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.line {
-  display: inline-block;
-  width: 40px;
-  height: 1px;
-  background-color: #2fb383; /* Greenish line */
-  vertical-align: middle;
-  margin-left: 5px;
-}
-
-.username {
-  margin: 5px 0 0 0;
-  color: #2fb383;
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-/* Edit Profile Button */
-.edit-btn {
-  background: white;
-  border: 1px solid #e0e0e0;
-  padding: 10px 20px;
-  border-radius: 6px;
-  color: #555;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: background 0.2s;
-}
-
-.edit-btn:hover {
-  background-color: #f0f0f0;
-}
-
-.edit-btn .icon {
-  color: #00bcd4; /* Cyan color */
-  font-size: 1.1rem;
-}
-    /* ________________________END HEADER_____________________________ */
-
-    .stat-card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border-bottom: 3px solid transparent;
-    height: 100%;
-}
-
-.icon-box {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    margin-right: 15px;
-    flex-shrink: 0;
-}
-
-.stat-content p {
-    margin: 0;
-    color: #6c757d;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.stat-content h2 {
-    margin: 0;
-    font-weight: 700;
-    font-size: 24px;
-}
-
-/* Specific Border Colors */
-.border-success-bottom { border-bottom-color: #198754; }
-.border-primary-bottom { border-bottom-color: #0d6efd; }
-.border-warning-bottom { border-bottom-color: #ffc107; }
-.border-purple-bottom { border-bottom-color: #d63384; }
-
-/* Light Backgrounds for Icons */
-.bg-success-light { background-color: #e9f7ef; }
-.bg-primary-light { background-color: #e7f1ff; }
-.bg-warning-light { background-color: #fff9e6; }
-.bg-purple-light { background-color: #fceef5; }
-.text-purple { color: #d63384; }
-        
-/* _____________________________________________________ */
-/* Custom Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.applicant-card {
-    transition: background 0.2s;
-}
-
-.applicant-card:last-of-type {
-    border-bottom: none !important;
-}
-
-/* Button Styles */
-.btn-hired {
-    background-color: #008cd1;
-    border: none;
-    font-weight: 500;
-    border-radius: 4px;
-}
-
-.btn-rejected {
-    background-color: #ff3131;
-    border: none;
-    font-weight: 500;
-    border-radius: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* Status Dots */
-.dot {
-    height: 8px;
-    width: 8px;
-    border: 1px solid #28a745;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 5px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .btn-hired, .btn-rejected {
-        width: 100%;
-    }
-}
-/* Rejected Button */
-.btn-rejected {
-    background-color: #FF3131; /* Bright red from your image */
-    border: none;
-    color: white;
-    font-weight: 500;
-    text-transform: capitalize;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-    padding: 6px 16px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.btn-rejected:hover {
-    background-color: #D32F2F; /* Slightly darker on hover */
-    color: white;
-}
-
-/* Ensures the icon looks crisp */
-.btn-rejected i {
-    font-size: 1.1rem;
-    line-height: 1;
-}
-
-    </style>
-</head>
-<body>
-        <!-- ________________________START HEADER_____________________________ -->
+<div class="container-fluid py-4">
     <header class="profile-header">
-  <div class="header-left">
-    <div class="logo-box">
-      <span class="logo-text">Jooble.</span>
-    </div>
-    <div class="user-greeting">
-      <div class="hello-row">
-        <span class="hello-text">Hello,</span>
-        <span class="line"></span>
-      </div>
-      <h1 class="username">Jooble.az</h1>
-    </div>
-  </div>
+        <div class="header-left">
+            <div class="logo-box">Jooble.</div>
+            <div class="user-greeting">
+                <div><span class="hello-text">Hello,</span> <span class="line"></span></div>
+                <h1 class="username">Jooble.az</h1>
+            </div>
+        </div>
+        <button class="edit-btn"><span>📝</span> Edit Profile</button>
+    </header>
 
-  <button class="edit-btn">
-    <span class="icon">📝</span>
-    Edit Profile
-  </button>
-</header>    
-
-    
-    <!-- ________________________END HEADER_____________________________ -->
-    <!-- _________________ end upper counter area__________________________ -->
-
-<body class="bg-light">
-
-<div class="container py-5">
-    <div class="row g-4">
+    <div class="row g-4 mb-4">
         <div class="col-md-3">
             <div class="stat-card border-success-bottom">
-                <div class="icon-box bg-success-light text-success"><i class="fas fa-briefcase"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">Total Jobs</p>
-                    <h2 class="counter" data-target="8">0</h2>
-                </div>
+                <div class="icon-box bg-success-light"><i class="fas fa-briefcase"></i></div>
+                <div class="stat-content"><p class="small text-muted mb-0">Total Jobs</p><h2 class="counter" data-target="8">0</h2></div>
             </div>
         </div>
-
         <div class="col-md-3">
             <div class="stat-card border-primary-bottom">
-                <div class="icon-box bg-primary-light text-primary"><i class="fas fa-search-plus"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">Live Jobs</p>
-                    <h2 class="counter" data-target="6">0</h2>
-                </div>
+                <div class="icon-box bg-primary-light"><i class="fas fa-search-plus"></i></div>
+                <div class="stat-content"><p class="small text-muted mb-0">Live Jobs</p><h2 class="counter" data-target="6">0</h2></div>
             </div>
         </div>
-
         <div class="col-md-3">
             <div class="stat-card border-warning-bottom">
-                <div class="icon-box bg-warning-light text-warning"><i class="fas fa-hourglass-half"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">Pending Jobs</p>
-                    <h2 class="counter" data-target="2">0</h2>
-                </div>
+                <div class="icon-box bg-warning-light"><i class="fas fa-hourglass-half"></i></div>
+                <div class="stat-content"><p class="small text-muted mb-0">Pending Jobs</p><h2 class="counter" data-target="2">0</h2></div>
             </div>
         </div>
-
         <div class="col-md-3">
             <div class="stat-card border-purple-bottom">
-                <div class="icon-box bg-purple-light text-purple"><i class="fas fa-star"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">Featured Jobs</p>
-                    <h2 class="counter" data-target="2">0</h2>
-                </div>
+                <div class="icon-box bg-purple-light"><i class="fas fa-star"></i></div>
+                <div class="stat-content"><p class="small text-muted mb-0">Total Applied</p><h2 class="counter" data-target="4">0</h2></div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-3">
-            <div class="stat-card border-success-bottom">
-                <div class="icon-box bg-success-light text-success"><i class="fas fa-briefcase"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">Total Applied</p>
-                    <h2 class="counter" data-target="4">0</h2>
-                </div>
+    <div id="list-section">
+        <div class="main-card">
+            <div class="p-3 d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold m-0">Recent Applicant List</h6>
+                <select class="form-select form-select-sm w-auto"><option>10 per page</option></select>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="stat-card border-primary-bottom">
-                <div class="icon-box bg-primary-light text-primary"><i class="fas fa-eye"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">Profile Views</p>
-                    <h2 class="counter" data-target="944">0</h2>
-                </div>
+            <div class="row custom-table-header d-none d-md-flex mx-0">
+                <div class="col-md-5">Applicant Info</div>
+                <div class="col-md-3">Job Details</div>
+                <div class="col-md-2 text-center">Status</div>
+                <div class="col-md-2 text-end">Action</div>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="stat-card border-warning-bottom">
-                <div class="icon-box bg-warning-light text-warning"><i class="fas fa-briefcase"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">TOTAL HIRED</p>
-                    <h2 class="counter" data-target="13">0</h2>
-                </div>
+            <div id="table-container">
+                <script>
+                    for(let i=1; i<=5; i++) {
+                        document.write(`
+                        <div class="row applicant-row align-items-center mx-0" id="row-${i}">
+                            <div class="col-md-5 d-flex align-items-center">
+                                <img src="https://i.pravatar.cc/150?u=${i}" class="profile-img me-3">
+                                <div>
+                                    <h6 class="mb-0 fw-bold small name-text">Applicant Name ${i}</h6>
+                                    <p class="mb-0 text-muted email-text" style="font-size: 11px;">user${i}@example.com</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="fw-bold job-text" style="font-size: 12px;">Jooble Tech</div>
+                                <div class="text-muted small">Developer</div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <div class="form-check form-switch d-inline-block">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <div class="dropdown">
+                                    <button class="btn-dots" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item" onclick="viewProfile(${i})"><i class="bi bi-eye text-primary me-2"></i> View</button></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><button class="dropdown-item text-danger"><i class="bi bi-trash me-2"></i> Delete</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        `);
+                    }
+                </script>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="stat-card border-purple-bottom">
-                <div class="icon-box bg-purple-light text-purple"><i class="fas fa-star"></i></div>
-                <div class="stat-content">
-                    <p class="stat-label">Available Featured Job Posts</p>
-                    <h2 class="counter" data-target="4">0</h2>
+            <div class="pagination-container d-flex justify-content-between align-items-center">
+                <div class="text-muted small">Showing 1 to 5 of 20 entries</div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1"><i class="bi bi-chevron-left"></i></a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            </div>
+    </div>
+
+    <div id="view-profile-section">
+        <button class="back-btn" onclick="showList()"><i class="bi bi-arrow-left"></i> Back to List</button>
+        <div class="main-card p-4">
+            <div class="row">
+                <div class="col-md-3 text-center border-end">
+                    <img id="view-img" src="" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                    <h4 id="view-name" class="fw-bold"></h4>
+                    <p id="view-job" class="text-muted"></p>
+                </div>
+                <div class="col-md-9 ps-4">
+                    <h5 class="fw-bold border-bottom pb-2">Personal Information</h5>
+                    <p class="mb-1 text-muted small">Email Address</p>
+                    <p id="info-email" class="fw-bold"></p>
+                    <p class="mb-1 text-muted small mt-3">About</p>
+                    <p>Applicant is highly skilled in modern web technologies...</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-    <!-- _________________ end upper counter area__________________________ -->
-    <!-- _________________ Start down  area__________________________ -->
-<body class="bg-light py-5">
-
-<div class="container bg-white p-4 shadow-sm rounded-3" style="max-width: 900px;">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h5 class="fw-bold m-0">Recent Applicant List:</h5>
-        <div class="d-flex align-items-center">
-            <span class="me-2 text-muted small">Show per page</span>
-            <select class="form-select form-select-sm" style="width: auto;">
-                <option>500</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="applicant-card py-3 border-bottom">
-        <div class="row align-items-center">
-            <div class="col-md-1 col-3">
-                <img src="#" class="rounded img-fluid" alt="profile">
-            </div>
-            <div class="col-md-4 col-9">
-                <h6 class="mb-1 fw-bold">Khandaker Raufur Rahman</h6>
-                <div class="text-muted small mb-1"><i class="bi bi-envelope"></i> MBA</div>
-                <div class="small text-secondary">Applied On: 28 Nov, 2025</div>
-            </div>
-            <div class="col-md-4 mt-2 mt-md-0">
-                <h6 class="mb-1 text-dark">Egens Lab Limited <span class="text-muted small">(Manager)</span></h6>
-                <div class="small text-secondary"><span class="dot green"></span> Experience: 3 Years</div>
-                <div class="small text-secondary"><span class="dot green"></span> Expected Salary: 0 Per Month</div>
-            </div>
-            <div class="col-md-3 text-md-end mt-3 mt-md-0">
-                <button class="btn btn-primary btn-sm px-4 btn-hired">HIRED</button>
-            </div>
-        </div>
-        
-    </div>
-    <!-- ___________________________________________3 -->
-    <br><br>
-        <div class="row align-items-center">
-            <div class="col-md-1 col-3">
-                <img src="#" class="rounded img-fluid" alt="profile">
-            </div>
-            <div class="col-md-4 col-9">
-                <h6 class="mb-1 fw-bold">Khandaker Raufur Rahman</h6>
-                <div class="text-muted small mb-1"><i class="bi bi-envelope"></i> MBA</div>
-                <div class="small text-secondary">Applied On: 28 Nov, 2025</div>
-            </div>
-            <div class="col-md-4 mt-2 mt-md-0">
-                <h6 class="mb-1 text-dark">Egens Lab Limited <span class="text-muted small">(Manager)</span></h6>
-                <div class="small text-secondary"><span class="dot green"></span> Experience: 3 Years</div>
-                <div class="small text-secondary"><span class="dot green"></span> Expected Salary: 0 Per Month</div>
-            </div>
-            <div class="col-md-3 text-md-end mt-3 mt-md-0">
-                <button class="btn btn-primary btn-sm px-4 btn-hired">HIRED</button>
-            </div>
-        </div>
-        <!-- ___________________________________________4 -->
-    <br><br>
-        <div class="row align-items-center">
-            <div class="col-md-1 col-3">
-                <img src="#" class="rounded img-fluid" alt="profile">
-            </div>
-            <div class="col-md-4 col-9">
-                <h6 class="mb-1 fw-bold">Khandaker Raufur Rahman</h6>
-                <div class="text-muted small mb-1"><i class="bi bi-envelope"></i> MBA</div>
-                <div class="small text-secondary">Applied On: 28 Nov, 2025</div>
-            </div>
-            <div class="col-md-4 mt-2 mt-md-0">
-                <h6 class="mb-1 text-dark">Egens Lab Limited <span class="text-muted small">(Manager)</span></h6>
-                <div class="small text-secondary"><span class="dot green"></span> Experience: 3 Years</div>
-                <div class="small text-secondary"><span class="dot green"></span> Expected Salary: 0 Per Month</div>
-            </div>
-            <div class="col-md-3 text-md-end mt-3 mt-md-0">
-                <button class="btn btn-primary btn-sm px-4 btn-hired">HIRED</button>
-            </div>
-        </div>
-        <!-- ___________________________________________5 -->
-    <br><br>
-        <div class="row align-items-center">
-            <div class="col-md-1 col-3">
-                <img src="#" class="rounded img-fluid" alt="profile">
-            </div>
-            <div class="col-md-4 col-9">
-                <h6 class="mb-1 fw-bold">Khandaker Raufur Rahman</h6>
-                <div class="text-muted small mb-1"><i class="bi bi-envelope"></i> MBA</div>
-                <div class="small text-secondary">Applied On: 28 Nov, 2025</div>
-            </div>
-            <div class="col-md-4 mt-2 mt-md-0">
-                <h6 class="mb-1 text-dark">Egens Lab Limited <span class="text-muted small">(Manager)</span></h6>
-                <div class="small text-secondary"><span class="dot green"></span> Experience: 3 Years</div>
-                <div class="small text-secondary"><span class="dot green"></span> Expected Salary: 0 Per Month</div>
-            </div>
-            <div class="col-md-3 text-md-end mt-3 mt-md-0">
-                <button class="btn btn-primary btn-sm px-4 btn-hired">HIRED</button>
-            </div>
-        </div>
-        <!-- ___________________________________________6 -->
-    <br><br>
-        <div class="row align-items-center">
-            <div class="col-md-1 col-3">
-                <img src="#" class="rounded img-fluid" alt="profile">
-            </div>
-            <div class="col-md-4 col-9">
-                <h6 class="mb-1 fw-bold">Khandaker Raufur Rahman</h6>
-                <div class="text-muted small mb-1"><i class="bi bi-envelope"></i> MBA</div>
-                <div class="small text-secondary">Applied On: 28 Nov, 2025</div>
-            </div>
-            <div class="col-md-4 mt-2 mt-md-0">
-                <h6 class="mb-1 text-dark">Egens Lab Limited <span class="text-muted small">(Manager)</span></h6>
-                <div class="small text-secondary"><span class="dot green"></span> Experience: 3 Years</div>
-                <div class="small text-secondary"><span class="dot green"></span> Expected Salary: 0 Per Month</div>
-            </div>
-            <div class="col-md-3 text-md-end mt-3 mt-md-0">
-                <!-- <button class="btn btn-primary btn-sm px-4 btn-hired">HIRED</button> -->
-                <button class="btn btn-danger btn-sm px-3 btn-rejected">
-    <i class="bi bi-x-circle"></i> Rejected
-</button>
-            </div>
-        </div>
-    <div class="mt-4 p-3 bg-white border rounded small text-muted">
-        4 Results Showing In 4 Jobs
-    </div>
-</div>
-    <!-- _________________ End  down area__________________________ -->
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    /* ... (Aapki Toggle Functions aur Counter logic yahan aaye gi) ... */
+    function viewProfile(id) {
+        const row = document.getElementById(`row-${id}`);
+        document.getElementById('view-name').innerText = row.querySelector('.name-text').innerText;
+        document.getElementById('info-email').innerText = row.querySelector('.email-text').innerText;
+        document.getElementById('view-job').innerText = row.querySelector('.job-text').innerText;
+        document.getElementById('view-img').src = row.querySelector('.profile-img').src;
+        document.getElementById('list-section').style.display = 'none';
+        document.getElementById('view-profile-section').style.display = 'block';
+    }
 
-    //_________________________________________
+    function showList() {
+        document.getElementById('list-section').style.display = 'block';
+        document.getElementById('view-profile-section').style.display = 'none';
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
-    const counters = document.querySelectorAll('.counter');
-    const speed = 200; // The higher the number, the slower the animation
-
-    counters.forEach(counter => {
-        const updateCount = () => {
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
             const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText;
-
-            // Calculate increment based on target
-            const inc = target / speed;
-
-            if (count < target) {
-                // Set the value and call again
-                counter.innerText = Math.ceil(count + inc);
-                setTimeout(updateCount, 1);
-            } else {
-                counter.innerText = target;
-            }
-        };
-
-        updateCount();
+            let count = 0;
+            const update = () => {
+                const speed = target / 30;
+                if (count < target) {
+                    count += speed;
+                    counter.innerText = Math.ceil(count);
+                    setTimeout(update, 30);
+                } else { counter.innerText = target; }
+            };
+            update();
+        });
     });
-});
-
-function renderJobs() {
-    const tableBody = document.getElementById('jobTableBody');
-
-    document.getElementById('resultCount').innerText = `${displayData.length} Results Showing In ${filteredData.length} Jobs`;
-}
-
-// Initializing Events
-document.getElementById('searchBtn').addEventListener('click', renderJobs);
-document.getElementById('pageSize').addEventListener('change', renderJobs);
-document.getElementById('titleSearch').addEventListener('input', renderJobs);
-
-// Run on load
-renderJobs();
-
-
-///iner new section______________________
-
-
-
-
 </script>
-
-</body>
-</html>
-
-
-
-
 
 {% endblock %}

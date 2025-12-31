@@ -191,13 +191,13 @@ def admin_dashboard(request):
 def company_category(request):
     return render(request, "portal/admin/admin_company_type.html")
 
-def admin_package_plan(request):
+def packages(request):
     return render(request, "portal/admin/admin_package_plan.html")
 
-def subscription_list(request):
+def subscription(request):
     return render(request, "portal/admin/subscription_list.html")
 
-def admin_candidate(request):
+def candidate(request):
     return render(request, "portal/admin/admin_candidate.html")
 
 def companies(request):
