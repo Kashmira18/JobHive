@@ -22,46 +22,32 @@ def selector(request):
 def navbar(request):
     return render(request, "portal/navbar.html")
 
-
 def footer(request):
     return render(request, "portal/footer.html")
-
 
 def about(request):
     return render(request, "portal/about.html")
 
-
 def find_jobs(request):
     return render(request, "portal/find_jobs.html")
-
-
+# ____________
 def job_list(request):
     return render(request, "portal/job_list.html")
-
 
 def job_details(request):
     return render(request, "portal/job_details.html")
 
-
-# def employers(request):
-#     return render(request, "portal/employers.html")
-
-
 def blog(request):
     return render(request, "portal/blog.html")
-
 
 def blog_detail(request):
     return render(request, "portal/blog_detail.html")
 
-
 def candidates(request):
     return render(request, "portal/candidates.html")
 
-
 def contact(request):
     return render(request, "portal/contact.html")
-
 
 def signin(request):
     if request.method == "POST":
@@ -89,14 +75,9 @@ def signin(request):
 
     return render(request, "portal/signin.html", {"form": form})
 
-# def user_dashboard(request):
-#     return render(request, "portal/user_dashboard.html", {})
-
-
 # def logoutUser(request):
 #     logout(request)
 #     return redirect("login")
-
 
 def signup(request):
     if request.method == "POST":
@@ -120,67 +101,64 @@ def signup(request):
         form = SignupForm()
     return render(request, "portal/signup.html", {"form": form})
 
-
 # @login_required
 def user_registration(request):
     return render(request, "portal/user_registration.html")
 
-
-def company_dashboard(request):
-    return render(request, "portal/company_dashboard.html")
-
+# def company_dashboard(request):
+#     return render(request, "portal/company_dashboard.html")
 
 def company_registration(request):
     return render(request, "portal/company_registration.html")
 
-
-# def candidates(request):
-#     return render(request, "portal/candidates.html")
-
-
 def candidatesdetail(request):
     return render(request, "portal/candidates-detail.html")
-
 
 def candidateslist(request):
     return render(request, "portal/candidates-list.html")
 
-
 def Companylist(request):
     return render(request, "portal/Company-list.html")
 
-
 def companydetail(request):
     return render(request, "portal/company-detail.html")
-
 
 def error_404(request):
     return render(request, "portal/error_404.html")
 
 # COMPANY DASHBOARD VIEWS_______________________
-def company_base_dashboard(request):
-    return render(request, "portal/company/company_base_dashboard.html")
 
-def company_front_dashboard(request):
-    return render(request, "portal/company/company_front_dashboard.html")
+def company_dashboard(request):
+    return render(request, "portal/company/company_first_page.html")
 
-def company_pending_approval(request):
-    return render(request, "portal/company/company_pending_approval.html")
+def first_page(request):
+    return render(request, "portal/company/company_first_page.html")
 
-def company_active_jobs(request):
+# def front(request):
+#     return render(request, "portal/company/company_front_dashboard.html")
+
+def active(request):
     return render(request, "portal/company/company_active_jobs.html")
 
-def company_drafts_jobs(request):
+def drafts(request):
     return render(request, "portal/company/company_drafts_jobs.html")
 
-def company_archived_jobs(request):
-    return render(request, "portal/company/company_archived_jobs.html")
-
-def company_job_list(request):
+def job_lists(request):
     return render(request, "portal/company/company_job_list.html")
 
-def company_my_profile(request):
+def profile(request):
     return render(request, "portal/company/company_my_profile.html")
+
+def messenger(request):
+    return render(request, "portal/company/company_messenger.html")
+
+# def post_job(request):
+#     return render(request, "portal/company/company_post_job.html")
+
+def company_job_post(request):
+    return render(request, "portal/company/company_job_post.html")
+
+
 
 # ADMIN DASHBOARD VIEWS_______________________
 # @role_required(["admin"])
@@ -203,45 +181,41 @@ def candidate(request):
 def companies(request):
     return render(request, "portal/admin/admin_company.html")
 
-def admin_job(request):
+def job(request):
     return render(request, "portal/admin/admin_job.html")
 
-def admin_applicant(request):
+def applicant(request):
     return render(request, "portal/admin/admin_applicant.html")
 
 def admin_category(request):
     return render(request, "portal/admin/admin_category.html")
 
-def admin_job_type(request):
+def job_type(request):
     return render(request, "portal/admin/admin_job_type.html")
 
-def admin_job_skill(request):
+def job_skill(request):
     return render(request, "portal/admin/admin_job_skill.html")
 
-def admin_experience(request):
+def experience(request):
     return render(request, "portal/admin/admin_experience.html")
 
-def admin_staff(request):
+def staff(request):
     return render(request, "portal/admin/admin_staff.html")
 
-def admin_role(request):
+def role(request):
     return render(request, "portal/admin/admin_role.html")
 
-def admin_menu(request):
+def menu(request):
     return render(request, "portal/admin/admin_menu.html")
 
 def admin_frontend(request):
     return render(request, "portal/admin/admin_frontend.html")
 
-def admin_email(request):
+def email(request):
     return render(request, "portal/admin/admin_email.html")
 
 
-
-
-
-
-
+# CANDIDATE DASHBOARD VIEWS_______________________
 def candidate_base(request):
     return render(request, "portal/candidate/candidate_base.html")
 def candidate_front_dashboard(request):

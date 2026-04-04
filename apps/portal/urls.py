@@ -15,7 +15,6 @@ urlpatterns = [
     path("signin/", views.signin, name="signin"),
     path("signup/", views.signup, name="signup"),
     path("admin_dashboard/", views.admin_dashboard, name="admin_dashboard"),
-    # path("user_dashboard/", views.user_dashboard, name="user_dashboard"),
     path("company_dashboard/", views.company_dashboard, name="company_dashboard"),
     path("user_registration/", views.user_registration, name="user_registration"),
     path("company_registration/", views.company_registration, name="company_registration"),
@@ -28,17 +27,21 @@ urlpatterns = [
     path("footer/", views.footer, name="footer"),
     path("error_404/", views.error_404, name="error_404"),
     path("selector/", views.selector, name="selector"),
+    # path("post_job/", views.post_job, name="post_job"),
+
 
     #COMPANY DASHBOARD PATHS_______________________
-    path("company/company_base_dashboard/", views.company_base_dashboard, name="company_base_dashboard"),
-    path("company/company_front_dashboard/", views.company_front_dashboard, name="company_front_dashboard"),
-    path("company/company_pending_approval/", views.company_pending_approval, name="company_pending_approval"),
-    path("company/company_active_jobs/", views.company_active_jobs, name="company_active_jobs"),
-    path("company/company_drafts_jobs/", views.company_drafts_jobs, name="company_drafts_jobs"),
-    path("company/company_archived_jobs/", views.company_archived_jobs, name="company_archived_jobs"),
-    path("company/company_job_list/", views.company_job_list, name="company_job_list"),
-    path("company/company_my_profile/", views.company_my_profile, name="company_my_profile"),
-    # path("company/company_post_new_job/", views.company_post_new_job, name="company_post_new_job"),
+    path("company/company_dashboard/", views.company_dashboard, name="company_dashboard"),
+    path("company/first_page/", views.first_page, name="first_page"),
+    # path("company/front/", views.front, name="front"),
+    path("company/active/", views.active, name="active"),
+    path("company/drafts/", views.drafts, name="drafts"),
+    path("company/job_lists/", views.job_lists, name="job_lists"),
+    path("company/profile/", views.profile, name="profile"),
+    path("company/messenger/", views.messenger, name="messenger"),
+    # path("company/post_job/", views.post_job, name="post_job"),
+    path("company/company_job_post/", views.company_job_post, name="company_job_post"),
+        # path("company/company_post_new_job/", views.company_post_new_job, name="company_post_new_job"),
 
 
     #ADMIN DASHBOARD PATHS_______________________
@@ -48,21 +51,19 @@ urlpatterns = [
     path("admin/candidate", views.candidate, name="candidate"),
     path("admin/packages/", views.packages, name="packages"),
     path("admin/subscription/", views.subscription, name="subscription"),
-    # path("admin/admin_job/", views.admin_job, name="admin_job"),
-    # path("admin/admin_applicant/", views.admin_applicant, name="admin_applicant"),
-    # path("admin/admin_job_type/", views.admin_job_type, name="admin_job_type"),
-    # path("admin/admin_job_skill/", views.admin_job_skill, name="admin_job_skill"),
-    # path("admin/admin_category/", views.admin_category, name="admin_category"),
-    # path("admin/admin_experience/", views.admin_experience, name="admin_experience"),
-    # path("admin/admin_staff/", views.admin_staff, name="admin_staff"),
-    # path("admin/admin_role/", views.admin_role, name="admin_role"),
-    # path("admin/admin_email/", views.admin_email, name="admin_email"),
-    # path("admin/admin_menu/", views.admin_menu, name="admin_menu"),
-    # path("admin/admin_frontend/", views.admin_frontend, name="admin_frontend"),
-    
+    path("admin/job/", views.job, name="job"),
+    path("admin/applicant/", views.applicant, name="applicant"),
+    path("admin/job_type/", views.job_type, name="job_type"),
+    path("admin/admin_category/", views.admin_category, name="admin_category"),
+    path("admin/job_skill/", views.job_skill, name="job_skill"),
+    path("admin/experience/", views.experience, name="experience"),
+    path("admin/staff/", views.staff, name="staff"),
+    path("admin/role/", views.role, name="role"),
+    path("admin/email/", views.email, name="email"),
+    path("admin/menu/", views.menu, name="menu"),
 
 
-
+    # CANDIDATE DASHBOARD PATHS_______________________
     path("candidate/candidate_base/", views.candidate_base, name="candidate_base"),
     path("candidate/candidate_front_dashboard/", views.candidate_front_dashboard, name="candidate_front_dashboard"),
     path("candidate/candidate_edit_profile/", views.candidate_edit_profile, name="candidate_edit_profile"),

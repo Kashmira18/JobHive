@@ -85,23 +85,23 @@
                                                         href="{% url 'job_details' %}"><span>Job
                                                             Details</span></a></li>
                                                 <li><a
-                                                        href="{% url 'company_registration' %}"><span>Post
+                                                        href="#"><span>Post
                                                             a Job
                                                         </span></a></li>
                                             </ul>
                                         </li>
                                         <!-- == Candidate dropdown  == -->
                                         <li class="has-submenu"><a
-                                                href="{% url 'candidates-list'%}"><span>Candidates</span></a>
+                                                href="{% url 'candidates-detail'%}"><span>Candidates</span></a>
                                             <ul class="submenu-nav">
-                                                <li><a
+                                                <!-- <li><a
                                                         href="{% url 'candidates-list'%}"><span>Candidates
-                                                            list</span></a></li>
+                                                            list</span></a></li> -->
                                                 <li><a
                                                         href="{% url 'candidates-detail'%}"><span>Candidate
                                                             Details</span></a></li>
                                                 <li><a
-                                                        href="#"><span>Candidate
+                                                        href="{% url 'candidate_front_dashboard' %}"><span>Candidate
                                                             Dashboard</span></a></li>
                                                 <li><a
                                                         href="{% url 'find_jobs' %}"><span>submit
@@ -143,7 +143,7 @@
                                                         href="{% url 'about' %}"><span>About
                                                             us</span></a></li>
                                                 <li><a
-                                                        href="{% url 'company_base_dashboard'%}"><span>Login</span></a></li>
+                                                        href="{% url 'company_dashboard'%}"><span>Login</span></a></li>
                                                 <li><a
                                                         href="{% url 'selector'%}"><span>Registration</span></a></li>
                                                 <li><a
