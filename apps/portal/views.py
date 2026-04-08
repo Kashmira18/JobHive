@@ -120,6 +120,8 @@ def signup(request):
         form = SignupForm()
     return render(request, "portal/signup.html", {"form": form})
 
+def forgotpassword(request):
+    return render(request, "portal/forgotpassword.html")
 
 # @login_required
 def user_registration(request):

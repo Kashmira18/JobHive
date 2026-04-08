@@ -15,10 +15,10 @@ body {
     /* margin-top: 40%; */
     margin: 0;
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: var(--bg-dark);
+    background-color: var(--bg-dark);
     color: #fff;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
     overflow-x: hidden;
 }
 
@@ -60,10 +60,12 @@ body {
 }
 
 .logo .mark {
-    width: 54px;
-    height: 54px;
+    width: 105px;
+    height: 45px;
+    /* width: 54px;
+    height: 54px; */
     border-radius: 12px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    /* background: linear-gradient(135deg, var(--accent), var(--accent-2)); */
     box-shadow: 0 6px 30px rgba(26, 196, 248, 0.16), 0 0 40px rgba(13, 110, 253, 0.06) inset;
     display: flex;
     align-items: center;
@@ -114,7 +116,7 @@ body {
     width: 360px;
     height: 360px;
     right: 60px;
-    top: 40px;
+    top: -40px;
     background: linear-gradient(120deg, rgba(26, 196, 248, 0.9), rgba(13, 110, 253, 0.9));
     animation-duration: 18s;
 }
@@ -157,7 +159,9 @@ body {
     align-items: center;
     justify-content: center;
     padding: 60px;
-    background: linear-gradient(180deg, rgba(12, 8, 33, 0.55) 12%, rgba(7, 5, 28, 0.45) 100%);
+    /* background: linear-gradient(180deg, rgba(12, 8, 33, 0.55) 0%, rgba(7, 5, 28, 0.45) 100%); */
+    background: linear-gradient(180deg, rgba(7, 5, 28, 1) 0%, rgba(12, 9, 40, 1) 100%);
+    /* background: linear-gradient(180deg, rgba(12, 8, 33, 0.55) 12%, rgba(7, 5, 28, 0.45) 100%); */
 }
 
 .card-pro {
@@ -274,7 +278,7 @@ body {
 .password-field .toggle-eye {
     position: absolute;
     right: 17px;
-    top: 55px;
+    top: 45px;
     transform: translateY(-50%);
     font-size: 18px;
     color: var(--muted);
