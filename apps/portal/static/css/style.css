@@ -412,23 +412,23 @@ body {
 }
 
 /* Section Title Styling */
-.section-title {
+/* .section-title {
     font-size: 1.5rem;
     font-weight: 800;
     position: relative;
     padding-bottom: 10px;
-}
+} */
 
 /* Custom Underline for the Title */
-.section-title::before {
+/* .section-title::before {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: 70px;
+    left: 390px;
     width: 30%;
     height: 3px;
     background-color: #007bff;
-}
+} */
 
 /* Company Card Styling */
 .company-card-link {
@@ -453,10 +453,8 @@ body {
     letter-spacing: 0.5px;
     padding: 8px 15px;
     pointer-events: none;
-    /* Ensure the parent <a> handles the click */
     color: white;
     background-color: #012c57;
-    /* Default Dark color */
     border: 1px solid #012c57;
     transition: all 0.2s;
 }
@@ -513,10 +511,8 @@ body {
     font-size: 0.7rem;
     letter-spacing: 0.5px;
     padding: 8px 15px;
-    /* Use pointer-events: none to ensure the parent <a> handles the click */
     pointer-events: none;
     color: white;
-    /* Ensure text is white */
 }
 
 /* Navigation Arrows (for the desktop view) */
@@ -583,7 +579,6 @@ body {
 
     background-color: #f5f7fa;
     padding: 100px 0;
-
     font-family: "Poppins", sans-serif;
 }
 
@@ -627,13 +622,7 @@ body {
 .company-info .logo img {
     border-radius: 12px;
     background: #f2f2f2;
-    /* padding: 6px; */
 }
-
-/* 
-.company-info .content {
-    margin-left: 15px;
-} */
 
 .company-info .name a {
     font-size: 18px;
@@ -759,17 +748,14 @@ body {
     }
 }
 
-/* Vertical movement for shapes 3 and 4 */
 @keyframes moveUpDown {
 
     0%,
     100% {
         transform: translateY(0);
-        /* Start and end position (no vertical offset) */
     }
 
     50% {
-        /* Move 20px up at the midpoint */
         transform: translateY(-20px);
     }
 }
@@ -777,30 +763,24 @@ body {
 /* --- BASE CONTAINER & IMAGE STYLES --- */
 
 .home-slider-shape {
-    /* Set the container to act as the positioning context for the shapes */
     position: relative;
     width: 100%;
     min-height: 250px;
-    /* Example height; adjust based on parent container */
 }
 
 .home-slider-shape img {
-    /* Common styling for all shapes */
     position: absolute;
     z-index: 5;
     opacity: 0.8;
 }
 
-/* --- SPECIFIC SHAPE POSITIONS AND ANIMATIONS --- */
+/* --- SHAPE POSITIONS  --- */
 
 .shape1 {
-    /* Position: Changed to FIXED to be relative to the viewport (webpage) */
     position: fixed;
     top: 50px;
     right: 100px;
-    /* Slightly offset from the corner */
     left: auto;
-    /* Animation */
     animation: slideInOut 4s ease-in-out infinite alternate;
 }
 
@@ -808,20 +788,17 @@ body {
     position: fixed;
     top: 50px;
     right: 20px;
-    /* Closer to the corner */
     bottom: auto;
     animation: slideInOut 5s ease-in-out infinite alternate;
 }
 
 .shape3 {
-    /* Position */
     top: 40%;
     right: 2%;
     animation: moveUpDown 6s ease-in-out infinite alternate;
 }
 
 .shape4 {
-    /* Position */
     bottom: 20%;
     left: 30%;
     animation: moveUpDown 4.5s ease-in-out infinite alternate;
@@ -844,13 +821,13 @@ body {
 }
 
 /* Title Divider (the thin colored line) */
-.title-divider {
+/* .title-divider {
     width: 40px;
     height: 3px;
     margin: 0 auto 1.5rem;
-}
+} */
 
-/* --- 1. Employer Card (Left - White & Blue) --- */
+/* --- Employer Card  --- */
 .employer-card {
     background-color: white;
 }
@@ -867,19 +844,17 @@ body {
     border-color: #0087c2 !important;
 }
 
-/* Set icon stroke color for employer card (matching button blue) */
 .employer-card .icon-box svg {
     stroke: #00a2e8;
 }
 
-/* --- 2. Candidate Card (Right - Dark Blue & Red) --- */
+/* ---  Candidate Card  --- */
 .candidate-card {
     background-color: #333a4d;
     color: white;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Candidate Button (Red/Pink) */
 .candidate-btn {
     background-color: #ed5566 !important;
     border-color: #ed5566 !important;
@@ -910,16 +885,13 @@ body {
     height: 50px;
     background-color: white;
     border-color: #c0c0c0 !important;
-    /* Light gray border */
 }
 
-/* Hide the OR divider on smaller screens for cleaner stacking */
 @media (max-width: 991.98px) {
     .or-divider {
         display: none !important;
     }
 
-    /* Add spacing when cards stack vertically */
     .candidate-card {
         margin-top: 15px;
     }

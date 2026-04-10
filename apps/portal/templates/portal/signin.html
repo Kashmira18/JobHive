@@ -173,13 +173,9 @@
     </div>
 
     <!-- Bootstrap JS (optional but safe) -->
-    <!-- <script src="{% static 'js/signin.js'%}"></script> -->
     <script> 
       // 1. Redirection Logic after successful Login
 document.getElementById('loginForm').addEventListener('submit', function(e) {
-    // We let the form submit to Django first. 
-    // This logic usually lives in your views.py, 
-    // but if you are using AJAX, here is the JS structure:
     
     const userRole = "{{ request.user.user_role }}"; // Assuming you pass this from context
     const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
@@ -198,10 +194,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 // 2. Google Sign-In Setup
 function handleCredentialResponse(response) {
     console.log("Encoded JWT ID token: " + response.credential);
-    // Here you would send the 'response.credential' to your Django backend 
-    // to verify the user and log them in.
-    
-    // Example: fetch('/auth/google/', { method: 'POST', body: response.credential })
 }
 
 window.onload = function () {
@@ -212,7 +204,7 @@ window.onload = function () {
     
     const googleBtn = document.getElementById('btn-google');
     googleBtn.onclick = () => {
-        google.accounts.id.prompt(); // Displays the One Tap prompt
+        google.accounts.id.prompt(); 
     };
 };
 

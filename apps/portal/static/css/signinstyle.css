@@ -1,10 +1,7 @@
 :root {
     --bg-dark: #0f0c2e;
-    /* deep navy */
     --accent: #1ac4f8;
-    /* cyan-blue accent */
     --accent-2: #0d6efd;
-    /* bootstrap-blue */
     --card-bg: rgba(255, 255, 255, 0.96);
     --muted: #98a0b3;
     --glass: rgba(255, 255, 255, 0.06);

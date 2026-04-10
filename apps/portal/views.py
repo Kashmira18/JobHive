@@ -158,6 +158,9 @@ def messenger(request):
 def company_job_post(request):
     return render(request, "portal/company/company_job_post.html")
 
+def setting(request):
+    return render(request, "portal/company/company_account_setting.html")
+
 
 
 # ADMIN DASHBOARD VIEWS_______________________

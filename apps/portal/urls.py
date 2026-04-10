@@ -41,8 +41,8 @@ urlpatterns = [
     path("company/messenger/", views.messenger, name="messenger"),
     # path("company/post_job/", views.post_job, name="post_job"),
     path("company/company_job_post/", views.company_job_post, name="company_job_post"),
-        # path("company/company_post_new_job/", views.company_post_new_job, name="company_post_new_job"),
-
+    # path("company/logout/", views.logout_view, name="logout_view"),
+    path("company/setting/", views.setting, name="setting"),
 
     #ADMIN DASHBOARD PATHS_______________________
     path("admin/dashboard/", views.admin_dashboard, name="admin_dashboard"),
