@@ -14,6 +14,7 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("signin/", views.signin, name="signin"),
     path("signup/", views.signup, name="signup"),
+    path("forgotpassword/", views.forgotpassword, name="forgotpassword"),
     path("admin_dashboard/", views.admin_dashboard, name="admin_dashboard"),
     path("company_dashboard/", views.company_dashboard, name="company_dashboard"),
     path("user_registration/", views.user_registration, name="user_registration"),
@@ -64,6 +65,19 @@ urlpatterns = [
 
 
     # CANDIDATE DASHBOARD PATHS_______________________
+    path("candidate/candidate_base/", views.candidate_base, name="candidate_base"),
+    path("candidate/candidate_front_dashboard/", views.candidate_front_dashboard, name="candidate_front_dashboard"),
+    path("candidate/candidate_edit_profile/", views.candidate_edit_profile, name="candidate_edit_profile"),
+    path("candidate/bookmark_jobs/", views.bookmark_jobs, name="bookmark_jobs"),
+    path("candidate/applied_jobs/", views.applied_jobs, name="applied_jobs"),
+    path("candidate/candidate_edit_resume/", views.candidate_edit_resume, name="candidate_edit_resume"),
+    path("candidate/job_alert/", views.job_alert, name="job_alert"),
+    path("candidate/candidate_notifications/", views.candidate_notifications, name="candidate_notifications"),
+    path("candidate/candidate_view_resume/", views.candidate_view_resume, name="candidate_view_resume"),
+    
+
+
+
     path("candidate/candidate_base/", views.candidate_base, name="candidate_base"),
     path("candidate/candidate_front_dashboard/", views.candidate_front_dashboard, name="candidate_front_dashboard"),
     path("candidate/candidate_edit_profile/", views.candidate_edit_profile, name="candidate_edit_profile"),
