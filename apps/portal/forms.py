@@ -106,3 +106,4 @@ class SignupForm(forms.ModelForm):
 
 # Note: In a real-world application, this form would typically be a ModelForm
 # linked to a UserProfile model.
+

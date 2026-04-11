@@ -9,3 +9,4 @@ def home(request):
     return render(request, "candidate/candidate_dashboard.html")
 def dashboard(request):
     return render(request, "candidate/dashboard.html")
+

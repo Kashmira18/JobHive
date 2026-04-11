@@ -26,3 +26,4 @@ urlpatterns = [
     path("", include("apps.candidate.urls", namespace="candidate")),
     path("", include("apps.company.urls", namespace="company")),
 ]
+
