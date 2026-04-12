@@ -126,6 +126,9 @@ def companydetail(request):
 def error_404(request):
     return render(request, "portal/error_404.html")
 
+def forgotpassword(request):
+    return render(request, "portal/forgotpassword.html")
+
 # COMPANY DASHBOARD VIEWS_______________________
 
 def company_dashboard(request):
