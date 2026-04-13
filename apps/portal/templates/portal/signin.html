@@ -95,13 +95,10 @@
             </button> -->
         </div>
 
-    <!-- Bootstrap JS (optional but safe) -->
-    <script> 
-      // 1. Redirection Logic after successful Login
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    
-    const userRole = "{{ request.user.user_role }}"; // Assuming you pass this from context
-    const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
+        <div class="divider">
+          <hr><span>or use your email</span>
+          <hr>
+        </div>
 
         <form method="POST" id="loginForm" novalidate>
           {%csrf_token%}
@@ -190,22 +187,11 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
       // Example: fetch('/auth/google/', { method: 'POST', body: response.credential })
     }
 
-// 2. Google Sign-In Setup
-function handleCredentialResponse(response) {
-    console.log("Encoded JWT ID token: " + response.credential);
-}
-
-window.onload = function () {
-    google.accounts.id.initialize({
+    window.onload = function () {
+      google.accounts.id.initialize({
         client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
         callback: handleCredentialResponse
-    });
-    
-    const googleBtn = document.getElementById('btn-google');
-    googleBtn.onclick = () => {
-        google.accounts.id.prompt(); 
-    };
-};
+      });
 
       const googleBtn = document.getElementById('btn-google');
       googleBtn.onclick = () => {
