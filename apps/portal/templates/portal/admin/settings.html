@@ -1,0 +1,80 @@
+{% extends 'portal/admin/admin_layout.html' %}
+{% block content %}
+<div class='container-fluid py-4'>
+<style>body{background:#f4f6f9}
+.tabbtn{border-radius:30px;
+padding:12px 24px;
+margin:4px;border:0;
+background:#fff;
+font-weight:600;
+transition:.3s}
+.tabbtn:hover{
+background:#0d6efd;
+color:#fff;
+transform:translateY(-2px)}
+.section{display:none}
+.section.active{display:block}
+.cardx{border:0;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+.form-control,
+.form-select{border-radius:12px;padding:12px}
+.btn{border-radius:12px;padding:10px 22px}
+.title{color:#0d6efd}</style>
+<div class='mb-4'>
+<button class='tabbtn' onclick="showTab('profile')">Admin Profile</button>
+<button class='tabbtn' onclick="showTab('security')">Security</button>
+<button class='tabbtn' onclick="showTab('notifications')">Notifications</button>
+</div>
+
+<div id='profile' class='section active'>
+<div class='card cardx p-4'><h4 class='fw-bold mb-3'>Admin Profile</h4><div class='row g-3'>
+<div class='col-md-6'><input class='form-control' placeholder='Full Name'></div>
+<div class='col-md-6'><input class='form-control' placeholder='Username'></div>
+<div class='col-md-6'><input class='form-control' placeholder='Email'></div>
+<div class='col-md-6'><input class='form-control' placeholder='Phone'></div>
+<div class='col-md-6'><input class='form-control' placeholder='Department'></div>
+<div class='col-md-6'><select class='form-select'><option>Super Admin</option><option>Moderator</option></select></div>
+<div class='col-md-12'><input type='file' class='form-control'></div>
+<div class='col-md-12 text-end'><button class='btn btn-success'>Update Profile</button></div></div></div></div>
+
+<div id='security' class='section'>
+<div class='card cardx p-4'><h4 class='fw-bold mb-4 title'>Security Settings</h4><div class='row g-3'>
+<div class='col-md-4'><input type='password' class='form-control' placeholder='Current Password'></div>
+<div class='col-md-4'><input type='password' class='form-control' placeholder='New Password'></div>
+<div class='col-md-4'><input type='password' class='form-control' placeholder='Confirm Password'></div>
+<div class='col-md-6'><div class='form-check form-switch mt-2'><input class='form-check-input' type='checkbox' checked> <label class='form-check-label ms-2'>Two Factor Authentication</label></div></div>
+<div class='col-md-6'><input class='form-control' placeholder='Mobile Number for OTP'></div>
+<div class='col-md-6'><input class='form-control' placeholder='Recovery Email'></div>
+<div class='col-md-6'><select class='form-select'><option>Session Timeout - 15 Minutes</option><option>30 Minutes</option><option>1 Hour</option></select></div>
+<div class='col-md-6'><div class='form-check form-switch mt-2'><input class='form-check-input' type='checkbox' checked> <label class='form-check-label ms-2'>Login Alerts</label></div></div>
+<div class='col-md-6'><div class='form-check form-switch mt-2'><input class='form-check-input' type='checkbox'> <label class='form-check-label ms-2'>Unknown Device Block</label></div></div>
+<div class='col-md-12'><textarea class='form-control' rows='3' placeholder='Recent Devices / Login History'></textarea></div>
+<div class='col-md-12 text-end'><button class='btn btn-primary'>Update Security</button></div></div></div>
+</div>
+
+<div id='notifications' class='section'>
+<div class='card cardx p-4'><h4 class='fw-bold mb-4 title'>Notifications</h4>
+<div class='row'>
+<div class='col-md-6'><div class='form-check mb-2'><input class='form-check-input' type='checkbox' checked> New Employer Signup</div><div class='form-check mb-2'><input class='form-check-input' type='checkbox' checked> New Job Posted</div><div class='form-check mb-2'><input class='form-check-input' type='checkbox' checked> New Applicant Applied</div><div class='form-check mb-2'><input class='form-check-input' type='checkbox' checked> Job Expiry Alerts</div></div>
+<div class='col-md-6'><div class='form-check mb-2'><input class='form-check-input' type='checkbox' checked> Contact Messages</div><div class='form-check mb-2'><input class='form-check-input' type='checkbox' checked> Security Alerts</div><div class='form-check mb-2'><input class='form-check-input' type='checkbox'> Weekly Reports</div><div class='form-check mb-2'><input class='form-check-input' type='checkbox' checked> Complaint Alerts</div></div>
+</div><div class='text-end mt-3'><button class='btn btn-success'>Save Notifications</button></div></div></div>
+
+</div>
+
+<!-- Developer formatted cleanup -->
+<script>
+function showTab(id) {
+    const sections = document.querySelectorAll('.section');
+
+    sections.forEach(function(section) {
+        section.classList.remove('active');
+    });
+
+    const target = document.getElementById(id);
+
+    if (target) {
+        target.classList.add('active');
+    }
+}
+</script>
+</div>
+{% endblock %}
