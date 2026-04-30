@@ -1,228 +1,525 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}Admin Panel{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+<meta charset="UTF-8" />
+<title>{% block title %}Admin Panel{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Icons -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    {% block extra_css %}{% endblock %}
+{% block extra_css %}{% endblock %}
 
-    <style>
-      /* ===== YOUR ORIGINAL CSS (UNCHANGED) ===== */
-      body {
-        margin: 0;
-        background: #f4f6f9;
-        font-family: "Segoe UI", sans-serif;
-      }
-      .sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 280px;
-        height: 100vh;
-        background: #141517;
-        padding: 15px;
-        transition: 0.3s;
-        overflow-y: auto;
-      }
-      .sidebar.collapsed {
-        width: 90px;
-      }
-      .logo {
-        
-        font-size: 22px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        width: 100%;
-      }
-      .sidebar.collapsed .menu-item span {
-        display: none;
-      }
-      .sidebar.collapsed .menu-item {
-        padding: 16px 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .sidebar.collapsed .menu-item i {
-        font-size: 22px;
-      }
-      .sidebar.collapsed .logo span {
-        display: none;
-      }
-      .menu-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      .sidebar.collapsed .menu-grid {
-        grid-template-columns: 1fr;
-      }
-      .menu-item {
-        background: #1d1f23;
-        border-radius: 8px;
-        padding: 16px 10px;
-        text-align: center;
-        cursor: pointer;
-        color: #cfd2d6;
-        transition: 0.3s;
-      }
-      .menu-item i {
-        font-size: 20px;
-        display: block;
-      }
-      .menu-item span {
-        font-size: 13px;
-      }
-      .menu-item:hover,
-      .menu-item.active {
-        background: #0d6efd;
-        color: #fff;
-      }
-      .section-title {
-        font-size: 12px;
-        color: #7b7f86;
-        margin: 18px 5px 10px;
-      }
-      .main {
-        margin-left: 300px;
-        padding: 25px;
-        transition: 0.3s;
-      }
-      .sidebar.collapsed ~ .main {
-        margin-left: 110px;
-      }
-      .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-      @media (max-width: 768px) {
-        .sidebar {
-          left: -280px;
-        }
-        .sidebar.show {
-          left: 0;
-        }
-        .main {
-          margin-left: 0;
-        }
-      }
-    </style>
-  </head>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    font-family:Segoe UI,sans-serif;
+    background:#eef1f5;
+}
 
-  <body>
-    <!-- SIDEBAR -->
-    <div class="sidebar" id="sidebar">
-      <img class="logo" src="{% static 'images\logo_JobHive1.png' %}"></img>
+/* ===== TOP NAVBAR ===== */
+.top-navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:78px;
+    background:#1f3147;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
 
-      <div class="menu-grid">
-        <a href="{% url 'admin_dashboard' %}" class="menu-item ">
-          <i class="bi bi-house"></i><span>Dashboard</span>
-        </a>
+.left-top{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
 
-        <a href="{% url 'company_category' %}" class="menu-item">
-          <i class="bi bi-building"></i><span>Company Type</span>
-        </a>
+.logo{
+    height:52px;
+    width:auto;
+}
 
-        <a href="{% url 'companies' %}" class="menu-item">
-          <i class="bi bi-building"></i><span>Company</span>
-        </a>
+.menu-btn{
+    color:#fff;
+    font-size:26px;
+    cursor:pointer;
+    border:none;
+    background:none;
+}
 
-        <a href="{% url 'candidate' %}" class="menu-item">
-          <i class="bi bi-people"></i><span>Candidate</span>
-        </a>
+.page-name{
+    color:#fff;
+    font-size:22px;
+    font-weight:600;
+}
 
-        <a href="{% url 'packages' %}" class="menu-item">
-          <i class="bi bi-box"></i><span>Package Plan</span>
-        </a>
+/* right navbar */
+.right-top{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
 
-        <a href="{% url 'subscription' %}" class="menu-item">
-          <i class="bi bi-credit-card"></i><span>Subscription</span>
-        </a>
-      </div>
+.nav-icon{
+    color:#fff;
+    font-size:20px;
+    position:relative;
+    cursor:pointer;
+}
+.nav-icon span{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    width:8px;
+    height:8px;
+    background:#ff4d4d;
+    border-radius:50%;
+}
 
-      <p class="section-title">MANAGE JOB</p>
-      <div class="menu-grid">
-        <a href="{% url 'job' %}" class="menu-item"><i class="bi bi-bag"></i><span>Jobs</span></a>
-        <a href="{% url 'applicant' %}" class="menu-item">
-          <i class="bi bi-person"></i><span>Job Applicant</span>
-        </a>
-        <a href="{% url 'job_type' %}" class="menu-item">
-          <i class="bi bi-tags"></i><span>Job Type</span>
-      </a>
-        <a href="{% url 'admin_category' %}" class="menu-item">
-          <i class="bi bi-diagram-3"></i><span>Job Category</span>
-    </a>
-        <a href="{% url 'job_skill' %}" class="menu-item">
-          <i class="bi bi-bar-chart"></i><span>Job Skill</span>
-  </a>
-        <a href="{% url 'experience' %}" class="menu-item">
-          <i class="bi bi-clock"></i><span>Experience</span>
-</a>
-      </div>
+.profile-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+}
 
-      <p class="section-title">MANAGE Staff</p>
-      <div class="menu-grid">
-        <a href="{% url 'staff' %}" class="menu-item">
-          <i class="bi bi-person"></i><span>Staff List</span>
-      </a>
-        <a href="{% url 'role' %}" class="menu-item">
-          <i class="bi bi-shield-lock"></i><span>Role & Permission</span>
-    </a>
-      </div>
+.profile-circle{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#2bb6f0;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
 
-      <p class="section-title">APPEARANCE</p>
-      <div class="menu-grid">
-        <a href="{% url 'email' %}" class="menu-item">
-          <i class="bi bi-envelope"></i><span>Email Template</span>
-      </a>
-        <a href="{% url 'menu' %}" class="menu-item">
-          <i class="bi bi-list"></i><span>Menu</span>
-    </a>
-    <a href="#" class="menu-item">
-          <i class="fas fa-sign-out-alt"></i><span>Logout</span>
-    </a>
-      </div>
-    </div>
+.profile-text{
+    color:#fff;
+    line-height:1.2;
+}
+.profile-text small{
+    color:#cfd9e4;
+}
 
-    <!-- MAIN -->
-    <div class="main">
-      <!-- TOPBAR -->
-      <div class="topbar">
-        <button class="btn btn-outline-primary btn-sm" id="toggleSidebar">
-          <i class="bi bi-list"></i>
+/* notification dropdown */
+.notification-box{
+    width: 380px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.nav-icon span{
+    width: 10px;
+    height: 10px;
+    background: #dc3545;
+    border-radius: 50%;
+    display: block !important;
+    padding: 0 !important;
+    min-width: unset !important;
+    font-size: 0;
+    top: 6px !important;
+    right: -2px;
+    left: auto !important;
+    transform: none !important;
+    position: absolute;
+}
+
+.notify-header{
+    border-bottom: 1px solid #eee;
+}
+
+.notify-item{
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.notify-item h6{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.notify-item p{
+    font-size: 14px;
+    margin: 0;
+}
+
+.notify-item small{
+    font-size: 13px;
+}
+
+.icon{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.icon.blue{
+    background: #e8f3ff;
+    color: #1e88ff;
+}
+
+.icon.yellow{
+    background: #fff4d6;
+    color: #f4b400;
+}
+
+.icon.green{
+    background: #e5f8ea;
+    color: #28a745;
+}
+
+
+.view-all:hover{
+    background: #f8f9fa;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    position:fixed;
+    top:78px;
+    left:0;
+    width:270px;
+    height:calc(100vh - 78px);
+    background:#24384e;
+    overflow-y:auto;
+    transition:.3s;
+}
+
+.sidebar.collapsed{
+    width:85px;
+}
+
+.sidebar.collapsed .menu-text,
+.sidebar.collapsed .section-title{
+    display:none;
+}
+
+.sidebar.collapsed .menu-link{
+    justify-content:center;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.section-title{
+    color:#9fb3c8;
+    font-size:13px;
+    padding:22px 24px 8px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.menu-link{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 24px;
+    color:#fff;
+    text-decoration:none;
+    transition:.3s;
+    border-left:4px solid transparent;
+}
+
+.menu-link i{
+    font-size:18px;
+    width:22px;
+}
+
+.menu-link:hover,
+.menu-link.active{
+    background:#344c66;
+    border-left:4px solid #25c6ff;
+    color:#25c6ff;
+}
+
+/* ===== MAIN ===== */
+.main{
+    margin-left:270px;
+    margin-top:78px;
+    padding:30px;
+    transition:.3s;
+}
+
+.sidebar.collapsed ~ .main{
+    margin-left:85px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:992px){
+    .sidebar{
+        left:-270px;
+    }
+    .sidebar.show{
+        left:0;
+    }
+    .main{
+        margin-left:0;
+    }
+    .page-name{
+        font-size:14px;
+    }
+    .profile-text{
+        display:none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== TOP NAVBAR ===== -->
+<div class="top-navbar">
+
+    <div class="left-top">
+        <img src="{% static 'images/Jobhive logo final.png' %}" class="logo">
+
+        <button class="menu-btn" id="toggleSidebar">
+            <i class="bi bi-list"></i>
         </button>
-        <h5>{% block page_title %}Dashboard{% endblock %}</h5>
-      </div>
 
-      <!-- PAGE CONTENT -->
-      {% block content %}{% endblock %}
+        <div class="page-name">{% block page_title %}Admin Dashboard{% endblock %}</div>
     </div>
+
+    <div class="right-top">
+
+        <!-- Notification Dropdown -->
+        <div class="dropdown">
+    <div class="nav-icon position-relative" data-bs-toggle="dropdown" style="cursor:pointer;">
+        <i class="bi bi-bell-fill"></i>
+        <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle px-2">
+            3
+        </span>
+    </div>
+
+    <ul class="dropdown-menu dropdown-menu-end p-0 border-0 shadow notification-box">
+        
+        <!-- Header -->
+        <li class="notify-header d-flex justify-content-between align-items-center px-3 py-3">
+            <h6 class="mb-0 fw-bold">Notifications</h6>
+            <span class="badge bg-danger rounded-pill">3 New</span>
+        </li>
+
+        <!-- Item 1 -->
+        <li class="notify-item d-flex align-items-start px-3 py-3">
+            <div class="icon blue me-3">
+                <i class="bi bi-briefcase-fill"></i>
+            </div>
+            <div>
+                <h6 class="mb-1">New Job Application</h6>
+                <p class="mb-1 small text-muted">Alice applied for Senior Dev position.</p>
+                <small class="text-muted">10 mins ago</small>
+            </div>
+        </li>
+
+        <!-- Item 2 -->
+        <li class="notify-item d-flex align-items-start px-3 py-3">
+            <div class="icon yellow me-3">
+                <i class="bi bi-clock-fill"></i>
+            </div>
+            <div>
+                <h6 class="mb-1">Interview Scheduled</h6>
+                <p class="mb-1 small text-muted">Interview with John at 3 PM tomorrow.</p>
+                <small class="text-muted">1 hour ago</small>
+            </div>
+        </li>
+
+        <!-- Item 3 -->
+        <li class="notify-item d-flex align-items-start px-3 py-3">
+            <div class="icon green me-3">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <div>
+                <h6 class="mb-1">Job Approved</h6>
+                <p class="mb-1 small text-muted">Your job post has been approved.</p>
+                <small class="text-muted">2 hours ago</small>
+            </div>
+        </li>
+
+        <!-- Footer -->
+        <li>
+            <a href="#" class="view-all text-center d-block py-3 fw-bold text-primary text-decoration-none">
+                View All Notifications
+            </a>
+        </li>
+    </ul>
+</div>
+
+        <!-- Profile Dropdown -->
+        <div class="dropdown">
+            <div class="profile-box" data-bs-toggle="dropdown">
+                <div class="profile-text">
+                    Faiqa Eman<br>
+                    <small>Admin Profile</small>
+                </div>
+                <div class="profile-circle">FE</div>
+                <i class="bi bi-chevron-down text-white"></i>
+            </div>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="{% url 'settings' %}">
+                        <i class="bi bi-person me-2"></i>Profile
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item"  href="{% url 'settings' %}">
+                        <i class="bi bi-gear me-2"></i>Settings
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+                    <a class="dropdown-item text-danger" href="#">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar" id="sidebar">
+
+    <div class="section-title">MAIN</div>
+    <ul>
+        <li>
+            <a href="{% url 'admin_dashboard' %}" class="menu-link ">
+                <i class="bi bi-house-fill"></i>
+                <span class="menu-text">Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'company_category' %}" class="menu-link">
+                <i class="bi bi-building"></i>
+                <span class="menu-text">Company Type</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'companies' %}" class="menu-link">
+                <i class="bi bi-buildings"></i>
+                <span class="menu-text">Company</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'candidate' %}" class="menu-link">
+                <i class="bi bi-people-fill"></i>
+                <span class="menu-text">Candidate</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="section-title">MANAGE JOB</div>
+    <ul>
+        <li>
+            <a href="{% url 'job' %}" class="menu-link">
+                <i class="bi bi-briefcase-fill"></i>
+                <span class="menu-text">Jobs</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'job_type' %}" class="menu-link">
+                <i class="bi bi-tags-fill"></i>
+                <span class="menu-text">Job Type</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'admin_category' %}" class="menu-link">
+                <i class="bi bi-grid-fill"></i>
+                <span class="menu-text">Job Category</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="section-title">MANAGE STAFF</div>
+    <ul>
+        <li>
+            <a href="{% url 'staff' %}" class="menu-link">
+                <i class="bi bi-person-badge-fill"></i>
+                <span class="menu-text">User List</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'role' %}" class="menu-link">
+                <i class="bi bi-shield-lock-fill"></i>
+                <span class="menu-text">Role & Permission</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="section-title">APPEARANCE</div>
+    <ul>
+        <li>
+            <a href="{% url 'email' %}" class="menu-link">
+                <i class="bi bi-envelope-fill"></i>
+                <span class="menu-text">Email Template</span>
+            </a>
+        </li>
+        
+        <li>
+            <a href="#" class="menu-link">
+                <i class="bi bi-box-arrow-right"></i>
+                <span class="menu-text">Logout</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main">
+    {% block content %}{% endblock %}
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-      
-      document.getElementById("toggleSidebar").onclick = () => {
-        document.getElementById("sidebar").classList.toggle("collapsed");
-      };
-    </script>
+<script>
+let sidebar = document.getElementById("sidebar");
+let btn = document.getElementById("toggleSidebar");
 
-    {% block extra_js %}{% endblock %}
-  </body>
+btn.onclick = function(){
+    if(window.innerWidth <= 992){
+        sidebar.classList.toggle("show");
+    }else{
+        sidebar.classList.toggle("collapsed");
+    }
+}
+</script>
+
+{% block extra_js %}{% endblock %}
+
+</body>
 </html>
-
