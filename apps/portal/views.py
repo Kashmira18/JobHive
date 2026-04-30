@@ -129,6 +129,9 @@ def error_404(request):
 def forgotpassword(request):
     return render(request, "portal/forgotpassword.html")
 
+def newpassword(request):
+    return render(request, "portal/newpassword.html")
+
 # COMPANY DASHBOARD VIEWS_______________________
 
 def company_dashboard(request):
