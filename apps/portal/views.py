@@ -178,11 +178,6 @@ def admin_dashboard(request):
 def company_category(request):
     return render(request, "portal/admin/admin_company_type.html")
 
-def packages(request):
-    return render(request, "portal/admin/admin_package_plan.html")
-
-def subscription(request):
-    return render(request, "portal/admin/subscription_list.html")
 
 def candidate(request):
     return render(request, "portal/admin/admin_candidate.html")
@@ -193,8 +188,11 @@ def companies(request):
 def job(request):
     return render(request, "portal/admin/admin_job.html")
 
-def applicant(request):
-    return render(request, "portal/admin/admin_applicant.html")
+def profile(request):
+    return render(request, 'portal/admin/profile.html')
+
+def settings(request):
+    return render(request, 'portal/admin/settings.html')
 
 def admin_category(request):
     return render(request, "portal/admin/admin_category.html")

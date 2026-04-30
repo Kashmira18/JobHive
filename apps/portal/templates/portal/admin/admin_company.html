@@ -11,6 +11,7 @@ body{
   border:none;
   border-radius:10px;
 }
+
 .table thead{
   background:#0aa06e;
   color:#fff;
@@ -23,6 +24,20 @@ body{
 .company-info small{
   display:block;
   color:#6c757d;
+}
+
+/* TABLE RESPONSIVE */
+.table-responsive{
+  overflow-x:auto;
+}
+.table th,
+.table td{
+  vertical-align:middle;
+  white-space:nowrap;
+  padding:14px 12px;
+}
+.table th{
+  font-size:14px;
 }
 
 /* SWITCH */
@@ -53,15 +68,20 @@ body{
 }
 
 /* ACTION BUTTONS */
+.action-btns{
+  display:flex;
+  gap:6px;
+}
 .action-btns button{
   border:none;
-  padding:4px 6px;
+  padding:6px 8px;
   border-radius:4px;
   color:#fff;
   font-size:13px;
 }
-.btn-view{background:#0aa06e;}
+.btn-view{background:#0d6efd;}
 .btn-edit{background:#198754;}
+.btn-update{background:#fd7e14;}
 .btn-del{background:#dc3545;}
 
 /* POPUP FORM */
@@ -120,16 +140,23 @@ body{
   margin-bottom: 10px;
 }
 
-/* Buttons */
+/* FIXED CLOSE BUTTON */
 .popup-form .btn-close {
-  background: #dc3545;
+  position:absolute;
+  top:15px;
+  right:15px;
+  background:#dc3545;
   color:#fff;
   border:none;
-  padding: 6px 12px;
-  border-radius:5px;
-  float:right;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  font-size:20px;
+  line-height:1;
+  opacity:1;
 }
 
+/* Buttons */
 .popup-form .btn-submit {
   background: #0aa06e;
   color:#fff;
@@ -143,83 +170,120 @@ body.dimmed .container-fluid {
   filter: blur(2px) brightness(0.7);
   pointer-events: none;
 }
+
+/* MOBILE */
+@media(max-width:768px){
+  .action-btns{
+    flex-wrap:wrap;
+  }
+
+  .popup-form{
+    width:95%;
+    padding:15px;
+  }
+
+  .table th,
+  .table td{
+    font-size:13px;
+  }
+
+  .company-info{
+    min-width:250px;
+  }
+}
 </style>
 
 <div class="container-fluid mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="fw-bold">Company List</h5>
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h5 class="fw-bold mb-0">Company List</h5>
     <button id="btnCreate" class="btn btn-success btn-sm">
       <i class="bi bi-plus"></i> Create Company
     </button>
   </div>
 
   <div class="card p-3">
-    <table id="companyTable" class="table table-striped align-middle">
-      <thead>
-        <tr>
-          <th>Company</th>
-          <th>Owner Name</th>
-          <th>Type / Location</th>
-          <th>Establishment Date</th>
-          <th>Verified</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="company-info d-flex gap-2">
-            <img src="https://ui-avatars.com/api/?name=Egens+Lab">
-            <div>
-              <strong>Egens Lab</strong>
-              <small>shofikulslim@gmail.com</small>
-              <small>www.egenslab.com</small>
-            </div>
-          </td>
-          <td>
-            Md Shafiqul Islam
-            <small>shofikulslim@gmail.com</small>
-          </td>
-          <td>
-            Software Agency
-            <small>DOHS, Mirpur-12, Dhaka</small>
-          </td>
-          <td>2023-Mar-24</td>
-          <td><div class="switch active"></div></td>
-          <td><div class="switch active"></div></td>
-          <td class="action-btns">
-            <button class="btn-edit"><i class="bi bi-pencil"></i></button>
-            <button class="btn-del"><i class="bi bi-trash"></i></button>
-          </td>
-        </tr>
+    <div class="table-responsive">
+      <table id="companyTable" class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Owner Name</th>
+            <th>Type / Location</th>
+            <th>Establishment Date</th>
+            <th>Verified</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-        <tr>
-          <td class="company-info d-flex gap-2">
-            <img src="https://ui-avatars.com/api/?name=Xerone+IT">
-            <div>
-              <strong>Xerone IT</strong>
+        <tbody>
+          <tr>
+            <td class="company-info d-flex gap-2">
+              <img src="https://ui-avatars.com/api/?name=Egens+Lab">
+              <div>
+                <strong>Egens Lab</strong>
+                <small>shofikulslim@gmail.com</small>
+                <small>www.egenslab.com</small>
+              </div>
+            </td>
+
+            <td>
+              Md Shafiqul Islam
+              <small>shofikulslim@gmail.com</small>
+            </td>
+
+            <td>
+              Software Agency
+              <small>Dhaka</small>
+            </td>
+
+            <td>2023-Mar-24</td>
+            <td><div class="switch active"></div></td>
+            <td><div class="switch active"></div></td>
+
+            <td class="action-btns">
+              <button class="btn-view"><i class="bi bi-eye"></i></button>
+              <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+              <button class="btn-update"><i class="bi bi-arrow-repeat"></i></button>
+              <button class="btn-del"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="company-info d-flex gap-2">
+              <img src="https://ui-avatars.com/api/?name=Xerone+IT">
+              <div>
+                <strong>Xerone IT</strong>
+                <small>robert@yahoo.com</small>
+                <small>www.xeroneit.com</small>
+              </div>
+            </td>
+
+            <td>
+              Robert James
               <small>robert@yahoo.com</small>
-              <small>www.xeroneit.com</small>
-            </div>
-          </td>
-          <td>
-            Robert James
-            <small>robert@yahoo.com</small>
-          </td>
-          <td>
-            Software Agency
-            <small>Dhaka</small>
-          </td>
-          <td>2023-Jun-19</td>
-          <td><div class="switch active"></div></td>
-          <td><div class="switch active"></div></td>
-          <td class="action-btns">
-            <button class="btn-edit"><i class="bi bi-pencil"></i></button>
-            <button class="btn-del"><i class="bi bi-trash"></i></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+
+            <td>
+              Software Agency
+              <small>Dhaka</small>
+            </td>
+
+            <td>2023-Jun-19</td>
+            <td><div class="switch active"></div></td>
+            <td><div class="switch active"></div></td>
+
+            <td class="action-btns">
+              <button class="btn-view"><i class="bi bi-eye"></i></button>
+              <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+              <button class="btn-update"><i class="bi bi-arrow-repeat"></i></button>
+              <button class="btn-del"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -231,7 +295,6 @@ body.dimmed .container-fluid {
   <button class="btn-close">×</button>
   <h5 class="mb-3">Create Company</h5>
 
-  <!-- Owner Information -->
   <div class="section">
     <h6>Owner Information</h6>
     <div class="row g-2">
@@ -244,7 +307,6 @@ body.dimmed .container-fluid {
     </div>
   </div>
 
-  <!-- Company Info -->
   <div class="section">
     <h6>Company Info</h6>
     <div class="row g-2">
@@ -252,6 +314,7 @@ body.dimmed .container-fluid {
       <div class="col-md-4"><input type="email" placeholder="Email *"></div>
       <div class="col-md-4"><input type="text" placeholder="Phone *"></div>
       <div class="col-md-4"><input type="text" placeholder="Total Employees *"></div>
+
       <div class="col-md-4">
         <select>
           <option selected disabled>Category Type *</option>
@@ -260,9 +323,16 @@ body.dimmed .container-fluid {
           <option>Startup</option>
         </select>
       </div>
+
       <div class="col-md-4"><input type="text" placeholder="Website"></div>
-      <div class="col-md-6"><div class="image-upload">Logo (60x60px)<br>Choose file or drag it here</div></div>
-      <div class="col-md-6"><div class="image-upload">Image Gallery (900x600px)<br>Choose files or drag here</div></div>
+
+      <div class="col-md-6">
+        <div class="image-upload">Logo (60x60px)<br>Choose file or drag it here</div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="image-upload">Image Gallery (900x600px)<br>Choose files or drag here</div>
+      </div>
     </div>
   </div>
 
@@ -272,14 +342,12 @@ body.dimmed .container-fluid {
 </div>
 
 <script>
-// Show popup
 document.getElementById('btnCreate').addEventListener('click', function() {
   document.querySelector('.popup-form').style.display = 'block';
   document.querySelector('.overlay').style.display = 'block';
   document.body.classList.add('dimmed');
 });
 
-// Close popup
 document.querySelector('.btn-close').addEventListener('click', closePopup);
 document.querySelector('.overlay').addEventListener('click', closePopup);
 
@@ -289,11 +357,9 @@ function closePopup() {
   document.body.classList.remove('dimmed');
 }
 
-// Toggle switches in table
 document.querySelectorAll('.switch').forEach(sw=>{
   sw.addEventListener('click',()=>sw.classList.toggle('active'));
 });
 </script>
 
 {% endblock %}
-
