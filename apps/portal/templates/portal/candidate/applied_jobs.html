@@ -132,8 +132,9 @@
         <div class="jobs-card">
             <div class="row jobs-header px-3 py-2">
                 <div class="col-md-4">Job Title</div>
+                <div class="col-md-2">Company name</div>
                 <div class="col-md-2">Apply Date</div>
-                <div class="col-md-4">Summary</div>
+                <div class="col-md-2">Summary</div>
                 <div class="col-md-2">Status</div>
             </div>
 
@@ -178,7 +179,7 @@
             }
         ];
 
-        const perPage = 2;
+        const perPage = 3;
         let currentPage = 1;
 
         /* ====== RENDER ====== */
@@ -198,13 +199,14 @@
                     <div class="job-logo">${job.logo}</div>
                     <div>
                         <div class="job-title">${job.title}</div>
-                        <div class="job-meta">${job.company}</div>
+                        
                         <div class="job-meta">${job.salary}</div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-2">${job.company}</div>
             <div class="col-md-2">${job.date}</div>
-            <div class="col-md-4 summary">${job.summary}</div>
+            <div class="col-md-2 summary">${job.summary}</div>
             <div class="col-md-2">
                 <span class="status ${job.status}">${job.status.toUpperCase()}</span>
             </div>

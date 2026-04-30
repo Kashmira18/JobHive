@@ -1,144 +1,176 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Company Dashboard{% endblock %}</title>
+    <title>JobHive - Candidate Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    {% block extra_css %}{% endblock %}
-
+    <!-- {% block extra_css %}{% endblock %} -->
     <style>
         :root {
             --dark-navy: #1f2c3d;
             --sidebar-active: #31C2EF;
             --bg-light: #f4f7f6;
             --sidebar-width: 260px;
-            --sidebar-mini-width: 70px;
-            --header-height: 60px;
+            --sidebar-mini-width: 75px;
+            --header-height: 70px;
             --nav-gradient: linear-gradient(135deg, #1f2c3d 0%, #2c3e50 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg-light);
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
+            /* font-family: 'Segoe UI', sans-serif; */
+            overflow-x: hidden;
         }
 
-        #wrapper {
-            display: flex;
-            width: 100%;
-        }
-
-        /* --- SIDEBAR --- */
-        #sidebar-wrapper {
-            min-height: 100vh;
-            width: var(--sidebar-width);
-            background-color: var(--dark-navy);
-            transition: all 0.3s ease;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1050;
-        }
-
-        .sidebar-heading {
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            font-size: 1.2rem;
-            background-color: rgba(0, 0, 0, 0.2);
-            color: white;
-            font-weight: bold;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .list-group-item {
-            background-color: transparent !important;
-            border: none !important;
-            color: #bbc4cc !important;
-            font-size: 15px;
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            transition: 0.2s;
-        }
-
-        .list-group-item:hover,
-        .list-group-item.active {
-            color: var(--sidebar-active) !important;
-            background-color: rgba(255, 255, 255, 0.05) !important;
-        }
-
-        /* --- NAVBAR --- */
-        #page-content-wrapper {
-            width: 100%;
-            margin-left: var(--sidebar-width);
-            transition: all 0.3s ease;
-        }
-
+        /* --- TOP NAVBAR --- */
         .header {
             background: var(--nav-gradient);
             height: var(--header-height);
             position: fixed;
             top: 0;
+            left: 0;
             right: 0;
-            left: var(--sidebar-width);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        /* Left section with logo */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            height: var(--header-height);
+        }
+
+        .logo-placeholder {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-img {
+            max-width: 250%;
+            max-height: 250%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .sidebar.collapsed .brand-name {
+            display: none;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: #ffc107;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
             color: white;
         }
 
         #toggle_btn {
-            font-size: 20px;
+            font-size: 1.3rem;
             cursor: pointer;
             color: white;
+            transition: color 0.3s;
         }
 
-        /* --- POST JOB BUTTON (RECTANGLE) --- */
-        .btn-post-job {
-            background-color: var(--sidebar-active);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            /* Makes it Rectangle */
-            padding: 8px 25px;
+        #toggle_btn:hover {
+            color: var(--sidebar-active);
+        }
+
+        .welcome-text {
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 20px;
+        }
+
+        /* Right section */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* --- POST JOB BUTTON --- */
+        .btn-post {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2db0d9;
+            color: #ffffff !important;
+            padding: 10px 24px;
             font-size: 14px;
             font-weight: 600;
+            border-radius: 6px;
+            border: none !important;
+            text-decoration: none !important;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            gap: 8px;
         }
 
-        .btn-post-job:hover {
-            background-color: #2db0d9;
-            color: white;
-            transform: translateY(-1px);
+        /* Hover Effect */
+        .btn-post:hover {
+            background-color: #259aba;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-post-job.clicked {
-            background-color: #1598c4 !important;
-            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
-            transform: translateY(1px);
+        .btn-post:focus,
+        .btn-post:active,
+        .btn-post:visited {
+            text-decoration: none !important;
+            color: #ffffff !important;
+            outline: none;
+        }
+
+        /* Icon size inside button */
+        .btn-post i {
+            font-size: 12px;
         }
 
         /* --- ICONS & WRAPPERS --- */
         .icon-wrapper {
             position: relative;
-            /* Important for dropdown positioning */
-            margin-right: 25px;
+            margin-right: 5px;
         }
 
         .nav-icon-link {
@@ -166,11 +198,10 @@
             border: 1px solid white;
         }
 
-        /* --- COMMON DROPDOWN CARD STYLE (Messages & Notifs) --- */
+        /* --- DROPDOWN CARDS --- */
         .header-dropdown-card {
             position: absolute;
             top: 50px;
-            /* Adjust distance from icon */
             right: -10px;
             width: 320px;
             background: white;
@@ -222,15 +253,10 @@
         }
 
         .item-avatar {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: #e9ecef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #555;
+            object-fit: cover;
         }
 
         .item-content h6 {
@@ -252,6 +278,29 @@
             display: block;
         }
 
+        .search-container {
+            background-color: #2f3e4e;
+            /* dark header background */
+            padding: 15px;
+        }
+
+        .search-container input {
+            width: 250px;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            font-size: 14px;
+            background-color: #e6e6e6;
+            /* light grey input */
+            color: #333;
+        }
+
+        /* Placeholder styling */
+        .search-container input::placeholder {
+            color: #888;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -268,25 +317,52 @@
         .user-menu {
             position: relative;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Company Profile Image Style */
         .user-img {
             width: 40px;
             height: 40px;
-            border-radius: 6px;
-            /* Square with slight radius for Company */
+            border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.7);
-            object-fit: contain;
+            object-fit: cover;
             background: white;
-            padding: 2px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .dropdown-arrow {
+            color: white;
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+
+        .user-menu.active .dropdown-arrow {
+            transform: rotate(180deg);
         }
 
         .profile-dropdown-box {
             position: absolute;
             top: 55px;
             right: 0;
-            width: 180px;
+            width: 200px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -294,6 +370,7 @@
             flex-direction: column;
             overflow: hidden;
             z-index: 1100;
+            animation: fadeIn 0.2s ease-in-out;
         }
 
         .profile-dropdown-box.show {
@@ -307,298 +384,449 @@
             font-size: 14px;
             border-bottom: 1px solid #eee;
             transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-dropdown-box a:last-child {
+            border-bottom: none;
         }
 
         .profile-dropdown-box a:hover {
             background: #f8f9fa;
-            color: #4facfe;
+            color: var(--sidebar-active);
         }
 
         .profile-dropdown-box a i {
-            margin-right: 10px;
             width: 20px;
             text-align: center;
         }
 
-        .content-section {
-            padding: 30px;
-            margin-top: var(--header-height);
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: var(--header-height);
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            background: #2c3e50;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        /* --- MINI SIDEBAR --- */
-        #wrapper.toggled #sidebar-wrapper {
+        .sidebar.collapsed {
             width: var(--sidebar-mini-width);
         }
 
-        #wrapper.toggled #page-content-wrapper {
+        .sidebar.collapsed .menu-text,
+        .sidebar.collapsed .sidebar-header {
+            opacity: 0;
+            visibility: hidden;
+            width: 0;
+        }
+
+        .sidebar.collapsed li a {
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .sidebar.collapsed li a i {
+            margin-right: 0;
+        }
+
+        .sidebar-header {
+            color: #95a5a6;
+            padding: 1.5rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 1.5rem;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--sidebar-active);
+            color: var(--sidebar-active);
+        }
+
+        .sidebar-menu li a i {
+            width: 25px;
+            margin-right: 12px;
+            text-align: center;
+            transition: margin 0.3s;
+        }
+
+        .menu-text {
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        #main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--header-height);
+            padding: 30px;
+            transition: margin-left 0.3s ease;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        #main-content.expanded {
             margin-left: var(--sidebar-mini-width);
         }
 
-        #wrapper.toggled .header {
-            left: var(--sidebar-mini-width);
+        /* Demo content styling */
+        .demo-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        #wrapper.toggled .sidebar-heading span,
-        #wrapper.toggled .list-group-item span,
-        #wrapper.toggled .menu-label {
+        .form-control.is-invalid {
+            border-color: #e74c3c;
+            background-color: #fff5f5;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 0.76rem;
+            font-weight: 600;
+            margin-top: 5px;
             display: none;
         }
 
-        #wrapper.toggled .list-group-item {
-            justify-content: center;
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active-page {
-            display: block;
+        .error-msg.show {
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
     </style>
 </head>
 
 <body>
 
-    <div id="wrapper">
-        <div id="sidebar-wrapper">
-            <div class="sidebar-heading">
-                <i class="fa-solid fa-rocket me-2 text-warning"></i> <span>JobHive</span>
+    <!-- HEADER/NAVBAR -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-section">
+                <img src="{% static 'images\ChatGPT_Image_Dec_3__2025__11_59_32_AM-removebg-preview.png' %}"
+                    alt="JobHive Logo" class="brand-logo-img">
+                <div class="logo-placeholder">
+                    <i class="fas fa-bee logo-icon"></i>
+                </div>
             </div>
-            <div class="list-group list-group-flush">
-                <!-- <div class="menu-label text-secondary p-3 small fw-bold">MAIN</div> -->
-                <a href="{% url 'candidate_front_dashboard' %}" class="list-group-item active">
-                    <i class="fas fa-th-large"></i> <span> Dashboard</span>
-                </a>
-                <!-- <div class="menu-label text-secondary p-3 small fw-bold">Jobs</div> -->
-                <a href="{% url 'candidate_edit_profile' %}" class="list-group-item">
-                    <i class="far fa-user-circle"></i> <span> Edit Profile </span>
-                </a>
-                <a href="{% url 'applied_jobs' %}" class="list-group-item">
-                    <i class="fas fa-briefcase"></i> <span> Applied Jobs</span>
-                </a>
-                <a href="{% url 'bookmark_jobs' %}" class="list-group-item">
-                    <i class="far fa-bookmark"></i> <span> Bookmark Jobs</span>
-                </a>
-                <a href="{% url 'candidate_edit_resume' %}" class="list-group-item">
-                    <i class="far fa-file-alt"></i> <span> Edit Resume</span>
-                </a>
-                <a href="{% url 'candidate_view_resume' %}" class="list-group-item">
-                    <i class="far fa-eye"></i> <span> View Resume</span>
-                </a>
-
-                <a href="{% url 'job_alert' %}" class="list-group-item">
-                    <i class="far fa-bell"></i> <span> Job Alert</span>
-                </a>
-
-                <a href="{% url 'candidate_notifications' %}" class="list-group-item">
-                    <i class="far fa-bell"></i> <span> Notification</span>
-                </a>
-                
-
-                <a href="#" class="list-group-item">
-                    <i class="fas fa-sign-out-alt"></i> <span> Logout</span>
-                </a>
-
-
-
-            </div>
-
+            <a id="toggle_btn"><i class="fas fa-bars"></i></a>
+            <span class="welcome-text d-none d-lg-block">Candidate Dashboard</span>
         </div>
 
-        <div id="page-content-wrapper">
-            <div class="header">
-                <div class="d-flex align-items-center">
-                    <a id="toggle_btn"><i class="fas fa-bars"></i></a>
-                    <h5 class="ms-3 mb-0 fw-bold d-none d-md-block">Welcome</h5>
-                </div>
+        <div class="header-right">
+            <!-- <button class="btn-post-job" > -->
+            <!-- <a href="#"><i class="fas fa-plus me-1"></i> Post a Job</a> -->
+            <!-- <a href="{% url 'company_job_post' %}" class="btn-post"><i class="fa-solid fa-plus"></i> Post a Job</a> -->
+            <!-- <a href="{% url 'job_list' %}" class="btn-post">
+                <i class="fa-solid fa-search"></i> Find Jobs
+            </a> -->
+            <div class="search-container">
+                <input type="text" placeholder="Search Job">
+            </div>
+            <!-- <input type="search" name="Job Find" id="" placeholder="Search Job"> -->
+            <!-- </button> -->
 
-                <div class="d-flex align-items-center">
-
-                    <!-- <button class="btn btn-post-job me-4 d-none d-sm-block" id="postJobBtn"
-                        onclick="toggleJobBtn(this)">
-                        <i class="fas fa-plus me-1"></i> Post a Job
-                    </button> -->
-
-                    <!-- <div class="icon-wrapper">
-                        <a href="javascript:void(0)" class="nav-icon-link"
-                            onclick="toggleDropdown('msgDropdown', event)">
-                            <i class="fa-brands fa-facebook-messenger"></i>
-                        </a>
-                        <div id="msgDropdown" class="header-dropdown-card">
-                            <div class="card-header-custom">
-                                <span>Messages</span>
-                                <small class="text-primary cursor-pointer">Mark all read</small>
+            <!-- Messages -->
+            <!-- <div class="icon-wrapper">
+                <a href="javascript:void(0)" class="nav-icon-link" onclick="toggleDropdown('msgDropdown', event)">
+                    <i class="fa-brands fa-facebook-messenger"></i>
+                    <span class="badge-dot"></span>
+                </a>
+                <div id="msgDropdown" class="header-dropdown-card">
+                    <div class="card-header-custom">
+                        <span>Messages</span>
+                        <small class="text-primary" style="cursor: pointer;">Mark all read</small>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="list-item-custom">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=667eea&color=fff"
+                                class="item-avatar" alt="">
+                            <div class="item-content">
+                                <h6>John Doe</h6>
+                                <p>Can we reschedule the interview?</p>
+                                <span class="item-time">2 mins ago</span>
                             </div>
-                            <div class="card-body-custom">
-                                <div class="list-item-custom">
-                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=random"
-                                        class="item-avatar rounded-circle" alt="">
-                                    <div class="item-content">
-                                        <h6>John Doe</h6>
-                                        <p>Can we reschedule the interview?</p>
-                                        <span class="item-time">2 mins ago</span>
-                                    </div>
-                                </div>
-                                <div class="list-item-custom">
-                                    <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=random"
-                                        class="item-avatar rounded-circle" alt="">
-                                    <div class="item-content">
-                                        <h6>Sarah Smith</h6>
-                                        <p>I have attached my portfolio.</p>
-                                        <span class="item-time">1 hour ago</span>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="list-item-custom">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=f093fb&color=fff"
+                                class="item-avatar" alt="">
+                            <div class="item-content">
+                                <h6>Sarah Smith</h6>
+                                <p>I have attached my portfolio.</p>
+                                <span class="item-time">1 hour ago</span>
                             </div>
-                            <div class="text-center p-2 border-top bg-light">
-                                <a href="#" class="text-decoration-none small fw-bold">View All Messages</a>
+                        </div>
+                        <div class="list-item-custom">
+                            <img src="https://ui-avatars.com/api/?name=Mike+Brown&background=4facfe&color=fff"
+                                class="item-avatar" alt="">
+                            <div class="item-content">
+                                <h6>Mike Brown</h6>
+                                <p>Thank you for the opportunity!</p>
+                                <span class="item-time">3 hours ago</span>
                             </div>
                         </div>
                     </div>
+                    <div class="text-center p-2 border-top bg-light">
+                        <a href="#" class="text-decoration-none small fw-bold">View All Messages</a>
+                    </div>
+                </div>
+            </div> -->
 
-                    <div class="icon-wrapper">
-                        <a href="javascript:void(0)" class="nav-icon-link"
-                            onclick="toggleDropdown('notifDropdown', event)">
-                            <i class="fas fa-bell"></i>
-                            <span class="badge-dot"></span>
-                        </a>
-                        <div id="notifDropdown" class="header-dropdown-card">
-                            <div class="card-header-custom">
-                                <span>Notifications</span>
-                                <span class="badge bg-danger rounded-pill">2 New</span>
+            <!-- Notifications -->
+            <!-- <div class="icon-wrapper">
+                <a href="javascript:void(0)" class="nav-icon-link" onclick="toggleDropdown('notifDropdown', event)">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge-dot"></span>
+                </a>
+                <div id="notifDropdown" class="header-dropdown-card">
+                    <div class="card-header-custom">
+                        <span>Notifications</span>
+                        <span class="badge bg-danger rounded-pill">3 New</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="list-item-custom">
+                            <div class="item-avatar"
+                                style="background: #e3f2fd; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-briefcase" style="color: #2196f3;"></i>
                             </div>
-                            <div class="card-body-custom">
-                                <div class="list-item-custom">
-                                    <div class="item-avatar text-success bg-light-success">
-                                        <i class="fas fa-briefcase"></i>
-                                    </div>
-                                    <div class="item-content">
-                                        <h6>New Job Application</h6>
-                                        <p>Alice applied for Senior Dev.</p>
-                                        <span class="item-time">10 mins ago</span>
-                                    </div>
-                                </div>
-                                <div class="list-item-custom">
-                                    <div class="item-avatar text-warning bg-light-warning">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </div>
-                                    <div class="item-content">
-                                        <h6>Server Alert</h6>
-                                        <p>High memory usage detected.</p>
-                                        <span class="item-time">30 mins ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center p-2 border-top bg-light">
-                                <a href="#" class="text-decoration-none small fw-bold">View All Notifications</a>
+                            <div class="item-content">
+                                <h6>New Job Application</h6>
+                                <p>Alice applied for Senior Dev position.</p>
+                                <span class="item-time">10 mins ago</span>
                             </div>
                         </div>
-                    </div> -->
-
-
-                    <div class="user-menu d-flex align-items-center" onclick="toggleDropdown('profileDropdown', event)">
-                        <div class="text-end me-3 d-none d-sm-block">
-                            <div class="fw-bold small" id="userNameDisplay">Khandaker Raufur Rahman</div>
-                            <!-- <small style="opacity: 0.9;">Profile</small> -->
+                        <div class="list-item-custom">
+                            <div class="item-avatar"
+                                style="background: #fff3cd; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-clock" style="color: #ffc107;"></i>
+                            </div>
+                            <div class="item-content">
+                                <h6>Interview Scheduled</h6>
+                                <p>Interview with John at 3 PM tomorrow.</p>
+                                <span class="item-time">1 hour ago</span>
+                            </div>
                         </div>
-                        <img src="{% static 'images/blog-detal5.jpeg'%}" class="user-img me-3" id="userImgDisplay"
-                            alt="user pic">
-
-                        <div class="profile-dropdown-box" id="profileDropdown">
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                                <i class="fas fa-building"></i> Company Profile
-                            </a>
-                            <a href="javascript:void(0)" onclick="alert('Settings Clicked')">
-                                <i class="fas fa-cog"></i> Settings
-                            </a>
-                            <a href="javascript:void(0)" onclick="handleLogout()">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
+                        <div class="list-item-custom">
+                            <div class="item-avatar"
+                                style="background: #d4edda; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                            </div>
+                            <div class="item-content">
+                                <h6>Job Approved</h6>
+                                <p>Your job post has been approved.</p>
+                                <span class="item-time">2 hours ago</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="text-center p-2 border-top bg-light">
+                        <a href="#" class="text-decoration-none small fw-bold">View All Notifications</a>
+                    </div>
+                </div>
+            </div> -->
 
+            <!-- Profile -->
+            <div class="user-menu" onclick="toggleDropdown('profileDropdown', event)" id="userMenuBtn">
+                <div class="user-info d-none d-md-block">
+                    <div class="user-name">Muhammad Luqman</div>
+                    <div class="user-role">Job Seeker</div>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=TechSolutions&background=31C2EF&color=fff&bold=true"
+                    class="user-img" alt="Profile">
+                <i class="fas fa-chevron-down dropdown-arrow"></i>
+                <div class="profile-dropdown-box" id="profileDropdown">
+                    <a href="{% url 'profile' %}">
+                        <i class="fas fa-building"></i> Company Profile
+                    </a>
+                    <a href="{% url 'setting' %}">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                    <a href="javascript:void(0)" style="color: #dc3545;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
                 </div>
             </div>
 
-            <div class="content-section">
-                {% block content %}{% endblock %}
+        </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar">
+        <!-- <div class="sidebar-header">MAIN</div> -->
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'candidate_front_dashboard' %}" class="active"><i class="fas fa-home"></i> <span
+                        class="menu-text">Dashboard</span></a></li>
+        </ul>
+
+        <!-- <div class="sidebar-header">Jobs</div> -->
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'candidate_edit_profile' %}"><i class="fas fa-user"></i><span class="menu-text">Profile
+                        Setup</span></a>
+            </li>
+            <li><a href="{% url 'job_list' %}"><i class="fas fa-search"></i> <span class="menu-text">Browse
+                        Jobs</span></a></li>
+            <li><a href="{% url 'applied_jobs' %}"><i class="fas fa-paper-plane"></i> <span class="menu-text">Applied
+                        Jobs</span></a></li>
+            <!-- <li><a href="{% url 'candidate_edit_resume' %}"><i class="fas fa-bookmark"></i> <span class="menu-text">Edit
+                        Profile</span></a></li> -->
+        </ul>
+        <!-- <div class="sidebar-header">Jobs</div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'job_lists' %}"><i class="fas fa-list"></i> <span class="menu-text">Jobs List</span></a>
+            </li>
+            <li><a href="{% url 'active' %}"><i class="fas fa-briefcase"></i> <span class="menu-text">Active
+                        Jobs</span></a></li>
+            <li><a href="{% url 'drafts' %}"><i class="fas fa-file-alt"></i> <span class="menu-text">Drafts</span></a>
+            </li>
+        </ul> -->
+
+        <div class="sidebar-header">Profile</div>
+        <ul class="sidebar-menu">
+            <!-- <li><a href="{% url 'candidate_edit_profile' %}"><i class="fas fa-user"></i> <span class="menu-text">My
+                        Profile</span></a></li>
+            <li><a href="{% url 'candidate_view_resume' %}"><i class="fas fa-file"></i> <span class="menu-text">My
+                        Resume</span></a> -->
+            </li>
+            <li><a href="{% url 'setting' %}"><i class="fas fa-gear"></i> <span class="menu-text">Settings</span></a>
+            </li>
+            <li><a href="{% url 'messenger' %}"><i class="fas fa-paper-plane"></i> <span
+                        class="menu-text">Messages</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <!-- <main id="main-content">
+        <div class="demo-card">
+            <h2>Dashboard Content</h2>
+            <p>Yeh content automatically adjust ho jayega jab sidebar collapse ya expand hoga.</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="demo-card">
+                    <h5>Card 1</h5>
+                    <p>Sample content here</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="demo-card">
+                    <h5>Card 2</h5>
+                    <p>Sample content here</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="demo-card">
+                    <h5>Card 3</h5>
+                    <p>Sample content here</p>
+                </div>
             </div>
         </div>
-    </div>
+    </main> -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <main id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
 
     <script>
-        // 1. Sidebar Toggle
-        document.getElementById('toggle_btn').addEventListener('click', function () {
-            document.getElementById('wrapper').classList.toggle('toggled');
+        // Toggle Sidebar
+        const toggleBtn = document.getElementById('toggle_btn');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
         });
 
-        // 2. Universal Dropdown Toggle Function
-        // Opens the specific ID, Closes the others
+        // Dropdown Toggle
         function toggleDropdown(dropdownId, event) {
-            event.stopPropagation(); // Prevent click from bubbling to window
+            event.stopPropagation();
 
-            // IDs of all dropdowns
             const allDropdowns = ['msgDropdown', 'notifDropdown', 'profileDropdown'];
+            const userMenuBtn = document.getElementById('userMenuBtn');
 
             allDropdowns.forEach(id => {
                 const el = document.getElementById(id);
                 if (id === dropdownId) {
-                    // Toggle the clicked one
                     el.classList.toggle('show');
+                    if (dropdownId === 'profileDropdown') {
+                        userMenuBtn.classList.toggle('active');
+                    }
                 } else {
-                    // Close others
                     el.classList.remove('show');
+                    if (id === 'profileDropdown') {
+                        userMenuBtn.classList.remove('active');
+                    }
                 }
             });
         }
 
-        // Close ALL dropdowns if clicked outside
+        // Close dropdowns when clicking outside
         window.addEventListener('click', function () {
-            ['msgDropdown', 'notifDropdown', 'profileDropdown'].forEach(id => {
+            const allDropdowns = ['msgDropdown', 'notifDropdown', 'profileDropdown'];
+            allDropdowns.forEach(id => {
                 document.getElementById(id).classList.remove('show');
             });
+            document.getElementById('userMenuBtn').classList.remove('active');
         });
 
-        // Prevent dropdown closing when clicking INSIDE the card
+        // Prevent dropdown from closing when clicking inside
         document.querySelectorAll('.header-dropdown-card, .profile-dropdown-box').forEach(card => {
             card.addEventListener('click', function (e) {
                 e.stopPropagation();
             });
         });
-
-        // 3. Post a Job Button Logic
-        // function toggleJobBtn(btn) {
-        //     if (btn.classList.contains('clicked')) {
-        //         btn.classList.remove('clicked');
-        //         btn.innerHTML = '<i class="fas fa-plus me-1"></i> Post a Job';
-        //     } else {
-        //         btn.classList.add('clicked');
-        //         btn.innerHTML = '<i class="fas fa-check me-1"></i> Job Posted';
-        //     }
-        // }
-
-        // 4. Logout
-        function handleLogout() {
-            if (confirm("Are you sure you want to logout?")) {
-                window.location.reload();
-            }
-        }
-
-        // 5. Page Switching
-        function showPage(pageId, element) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-            document.querySelectorAll('.list-group-item').forEach(item => item.classList.remove('active'));
-            if (document.getElementById(pageId)) {
-                document.getElementById(pageId).classList.add('active-page');
-            }
-            element.classList.add('active');
-        }
+        document.querySelectorAll('.btn-sec-save, .btn-save-all').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const card = this.closest('.form-card') || document.querySelector('.page-wrapper');
+                const inputs = card.querySelectorAll('input[required], select[required], textarea[required]');
+                let valid = true;
+                inputs.forEach(input => {
+                    const err = input.parentElement.querySelector('.error-msg')
+                        || input.closest('.col-md-4, .col-md-6, .col-12')?.querySelector('.error-msg');
+                    if (!input.value.trim()) {
+                        input.classList.add('is-invalid');
+                        if (err) err.classList.add('show');
+                        valid = false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                        if (err) err.classList.remove('show');
+                    }
+                });
+            });
+        });
     </script>
-    <script src="{%static 'js/candidate/index.js'%}"></script>
-
     {% block extra_js %}{% endblock %}
+
+
 </body>
 
 </html>
