@@ -87,6 +87,8 @@ urlpatterns = [
     path("candidate/job_alert/", views.job_alert, name="job_alert"),
     path("candidate/candidate_notifications/", views.candidate_notifications, name="candidate_notifications"),
     path("candidate/candidate_view_resume/", views.candidate_view_resume, name="candidate_view_resume"),
+    path("candidate/setting/", views.candidate_setting, name="candidate_setting"),
+
     
 ]
 

@@ -240,4 +240,6 @@ def candidate_notifications(request):
     return render(request,"portal/candidate/notifications.html")
 def candidate_view_resume(request):
     return render(request,"portal/candidate/viewresume.html")
+def candidate_setting(request):
+    return render(request, "portal/candidate/candidate_setting.html")
 
