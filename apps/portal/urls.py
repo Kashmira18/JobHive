@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path("", views.home, name="home"),
     path("navbar/", views.navbar, name="navbar"),
+    path("navbar2/", views.navbar2, name="navbar2"),
     path("find_jobs/", views.find_jobs, name="find_jobs"),
     path("job_list/", views.job_list, name="job_list"),
     path("job_details/", views.job_details, name="job_details"),
@@ -17,9 +18,9 @@ urlpatterns = [
     path("forgotpassword/", views.forgotpassword, name="forgotpassword"),
     path("newpassword/", views.newpassword, name="newpassword"),
     path("admin_dashboard/", views.admin_dashboard, name="admin_dashboard"),
-    path("company_dashboard/", views.company_dashboard, name="company_dashboard"),
+    # path("company_dashboard/", views.company_dashboard, name="company_dashboard"),
     path("user_registration/", views.user_registration, name="user_registration"),
-    path("company_registration/", views.company_registration, name="company_registration"),
+    # path("company_registration/", views.company_registration, name="company_registration"),
     path("contact/", views.contact, name="contact"),
     path("candidates/", views.candidates, name="candidates"),
     path("candidates-detail/", views.candidatesdetail, name="candidates-detail"),
@@ -47,6 +48,7 @@ urlpatterns = [
     path("company/setting/", views.setting, name="setting"),
 
     #ADMIN DASHBOARD PATHS_______________________
+    path("admin/login/", views.login, name="admin_login"),
     path("admin/dashboard/", views.admin_dashboard, name="admin_dashboard"),
     path("admin/category/", views.company_category, name="company_category"),
     path("admin/companies", views.companies, name="companies"),

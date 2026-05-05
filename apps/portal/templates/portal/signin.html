@@ -1,4 +1,4 @@
-{% extends 'portal/base.html'%}
+{% extends 'portal/navbar2.html'%}
 
 {% block content %}
 {% load static %}
@@ -381,9 +381,11 @@
 
     <div class="branding">
       <div class="logo-row">
-        <img src="{% static 'images/jobhive logo final.png' %}" alt="JobHive Logo" />
+        <!-- <img src="{% static 'images/jobhive logo final.png' %}" alt="JobHive Logo" /> -->
         <div>
-          <div class="logo-name">JobHive</div>
+          <div class="logo-name"><img src="{% static 'images/jobhive logo final.png' %}" alt="JobHive Logo" /></div>
+                  <!-- <img src="{% static 'images/jobhive logo final.png' %}" alt="JobHive Logo" /> -->
+
           <div class="logo-sub">Secure access · Enterprise-grade</div>
         </div>
       </div>

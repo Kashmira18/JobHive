@@ -22,6 +22,9 @@ def selector(request):
 def navbar(request):
     return render(request, "portal/navbar.html")
 
+def navbar2(request):
+    return render(request, "portal/navbar2.html")
+
 def footer(request):
     return render(request, "portal/footer.html")
 
@@ -108,8 +111,8 @@ def user_registration(request):
 # def company_dashboard(request):
 #     return render(request, "portal/company_dashboard.html")
 
-def company_registration(request):
-    return render(request, "portal/company_registration.html")
+# def company_registration(request):
+#     return render(request, "portal/company_registration.html")
 
 def candidatesdetail(request):
     return render(request, "portal/candidates-detail.html")
@@ -172,6 +175,9 @@ def setting(request):
 # ADMIN DASHBOARD VIEWS_______________________
 # @role_required(["admin"])
 # @role_required(allowed_roles=["admin"])
+def login(request):
+    return render(request, "portal/admin/admin-login.html")
+
 def admin_dashboard(request):
     return render(request, "portal/admin/admin_dashboard.html")
 
