@@ -20,3 +20,4 @@ vscode/
 Thumbs.db
 # Logs
 *.log
+*.pyc

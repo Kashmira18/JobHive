@@ -13,7 +13,7 @@
     <!-- {% block extra_css %}{% endblock %} -->
     <style>
         :root {
-            --dark-navy: #1f2c3d;
+            --dark-navy: #1a1a2e;
             --sidebar-active: #31C2EF;
             --bg-light: #f4f7f6;
             --sidebar-width: 260px;
@@ -126,46 +126,6 @@
             gap: 20px;
         }
 
-        /* --- POST JOB BUTTON --- */
-        .btn-post {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #2db0d9;
-            color: #ffffff !important;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 6px;
-            border: none !important;
-            text-decoration: none !important;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
-            gap: 8px;
-        }
-
-        /* Hover Effect */
-        .btn-post:hover {
-            background-color: #259aba;
-            color: #ffffff !important;
-            text-decoration: none !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-post:focus,
-        .btn-post:active,
-        .btn-post:visited {
-            text-decoration: none !important;
-            color: #ffffff !important;
-            outline: none;
-        }
-
-        /* Icon size inside button */
-        .btn-post i {
-            font-size: 12px;
-        }
 
         /* --- ICONS & WRAPPERS --- */
         .icon-wrapper {
@@ -279,7 +239,7 @@
         }
 
         .search-container {
-            background-color: #2f3e4e;
+            /* background-color: #2f3e4e; */
             /* dark header background */
             padding: 15px;
         }
@@ -291,9 +251,9 @@
             outline: none;
             border-radius: 3px;
             font-size: 14px;
-            background-color: #e6e6e6;
+            background-color: #ffffff;
             /* light grey input */
-            color: #333;
+            color: #0a0a0a;
         }
 
         /* Placeholder styling */
@@ -655,15 +615,15 @@
             <!-- Profile -->
             <div class="user-menu" onclick="toggleDropdown('profileDropdown', event)" id="userMenuBtn">
                 <div class="user-info d-none d-md-block">
-                    <div class="user-name">Muhammad Luqman</div>
+                    <div class="user-name">Your Name</div>
                     <div class="user-role">Job Seeker</div>
                 </div>
                 <img src="https://ui-avatars.com/api/?name=TechSolutions&background=31C2EF&color=fff&bold=true"
                     class="user-img" alt="Profile">
                 <i class="fas fa-chevron-down dropdown-arrow"></i>
                 <div class="profile-dropdown-box" id="profileDropdown">
-                    <a href="{% url 'profile' %}">
-                        <i class="fas fa-building"></i> Company Profile
+                    <a href="{% url 'candidate_edit_profile' %}">
+                        <i class="fas fa-building"></i> Your Name
                     </a>
                     <a href="{% url 'setting' %}">
                         <i class="fas fa-cog"></i> Settings
@@ -714,10 +674,12 @@
             <li><a href="{% url 'candidate_view_resume' %}"><i class="fas fa-file"></i> <span class="menu-text">My
                         Resume</span></a> -->
             </li>
-            <li><a href="{% url 'setting' %}"><i class="fas fa-gear"></i> <span class="menu-text">Settings</span></a>
+            <li><a href="{% url 'candidate_setting' %}"><i class="fas fa-gear"></i> <span
+                        class="menu-text">Settings</span></a>
             </li>
             <li><a href="{% url 'messenger' %}"><i class="fas fa-paper-plane"></i> <span
                         class="menu-text">Messages</span></a></li>
+            <li><a class="sidebar-link text-danger" href="#"><i class="fas fa-right-from-bracket"></i> Logout</a></li>
         </ul>
     </nav>
 
@@ -767,43 +729,59 @@
         });
 
         // Dropdown Toggle
-        function toggleDropdown(dropdownId, event) {
-            event.stopPropagation();
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        const dropdown = document.getElementById('profileDropdown');
 
-            const allDropdowns = ['msgDropdown', 'notifDropdown', 'profileDropdown'];
-            const userMenuBtn = document.getElementById('userMenuBtn');
-
-            allDropdowns.forEach(id => {
-                const el = document.getElementById(id);
-                if (id === dropdownId) {
-                    el.classList.toggle('show');
-                    if (dropdownId === 'profileDropdown') {
-                        userMenuBtn.classList.toggle('active');
-                    }
-                } else {
-                    el.classList.remove('show');
-                    if (id === 'profileDropdown') {
-                        userMenuBtn.classList.remove('active');
-                    }
-                }
-            });
-        }
-
-        // Close dropdowns when clicking outside
-        window.addEventListener('click', function () {
-            const allDropdowns = ['msgDropdown', 'notifDropdown', 'profileDropdown'];
-            allDropdowns.forEach(id => {
-                document.getElementById(id).classList.remove('show');
-            });
-            document.getElementById('userMenuBtn').classList.remove('active');
+        // Toggle dropdown
+        userMenuBtn.addEventListener('click', function () {
+            dropdown.classList.toggle('show');
+            userMenuBtn.classList.toggle('active');
         });
 
-        // Prevent dropdown from closing when clicking inside
-        document.querySelectorAll('.header-dropdown-card, .profile-dropdown-box').forEach(card => {
-            card.addEventListener('click', function (e) {
-                e.stopPropagation();
-            });
+        // Close only when clicking outside
+        window.addEventListener('click', function (e) {
+            if (!userMenuBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('show');
+                userMenuBtn.classList.remove('active');
+            }
         });
+        // function toggleDropdown(dropdownId, event) {
+        //     event.stopPropagation();
+
+        //     const allDropdowns = ['msgDropdown', 'notifDropdown', 'profileDropdown'];
+        //     const userMenuBtn = document.getElementById('userMenuBtn');
+
+        //     allDropdowns.forEach(id => {
+        //         const el = document.getElementById(id);
+        //         if (id === dropdownId) {
+        //             el.classList.toggle('show');
+        //             if (dropdownId === 'profileDropdown') {
+        //                 userMenuBtn.classList.toggle('active');
+        //             }
+        //         } else {
+        //             el.classList.remove('show');
+        //             if (id === 'profileDropdown') {
+        //                 userMenuBtn.classList.remove('active');
+        //             }
+        //         }
+        //     });
+        // }
+
+        // // Close dropdowns when clicking outside
+        // window.addEventListener('click', function () {
+        //     const allDropdowns = ['msgDropdown', 'notifDropdown', 'profileDropdown'];
+        //     allDropdowns.forEach(id => {
+        //         document.getElementById(id).classList.remove('show');
+        //     });
+        //     document.getElementById('userMenuBtn').classList.remove('active');
+        // });
+
+        // // Prevent dropdown from closing when clicking inside
+        // document.querySelectorAll('.header-dropdown-card, .profile-dropdown-box').forEach(card => {
+        //     card.addEventListener('click', function (e) {
+        //         e.stopPropagation();
+        //     });
+        // });
         document.querySelectorAll('.btn-sec-save, .btn-save-all').forEach(btn => {
             btn.addEventListener('click', function () {
                 const card = this.closest('.form-card') || document.querySelector('.page-wrapper');
